@@ -6,6 +6,7 @@ import Forgot from "Screens/ForgotPassword/Forgot";
 import Signin from "Screens/Signin/Signin";
 import EmailVerify from "Screens/EmailVerify/EmailVerify";
 import Error from "Screens/Error/Error";
+import DashboardScreen from "Screens/Dashboard/DashboardScreen";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/signin" element={<Signin />} />
         <Route path="/verify-email" element={<EmailVerify />} />
         <Route path="/resetpassword" element={<Forgot />} />
+        <Route path="/dashboard" element={<DashboardScreen />} />
         <Route path="*" element={<Error />} />
       </Routes>
     </div>
