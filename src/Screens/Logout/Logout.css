@@ -89,13 +89,13 @@
     margin-bottom: 30px;
 }
 
-.links{
+.logout__links{
     margin-top: 20px;
     display: flex;
     justify-content: center;
 }
 
-.links > a{
+.logout__links > a{
     text-decoration: none;
     color: #827ED8;
 }

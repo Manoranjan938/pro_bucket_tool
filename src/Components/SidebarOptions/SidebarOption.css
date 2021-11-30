@@ -1,0 +1,30 @@
+a {
+  text-decoration: none;
+}
+
+.sidebar__options {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 8px 14px;
+  margin: 10px 0;
+}
+
+.sidebar__options:hover {
+  background-color: #827ed8;
+  border-radius: 5px;
+  color: #fff;
+  transition: color 200ms ease-out;
+}
+
+.sidebar__options > h2 {
+  font-weight: 600;
+  font-size: 20px;
+  margin-left: 15px;
+}
+
+.sidebarOption--active {
+  background-color: #827ed8;
+  border-radius: 5px;
+  color: #fff;
+}

@@ -34,7 +34,7 @@ const Logout = () => {
             </div>
             <button className="logout__btn">Log out</button>
             <hr />
-            <div className="links">
+            <div className="logout__links">
               <Link to="/login">Login to another account</Link>
             </div>
           </div>
