@@ -1,0 +1,35 @@
+.no__projects{
+    width: 100%;
+    margin-top: 30%;
+    margin-left: 60%;
+}
+
+.no__project__wrapper{
+    width: 400px;
+    justify-content: center;
+    align-items: center;
+}
+
+.no__project__wrapper > img{
+    display: flex;
+    margin: 10px auto;
+    width: 200px;
+    height: 200px;
+}
+
+.no__project__wrapper > h2{
+    text-align: center;
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.no__project__wrapper > p{
+    text-align: center;
+    font-size: 16px;
+}
+
+.btn{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}

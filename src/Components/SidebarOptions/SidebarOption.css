@@ -1,5 +1,6 @@
 a {
   text-decoration: none;
+  color: #444444;
 }
 
 .sidebar__options {
@@ -11,9 +12,9 @@ a {
 }
 
 .sidebar__options:hover {
-  background-color: #827ed8;
+  background-color: #efefef;
   border-radius: 5px;
-  color: #fff;
+  color: #827ed8;
   transition: color 200ms ease-out;
 }
 
@@ -24,7 +25,7 @@ a {
 }
 
 .sidebarOption--active {
-  background-color: #827ed8;
+  background-color: #e5e5e5;
   border-radius: 5px;
-  color: #fff;
+  color: #827ed8;
 }
