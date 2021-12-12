@@ -1,10 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Login.css";
 
 import image from "Images/logo.png";
-import { Link } from "react-router-dom";
+import googleImage from "Images/google-logo.png";
+import { Link, useNavigate } from "react-router-dom";
+import { GOOGLE_AUTH_URL } from "Constant/constant";
+import { login } from "Apis/Actions/securityActions";
+import { connect } from "react-redux";
+import { compose } from "redux";
 
-const Login = () => {
+const Login = ({ getUsers, security }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if(security.validToken){
+      navigate("/dashboard")
+    }
+  })
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const LoginRequest = {
+      username: email,
+      password: password,
+    };
+    getUsers(LoginRequest);
+  };
+
   return (
     <div className="login_container">
       <div className="login__wrapper">
@@ -22,11 +47,26 @@ const Login = () => {
               type="text"
               className="input__email"
               placeholder="Enter email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              type="password"
+              className="input__email"
+              placeholder="Enter password"
+              onChange={(e) => setPassword(e.target.value)}
             />
 
-            <button className="login__btn">Continue</button>
+            <button className="login__btn" onClick={handleSubmit}>
+              Continue
+            </button>
             <span className="login_or">OR</span>
-            <button className="login__btn__google">Continue with Google</button>
+            <Link
+              className="login__btn__google"
+              to={{ pathname: GOOGLE_AUTH_URL }}
+            >
+              <img src={googleImage} alt="" />
+              <span>Continue with Google</span>
+            </Link>
             <hr />
             <div className="links">
               <Link to="/resetpassword">Can't login?</Link>
@@ -39,4 +79,16 @@ const Login = () => {
   );
 };
 
-export default Login;
+function mapDispatchToProps(dispatch) {
+  return {
+    getUsers: (data) => dispatch(login(data)),
+  };
+}
+
+const mapStateToProps = (state) => ({
+  security: state.security,
+});
+
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
+
+export default compose(withConnect)(Login);

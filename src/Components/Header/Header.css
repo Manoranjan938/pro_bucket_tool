@@ -45,17 +45,23 @@
 }
 
 .login{
-    font-size: 22px;
+    display: flex;
+    font-size: 24px;
     padding: 0 10px;
     color: #827ED8;
     cursor: pointer;
     font-weight: 600;
     text-decoration: none;
+    align-items: center;
+}
+
+.login > h5{
+    align-items: center;
 }
 
 .free_btn{
     margin-left: 10px;
-    width: 100px;
+    width: auto;
     height: 30px;
     background-color: #fff;
     border: 1px solid #827ED8;
@@ -64,4 +70,6 @@
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
+    text-align: center;
+    align-items: center;
 }
