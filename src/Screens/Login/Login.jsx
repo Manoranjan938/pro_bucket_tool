@@ -60,13 +60,13 @@ const Login = ({ getUsers, security }) => {
               Continue
             </button>
             <span className="login_or">OR</span>
-            <Link
+            <a
               className="login__btn__google"
-              to={{ pathname: GOOGLE_AUTH_URL }}
+              href={GOOGLE_AUTH_URL}
             >
               <img src={googleImage} alt="" />
               <span>Continue with Google</span>
-            </Link>
+            </a>
             <hr />
             <div className="links">
               <Link to="/resetpassword">Can't login?</Link>
