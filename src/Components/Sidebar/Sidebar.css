@@ -1,12 +1,11 @@
 .sidebar{
     display: flex;
-    flex: 0.1;
     margin-top: 70px;
     width: 200px;
     min-width: 200px;
     border-right: 1px solid #e5e5e5;
     padding-left: 20px;
-    padding-right: 20px;
+    padding-right: 15px;
 }
 
 .sidebar__project__name{
@@ -32,6 +31,3 @@
     color: #888888;
 }
 
-.contents{
-    flex: 0.5;
-}

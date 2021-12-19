@@ -32,12 +32,11 @@
 .header__icons{
     display: flex;
     align-items: center;
-    gap: 20px;
 }
 
-.header__icons > img{
-    width: 30px;
-    height: 30px;
+.user__img{
+    width: 25px;
+    height: 25px;
     border-radius: 50%;
     cursor: pointer;
 }
@@ -65,4 +64,9 @@
     font-size: 22px;
     color: #101;
     cursor: pointer;
+}
+
+.setting__menu{
+    margin-top: 40px;
+    width: 300px;
 }
