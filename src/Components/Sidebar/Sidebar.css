@@ -1,3 +1,9 @@
+.sidebar__container{
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
 .sidebar{
     display: flex;
     margin-top: 70px;
@@ -30,4 +36,3 @@
     font-size: 13px;
     color: #888888;
 }
-

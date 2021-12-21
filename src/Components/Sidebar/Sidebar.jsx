@@ -15,27 +15,27 @@ import NoProjects from "Components/NoProject/NoProjects";
 const Sidebar = () => {
   return (
     <>
-      <div className="sidebar">
-        <div className="sidebar__contents">
-          <div className="sidebar__project__name">
-            <img src={avatar1} alt="" />
-            <div className="project__details">
-              <h4>Netflix Clone</h4>
-              <span>Software Project</span>
+      <div className="sidebar__container">
+        <div className="sidebar">
+          <div className="sidebar__contents">
+            <div className="sidebar__project__name">
+              <img src={avatar1} alt="" />
+              <div className="project__details">
+                <h4>Netflix Clone</h4>
+                <span>Software Project</span>
+              </div>
             </div>
-          </div>
 
-          <SidebarOption
-            active
-            Icon={AiOutlineFundProjectionScreen}
-            text="Projects"
-          />
-          <SidebarOption Icon={GoProject} text="Your work" />
-          <SidebarOption Icon={FaFilter} text="Filter" />
-          <SidebarOption Icon={AiOutlineSetting} text="Project Setting" />
+            <SidebarOption
+              active
+              Icon={AiOutlineFundProjectionScreen}
+              text="Projects"
+            />
+            <SidebarOption Icon={GoProject} text="Your work" />
+            <SidebarOption Icon={FaFilter} text="Filter" />
+            <SidebarOption Icon={AiOutlineSetting} text="Project Setting" />
+          </div>
         </div>
-      </div>
-      <div className="contents">
         <NoProjects />
       </div>
     </>

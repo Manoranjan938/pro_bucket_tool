@@ -10,7 +10,7 @@ const NoProjects = () => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate("/choose-template");
+    navigate("/create-project");
   };
 
   return (

@@ -8,7 +8,6 @@ import EmailVerify from "Screens/EmailVerify/EmailVerify";
 import Error from "Screens/Error/Error";
 import DashboardScreen from "Screens/Dashboard/DashboardScreen";
 import Logout from "Screens/Logout/Logout";
-import ChooseTemplate from "Screens/ChooseTemplate/ChooseTemplate";
 import CreateProject from "Screens/CreateProject/CreateProject";
 import { Provider } from "react-redux";
 import store from "./store";
@@ -47,7 +46,6 @@ function App() {
           <Route path="/verify-email" element={<EmailVerify />} />
           <Route path="/resetpassword" element={<Forgot />} />
           <Route path="/dashboard" element={<DashboardScreen />} />
-          <Route path="/choose-template" element={<ChooseTemplate />} />
           <Route path="/create-project" element={<CreateProject />} />
           <Route path="*" element={<Error />} />
         </Routes>

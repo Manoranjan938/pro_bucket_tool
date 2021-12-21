@@ -1,12 +1,11 @@
 .no__projects{
-    margin-top: 50%;
-    margin-left: 70%;
+    display: flex;
+    align-items: center;
+    margin-left: 25%;
 }
 
 .no__project__wrapper{
     width: 400px;
-    justify-content: center;
-    align-items: center;
 }
 
 .no__project__wrapper > img{
