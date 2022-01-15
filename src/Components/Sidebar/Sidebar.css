@@ -1,0 +1,38 @@
+.sidebar__container{
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+.sidebar{
+    display: flex;
+    margin-top: 70px;
+    width: 200px;
+    min-width: 200px;
+    border-right: 1px solid #e5e5e5;
+    padding-left: 20px;
+    padding-right: 15px;
+}
+
+.sidebar__project__name{
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar__project__name > img{
+    width: 30px;
+    height: 30px;
+    margin-right: 15px;
+}
+
+.project__details > h4{
+    font-size: 16px;
+    font-weight: 500;
+    color: #444444;
+}
+
+.project__details > span{
+    font-size: 13px;
+    color: #888888;
+}

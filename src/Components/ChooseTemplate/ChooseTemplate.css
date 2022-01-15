@@ -1,0 +1,10 @@
+.create__project__container{
+    background: #efefef;
+    height: 100vh;
+}
+
+.wrapper{
+    width: 800px;
+    margin: 0 auto;
+    padding: 5% 0;
+}

@@ -1,0 +1,33 @@
+.no__projects{
+    display: flex;
+    align-items: center;
+    margin-left: 25%;
+}
+
+.no__project__wrapper{
+    width: 400px;
+}
+
+.no__project__wrapper > img{
+    display: flex;
+    margin: 10px auto;
+    width: 200px;
+    height: 200px;
+}
+
+.no__project__wrapper > h2{
+    text-align: center;
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.no__project__wrapper > p{
+    text-align: center;
+    font-size: 16px;
+}
+
+.btn{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
