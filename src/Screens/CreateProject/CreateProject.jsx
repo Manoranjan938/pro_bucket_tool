@@ -1,10 +1,10 @@
-import ChooseTemplate from 'Components/ChooseTemplate/TemplateChoose';
+import NewProject from 'Components/NewProject/NewProject';
 import React from 'react'
 
 const CreateProject = () => {
     return (
       <>
-        <ChooseTemplate />
+        <NewProject />
       </>
     );
 }
