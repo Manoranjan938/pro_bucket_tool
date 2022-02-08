@@ -5,14 +5,15 @@ import React from "react";
 
 import './ChooseTemplate.css'
 
-const ChooseTemplate = () => {
+const ChooseTemplate = ({title, details, setDetails, currentPage, setCurrentPage}) => {
   return (
     <>
       <div className="create__project__container">
         <div className="wrapper">
-          <Template />
-          <TemplateBug />
-          <TemplateAll />
+          <h4>{title}</h4>
+          <Template nextPage={setCurrentPage} currentPage={currentPage} />
+          <TemplateBug nextPage={setCurrentPage} currentPage={currentPage} />
+          <TemplateAll nextPage={setCurrentPage} currentPage={currentPage} />
         </div>
       </div>
     </>
