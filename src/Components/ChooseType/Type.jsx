@@ -1,12 +1,11 @@
-import React from 'react'
-
-import './Template.css'
+import React from 'react';
 
 import image from 'Images/project.png'
 
-const Template = ({nextPage, currentPage}) => {
-    return (
-      <div className="project__template__contaier" onClick={() => nextPage(currentPage + 1)}>
+const ChooseType = () => {
+  return (
+    <>
+      <div className="project__template__contaier">
         <div className="image_container">
           <img src={image} alt="" />
         </div>
@@ -23,7 +22,8 @@ const Template = ({nextPage, currentPage}) => {
           </div>
         </div>
       </div>
-    );
-}
+    </>
+  );
+};
 
-export default Template
+export default ChooseType;

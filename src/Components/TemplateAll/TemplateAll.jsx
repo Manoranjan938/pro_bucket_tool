@@ -3,9 +3,9 @@ import React from 'react'
 import './TemplateAll.css'
 import image from 'Images/all.png'
 
-const TemplateAll = () => {
+const TemplateAll = ({nextPage, currentPage}) => {
     return (
-      <div className="all__template__contaier">
+      <div className="all__template__contaier" onClick={() => nextPage(currentPage + 1)}>
         <div className="image_container">
           <img src={image} alt="" />
         </div>
