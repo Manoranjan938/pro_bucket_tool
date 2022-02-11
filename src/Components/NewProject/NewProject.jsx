@@ -6,7 +6,7 @@ import React, { useState } from "react";
 import "./NewProject.css";
 
 const NewProject = () => {
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [projectDetails, setProjectDetails] = useState({
     projectTemplate: '',
     projectType: '',
@@ -32,9 +32,15 @@ const NewProject = () => {
       );
     }
     else if(page === 1){
-      return(
-        <ChooseType />
-      )
+      return (
+        <ChooseType
+          title={formTitles[page]}
+          details={projectDetails}
+          setDetails={setProjectDetails}
+          currentPage={page}
+          setCurrentPage={setPage}
+        />
+      );
     }
     else{
       return(
