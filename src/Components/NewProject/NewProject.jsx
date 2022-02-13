@@ -6,18 +6,21 @@ import React, { useState } from "react";
 import "./NewProject.css";
 
 const NewProject = () => {
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(2);
   const [projectDetails, setProjectDetails] = useState({
     projectTemplate: '',
     projectType: '',
     projectName: '',
-
+    projectDescription: '',
+    projectTemplateId: 0
   })
   const formTitles = [
     "Choose Type of Template",
     "Choose Managed By",
     "Add Project Details",
   ];
+
+  console.log(projectDetails)
 
   const pageDisplay = () => {
     if (page === 0) {

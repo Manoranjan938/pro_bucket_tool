@@ -1,20 +1,20 @@
 export const typeData = [
     {
         image: "",
-        title: "Personal Management",
+        title: "Personal Managed",
         description: "You can manage your project or every thing by your self",
         type: "personal"
     },
     {
         image: "",
-        title: "Team Management",
+        title: "Team Managed",
         description: "You can manage your project or every thing by your self",
-        type: "Team"
+        type: "team"
     },
     {
         image: "",
-        title: "Organisation Management",
+        title: "Company Managed",
         description: "You can manage your project or every thing by your self",
-        type: "Organisation"
+        type: "company"
     },
 ]

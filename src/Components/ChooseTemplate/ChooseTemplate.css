@@ -6,7 +6,7 @@
 .wrapper{
     width: 800px;
     margin: 0 auto;
-    padding: 5% 0;
+    padding: 2% 0;
 }
 
 h4{
@@ -20,5 +20,6 @@ h4{
 
     .wrapper{
         width: auto;
+        padding: 0;
     }
 }
