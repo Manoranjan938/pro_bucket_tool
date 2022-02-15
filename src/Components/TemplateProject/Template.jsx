@@ -13,15 +13,15 @@ const Template = ({nextPage, currentPage, details, setDetails, items}) => {
       <>
         <div
           className="project__template__contaier"
-          onClick={() => handleClick(items.templateType)}
+          onClick={() => handleClick(items.type)}
         >
           <div className="image_container">
             <img src={items.image} alt="" />
           </div>
           <div className="content_container">
             <div className="content">
-              <h3>{items.templateTitle}</h3>
-              <p>{items.templateDescription}</p>
+              <h3>{items.title}</h3>
+              <p>{items.description}</p>
             </div>
             <div className="icon">
               <i className="fa fa-chevron-right" />

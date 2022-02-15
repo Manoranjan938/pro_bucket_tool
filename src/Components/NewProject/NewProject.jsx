@@ -6,13 +6,14 @@ import React, { useState } from "react";
 import "./NewProject.css";
 
 const NewProject = () => {
-  const [page, setPage] = useState(2);
+  const [page, setPage] = useState(0);
   const [projectDetails, setProjectDetails] = useState({
     projectTemplate: '',
     projectType: '',
     projectName: '',
     projectDescription: '',
-    projectTemplateId: 0
+    projectTemplateId: 0,
+    projectTypeId: 0
   })
   const formTitles = [
     "Choose Type of Template",
@@ -46,9 +47,15 @@ const NewProject = () => {
       );
     }
     else{
-      return(
-        <ProjectDetails />
-      )
+      return (
+        <ProjectDetails
+          title={formTitles[page]}
+          details={projectDetails}
+          setDetails={setProjectDetails}
+          currentPage={page}
+          setCurrentPage={setPage}
+        />
+      );
     }
   };
 

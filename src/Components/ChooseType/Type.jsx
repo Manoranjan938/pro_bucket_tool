@@ -11,9 +11,9 @@ import { Alert } from "@mui/material";
 
 const ChooseType = ({ title, details, setDetails, currentPage, setCurrentPage }) => {
 
-  const handleTypeClick = (type) => {
+  const handleTypeClick = (type, typeId) => {
     setCurrentPage(currentPage + 1);
-    setDetails({...details, projectType: type})
+    setDetails({...details, projectType: type, projectTypeId: typeId})
   }
 
   const template = data.find((item) => item.templateId === details.projectTemplateId);
@@ -56,7 +56,7 @@ const ChooseType = ({ title, details, setDetails, currentPage, setCurrentPage })
                 <div className="type_footer">
                   <button
                     className={`type_${item.type}_btn`}
-                    onClick={() => handleTypeClick(item.type)}
+                    onClick={() => handleTypeClick(item.type, item.typeId)}
                   >
                     Select a {item.title.toLowerCase()} project
                   </button>
