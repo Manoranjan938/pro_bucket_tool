@@ -1,0 +1,7 @@
+.sidebar__layout{
+    display: flex;
+}
+
+.sidebar__main{
+    padding: 100px;
+}

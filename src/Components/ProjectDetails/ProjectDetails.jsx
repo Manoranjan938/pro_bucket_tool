@@ -12,11 +12,15 @@ const ProjectDetails = ({currentPage, setCurrentPage, details, setDetails}) => {
   const template = data.find((item) => item.templateId === details?.projectTemplateId);
   const type = typeData.find((items) => items.typeId === details?.projectTypeId)
 
+  const handleProjectDetails = () =>{
+    setCurrentPage(currentPage - 1);
+  }
+
   return (
     <>
       <div className="project__details_container">
         <div className="project__details__header">
-          <button>
+          <button onClick={handleProjectDetails}>
             <i className="fa fa-arrow-left" /> &nbsp;Back to project type
           </button>
         </div>

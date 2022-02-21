@@ -15,6 +15,8 @@ import setJWTToken from "Security/setJWTToken";
 import jwtDecode from "jwt-decode";
 import { SET_CURRENT_USER } from "Apis/Actions/types";
 import { logout } from "Apis/Actions/securityActions";
+import NoProjects from "Components/NoProject/NoProjects";
+import Projects from "Components/Projects/Projects";
 
 const jwtToken = localStorage.jwtToken;
 
@@ -45,7 +47,17 @@ function App() {
           <Route path="/signin" element={<Signin />} />
           <Route path="/verify-email" element={<EmailVerify />} />
           <Route path="/resetpassword" element={<Forgot />} />
-          <Route path="/dashboard" element={<DashboardScreen />} />
+          <Route
+            path="/dashboard/*"
+            element={
+              <DashboardScreen>
+                <Routes>
+                  <Route path="/no-projects" element={<NoProjects />} />
+                  <Route path="/projects" element={<Projects />} />
+                </Routes>
+              </DashboardScreen>
+            }
+          />
           <Route path="/create-project" element={<CreateProject />} />
           <Route path="*" element={<Error />} />
         </Routes>

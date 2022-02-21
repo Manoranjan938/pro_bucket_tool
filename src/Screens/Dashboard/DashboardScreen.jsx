@@ -1,14 +1,21 @@
-import DashboardHeader from 'Components/DashboardHeader/DashboardHeader'
-import Sidebar from 'Components/Sidebar/Sidebar'
-import React from 'react'
+import DashboardHeader from "Components/DashboardHeader/DashboardHeader";
+import Sidebar from "Components/Sidebar/Sidebar";
+import React from "react";
 
-const DashboardScreen = () => {
-    return (
-        <>
-            <DashboardHeader />
-            <Sidebar />
-        </>
-    )
-}
+import './DashboardScreen.css'
 
-export default DashboardScreen
+const DashboardScreen = ({ children }) => {
+  return (
+    <>
+      <div className="sidebar__layout">
+        <div className="const">
+          <DashboardHeader />
+          <Sidebar />
+        </div>
+        <div className="sidebar__main">{children}</div>
+      </div>
+    </>
+  );
+};
+
+export default DashboardScreen;

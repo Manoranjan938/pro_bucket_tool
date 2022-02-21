@@ -1,7 +1,5 @@
 .no__projects{
-    display: flex;
-    align-items: center;
-    margin-left: 25%;
+    margin: 25% calc(100% - (-150px));
 }
 
 .no__project__wrapper{
@@ -30,4 +28,10 @@
     display: flex;
     justify-content: center;
     margin-top: 20px;
+}
+
+@media (max-width: 1400px){
+    .no__projects{
+        margin: 5% calc(100% - (-100px));
+    }
 }
