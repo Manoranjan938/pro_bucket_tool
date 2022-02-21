@@ -5,6 +5,8 @@ import avatar1 from "Images/avatar1.png";
 import { Link } from "react-router-dom";
 import { sidebarData } from "./Data/SidebarData";
 import {AiOutlineSetting} from 'react-icons/ai'
+import {FiHelpCircle} from 'react-icons/fi'
+import { GoReport } from "react-icons/go";
 
 const Sidebar = () => {
   return (
@@ -39,6 +41,26 @@ const Sidebar = () => {
                 </div>
                 <div className="label">
                   <span>Project Setting</span>
+                </div>
+                {/* <div className="notification_icon">5</div> */}
+              </Link>
+
+              <Link className="sidebar_link" to="/help">
+                <div className="icon">
+                  <FiHelpCircle />
+                </div>
+                <div className="label">
+                  <span>Help</span>
+                </div>
+                {/* <div className="notification_icon">5</div> */}
+              </Link>
+
+              <Link className="sidebar_link" to="/report-or-feedback">
+                <div className="icon">
+                  <GoReport />
+                </div>
+                <div className="label">
+                  <span>Report / Feedback</span>
                 </div>
                 {/* <div className="notification_icon">5</div> */}
               </Link>
