@@ -15,8 +15,12 @@ import setJWTToken from "Security/setJWTToken";
 import jwtDecode from "jwt-decode";
 import { SET_CURRENT_USER } from "Apis/Actions/types";
 import { logout } from "Apis/Actions/securityActions";
-import NoProjects from "Components/NoProject/NoProjects";
 import Projects from "Components/Projects/Projects";
+import DasboardHome from "Screens/DashboardHome/DasboardHome";
+import Works from "Screens/ProjectWorks/Works";
+import Bugs from "Screens/BugDashboard/Bugs";
+import Todos from "Screens/Todos/Todos";
+import Notes from "Screens/Notes/Notes";
 
 const jwtToken = localStorage.jwtToken;
 
@@ -52,12 +56,16 @@ function App() {
             element={
               <DashboardScreen>
                 <Routes>
-                  <Route path="/no-projects" element={<NoProjects />} />
-                  <Route path="/projects" element={<Projects />} />
+                  <Route path="/home" element={<DasboardHome />} />
+                  <Route path="/works" element={<Works />} />
+                  <Route path="/bug" element={<Bugs />} />
+                  <Route path="/todos" element={<Todos />} />
+                  <Route path="/notes" element={<Notes />} />
                 </Routes>
               </DashboardScreen>
             }
           />
+          <Route path="/projects" element={<Projects />} />
           <Route path="/create-project" element={<CreateProject />} />
           <Route path="*" element={<Error />} />
         </Routes>

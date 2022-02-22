@@ -42,7 +42,6 @@ const Sidebar = () => {
                 <div className="label">
                   <span>Project Setting</span>
                 </div>
-                {/* <div className="notification_icon">5</div> */}
               </Link>
 
               <Link className="sidebar_link" to="/help">
@@ -52,7 +51,6 @@ const Sidebar = () => {
                 <div className="label">
                   <span>Help</span>
                 </div>
-                {/* <div className="notification_icon">5</div> */}
               </Link>
 
               <Link className="sidebar_link" to="/report-or-feedback">
@@ -62,9 +60,9 @@ const Sidebar = () => {
                 <div className="label">
                   <span>Report / Feedback</span>
                 </div>
-                {/* <div className="notification_icon">5</div> */}
               </Link>
             </div>
+            <div className="divider" />
           </div>
         </div>
       </div>

@@ -97,6 +97,7 @@
     font-weight: 600;
     margin-bottom: 20px;
     align-items: center;
+    text-decoration: none;
 }
 
 .login__btn__google > img{

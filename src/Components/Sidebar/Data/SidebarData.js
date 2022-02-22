@@ -1,6 +1,5 @@
 import { MdDashboard } from "react-icons/md";
 import {
-  AiOutlineFundProjectionScreen,
   AiOutlineBug,
 } from "react-icons/ai";
 import { GoProject } from "react-icons/go";
@@ -13,12 +12,6 @@ export const sidebarData = [
     title: "Dashboard",
     icon: <MdDashboard />,
     path: "/dashboard/home"
-  },
-  {
-    id: 2,
-    title: "Projects",
-    icon: <AiOutlineFundProjectionScreen />,
-    path: "/dashboard/projects"
   },
   {
     id: 3,
