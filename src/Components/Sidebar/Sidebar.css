@@ -96,8 +96,12 @@
 
 .notification_icon {
   font-size: 14px;
-  padding: 4px;
-  border-radius: 12px;
+  width: 18px;
+  height: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
   background: #007bff;
   color: #fff;
   margin-right: 12px;

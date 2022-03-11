@@ -67,8 +67,22 @@
     border-top: 3px solid #63cf21;
 }
 
+.project_task_body_row{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.todo_task, .inprogress_task, .completed_task{
+    width: 320px;
+}
+
 @media(max-width: 1400px){
     .project_status_card{
+        width: 270px;
+    }
+
+    .todo_task, .inprogress_task, .completed_task{
         width: 270px;
     }
 }

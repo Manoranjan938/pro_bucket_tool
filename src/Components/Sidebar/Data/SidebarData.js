@@ -1,7 +1,7 @@
 import { MdDashboard } from "react-icons/md";
 import {
-  AiOutlineBug,
-} from "react-icons/ai";
+  IoNotifications,
+} from "react-icons/io5";
 import { GoProject } from "react-icons/go";
 import { BiNotepad } from "react-icons/bi";
 import { RiTodoLine } from "react-icons/ri";
@@ -21,9 +21,9 @@ export const sidebarData = [
   },
   {
     id: 4,
-    title: "Bug Dashboard",
-    icon: <AiOutlineBug />,
-    path: "/dashboard/bug"
+    title: "Notes",
+    icon: <BiNotepad />,
+    path: "/dashboard/notes"
   },
   {
     id: 5,
@@ -33,8 +33,9 @@ export const sidebarData = [
   },
   {
     id: 6,
-    title: "Notes",
-    icon: <BiNotepad />,
-    path: "/dashboard/notes"
+    title: "Notifications",
+    icon: <IoNotifications />,
+    path: "/dashboard/notifications",
+    notiCount: 5
   },
 ];

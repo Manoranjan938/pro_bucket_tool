@@ -28,7 +28,7 @@ const Sidebar = () => {
                   <Link className="sidebar_link" to={item.path} key={item.id}>
                     <div className="icon">{item.icon}</div>
                     <div className="label">{item.title}</div>
-                    {/* <div className="notification_icon">5</div> */}
+                    {item.notiCount && <div className="notification_icon">{item.notiCount}</div>}
                   </Link>
                 );
               })}

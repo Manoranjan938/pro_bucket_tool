@@ -1,3 +1,4 @@
+import WorkTask from 'Components/WorkTask/WorkTask';
 import React from 'react'
 
 import './ProjectWorks.css'
@@ -35,6 +36,18 @@ const ProjectWorks = () => {
             <div className="icons">
               <i className="fa fa-ellipsis-h" />
             </div>
+          </div>
+        </div>
+
+        <div className="project_task_body_row">
+          <div className="todo_task">
+            <WorkTask />
+          </div>
+          <div className="inprogress_task">
+            <WorkTask />
+          </div>
+          <div className="completed_task">
+            <WorkTask />
           </div>
         </div>
       </div>
