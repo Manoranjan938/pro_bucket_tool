@@ -1,33 +1,68 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./Login.css";
 
 import image from "Images/logo.png";
 import googleImage from "Images/google-logo.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { GOOGLE_AUTH_URL } from "Constant/constant";
-import { login } from "Apis/Actions/securityActions";
-import { connect } from "react-redux";
-import { compose } from "redux";
+import MuiAlert from '@mui/material/Alert'
+import { Snackbar } from "@mui/material";
 
-const Login = ({ getUsers, security }) => {
+const Alert = React.forwardRef(function Alert(props, ref){
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
+})
+
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if(security.validToken){
-      navigate("/dashboard")
-    }
+  const [error, setError] = useState({
+    showEmail: false,
+    showPassword: false,
+    message: ''
   })
+  const [statusBar, setStatusBar] = useState({
+    open: false,
+    vertical: 'bottom',
+    horizontal: 'right',
+    type: '',
+    message: ''
+  });
+
+  //const navigate = useNavigate();
+
+  const handleClose = (event, reason) => {
+    if(reason === 'clickaway'){
+      return;
+    }
+    setStatusBar({open: false});
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const LoginRequest = {
-      username: email,
-      password: password,
-    };
-    getUsers(LoginRequest);
+    if(!email && !password){
+      setError({
+        showEmail: true,
+        showPassword: true,
+        message: '**Please fill out this field'
+      })
+    }
+    else if(!email){
+      setError({
+        showEmail: true,
+        showPassword: false,
+        message: '**Please fill out this field'
+      })
+    }
+    else if(!password){
+      setError({
+        showEmail: false,
+        showPassword: true,
+        message: '**Please fill out this field'
+      })
+    }
+    else{
+      setStatusBar({open: true, type: 'success', message: 'You have logged in successfully'});
+    }
   };
 
   return (
@@ -49,21 +84,28 @@ const Login = ({ getUsers, security }) => {
               placeholder="Enter email"
               onChange={(e) => setEmail(e.target.value)}
             />
+            {error.showEmail && (
+              <div className="error_msg">
+                <span>{error.message}</span>
+              </div>
+            )}
             <input
               type="password"
               className="input__email"
               placeholder="Enter password"
               onChange={(e) => setPassword(e.target.value)}
             />
+            {error.showPassword && (
+              <div className="error_msg">
+                <span>{error.message}</span>
+              </div>
+            )}
 
             <button className="login__btn" onClick={handleSubmit}>
               Continue
             </button>
             <span className="login_or">OR</span>
-            <a
-              className="login__btn__google"
-              href={GOOGLE_AUTH_URL}
-            >
+            <a className="login__btn__google" href={GOOGLE_AUTH_URL}>
               <img src={googleImage} alt="" />
               <span>Continue with Google</span>
             </a>
@@ -75,20 +117,31 @@ const Login = ({ getUsers, security }) => {
           </div>
         </div>
       </div>
+      <Snackbar
+        open={statusBar.open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right'}}
+        key={statusBar.vertical + statusBar.horizontal}
+      >
+        <Alert onClose={handleClose} severity={statusBar.type} sx={{ width: "100%" }}>
+          {statusBar.message}
+        </Alert>
+      </Snackbar>
     </div>
   );
 };
 
-function mapDispatchToProps(dispatch) {
-  return {
-    getUsers: (data) => dispatch(login(data)),
-  };
-}
+// function mapDispatchToProps(dispatch) {
+//   return {
+//     getUsers: (data) => dispatch(login(data)),
+//   };
+// }
 
-const mapStateToProps = (state) => ({
-  security: state.security,
-});
+// const mapStateToProps = (state) => ({
+//   security: state.security,
+// });
 
-const withConnect = connect(mapStateToProps, mapDispatchToProps);
+// const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
-export default compose(withConnect)(Login);
+export default Login;

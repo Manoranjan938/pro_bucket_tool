@@ -62,6 +62,18 @@
     padding-left: 10px;
 }
 
+.error_msg{
+    margin: 0;
+}
+
+.error_msg > span{
+    font-size: 12px;
+    font-weight: 600;
+    margin-left: 5px;
+    color: red;
+    text-transform: uppercase;
+}
+
 .login__btn{
     margin-top: 20px;
     width: 100%;
