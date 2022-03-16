@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
-import "../Signin/Signin.css";
+import "./Signin.css";
 import MuiAlert from '@mui/material/Alert'
 
 import image from "Images/logo.png";
@@ -11,14 +10,16 @@ const Alert = React.forwardRef(function Alert(props, ref){
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
 })
 
-const Forgot = () => {
+const Signup = () => {
 
   const [email, setEmail] = useState("");
-  const [error, setError] = useState({
-    show: false,
+  const [name, setName] = useState("");
+  const [validError, setValidError] = useState({
+    showEmail: false,
+    showName: false,
     message: ''
   })
-  const [statusBar, setStatusBar] = useState({
+  const [notiBar, setNotiBar] = useState({
     open: false,
     vertical: 'bottom',
     horizontal: 'right',
@@ -30,24 +31,45 @@ const Forgot = () => {
     if(reason === 'clickaway'){
       return;
     }
-    setStatusBar({open: false});
+    setNotiBar({open: false});
   }
 
   const handleContinue = (e) => {
     e.preventDefault();
-    if(!email){
-      setError({
-        show: true,
+    if(!email && !name){
+      setValidError({
+        showEmail: true,
+        showName: true,
+        message: '**Please fillout this field'
+      })
+    }
+    else if(!email){
+      setValidError({
+        showEmail: true,
+        showName: false,
+        message: '**Please fillout this field'
+      })
+    }
+    else if(!name){
+      setValidError({
+        showEmail: false,
+        showName: true,
         message: '**Please fillout this field'
       })
     }
     else{
-      setError({
-        show: false,
+      setValidError({
+        showEmail: false,
+        showName: false,
         message: ''
       })
-      setEmail('');
-      setStatusBar({open: true, type: 'success', message: 'You have logged in successfully'});
+      setNotiBar({
+        open: true, 
+        type: 'success', 
+        message: 'You have registered successfully'
+      })
+      setEmail('')
+      setName('')
     }
   }
 
@@ -60,7 +82,7 @@ const Forgot = () => {
         </div>
         <div className="signin__body">
           <div className="signin__body__header">
-            <span>Can't login or forgot password</span>
+            <span>Sign up for your account</span>
           </div>
           <div className="signin__body__content">
             <input
@@ -70,33 +92,53 @@ const Forgot = () => {
               className="input__email"
               placeholder="Enter email"
             />
-            {error.show ? (
+
+            {validError.showEmail ? (
               <div className="error_msg">
-                <span>{error.message}</span>
+                <span>{validError.message}</span>
+              </div>
+            ) : null}
+
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="input__email"
+              placeholder="Enter full name"
+            />
+
+            {validError.showName ? (
+              <div className="error_msg">
+                <span>{validError.message}</span>
               </div>
             ) : null}
 
             <button className="signin__btn" onClick={handleContinue}>Continue</button>
+            <span className="signin_or">OR</span>
+            <button className="signin__btn__google">
+              Continue with Google
+            </button>
             <hr />
             <div className="signin_links">
-              <Link to="/login">Return to login</Link>
+              <Link to="/login">Already have an account? Login</Link>
             </div>
           </div>
         </div>
       </div>
+
       <Snackbar
-        open={statusBar.open}
+        open={notiBar.open}
         autoHideDuration={6000}
         onClose={handleClose}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right'}}
-        key={statusBar.vertical + statusBar.horizontal}
+        key={notiBar.vertical + notiBar.horizontal}
       >
-        <Alert onClose={handleClose} severity={statusBar.type} sx={{ width: "100%" }}>
-          {statusBar.message}
+        <Alert onClose={handleClose} severity={notiBar.type} sx={{ width: "100%" }}>
+          {notiBar.message}
         </Alert>
       </Snackbar>
     </div>
   );
 };
 
-export default Forgot;
+export default Signup;

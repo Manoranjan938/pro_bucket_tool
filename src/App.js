@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./Screens/Home/Home";
 import Login from "Screens/Login/Login";
 import Forgot from "Screens/ForgotPassword/Forgot";
-import Signin from "Screens/Signin/Signin";
+import Signup from "Screens/Signin/Signup";
 import EmailVerify from "Screens/EmailVerify/EmailVerify";
 import Error from "Screens/Error/Error";
 import DashboardScreen from "Screens/Dashboard/DashboardScreen";
@@ -48,7 +48,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
-          <Route path="/signin" element={<Signin />} />
+          <Route path="/signup" element={<Signup />} />
           <Route path="/verify-email" element={<EmailVerify />} />
           <Route path="/resetpassword" element={<Forgot />} />
           <Route

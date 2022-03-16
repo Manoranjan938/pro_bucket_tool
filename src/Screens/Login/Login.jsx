@@ -61,6 +61,13 @@ const Login = () => {
       })
     }
     else{
+      setError({
+        showEmail: false,
+        showPassword: false,
+        message: ''
+      })
+      setEmail("");
+      setPassword("")
       setStatusBar({open: true, type: 'success', message: 'You have logged in successfully'});
     }
   };
@@ -80,6 +87,7 @@ const Login = () => {
           <div className="login__body__content">
             <input
               type="text"
+              value={email}
               className="input__email"
               placeholder="Enter email"
               onChange={(e) => setEmail(e.target.value)}
@@ -91,6 +99,7 @@ const Login = () => {
             )}
             <input
               type="password"
+              value={password}
               className="input__email"
               placeholder="Enter password"
               onChange={(e) => setPassword(e.target.value)}
@@ -112,7 +121,7 @@ const Login = () => {
             <hr />
             <div className="links">
               <Link to="/resetpassword">Can't login?</Link>
-              <Link to="/signin">Sign up for an account</Link>
+              <Link to="/signup">Sign up for an account</Link>
             </div>
           </div>
         </div>
