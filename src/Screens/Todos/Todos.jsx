@@ -1,9 +1,10 @@
+import TodoHeader from 'Components/TodoHeader/TodoHeader'
 import React from 'react'
 
 const Todos = () => {
   return (
-    <div>Todos</div>
-  )
+    <TodoHeader />
+  );
 }
 
 export default Todos
