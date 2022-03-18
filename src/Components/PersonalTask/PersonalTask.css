@@ -1,11 +1,11 @@
 .personal_task_container{
-    width: 100%;
+    width: auto;
     padding: 0 10px;
 }
 
 .task__header{
     margin-top: 10px;
-    width: 100%;
+    width: auto;
     display: flex;
     border-top: 1px solid #9999;
     border-bottom: 1px solid #9999;

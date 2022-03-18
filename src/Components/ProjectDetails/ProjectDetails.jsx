@@ -20,7 +20,7 @@ const ProjectDetails = ({currentPage, setCurrentPage, details, setDetails}) => {
     <>
       <div className="project__details_container">
         <div className="project__details__header">
-          <button onClick={handleProjectDetails}>
+          <button onClick={handleProjectDetails} className="btn">
             <i className="fa fa-arrow-left" /> &nbsp;Back to project type
           </button>
         </div>
@@ -83,8 +83,8 @@ const ProjectDetails = ({currentPage, setCurrentPage, details, setDetails}) => {
           </div>
         </div>
         <div className="project__details__footer">
-          <button className='cancel_btn'>Cancel</button>
-          <button>Create Project</button>
+          <button className='cancel_btn btn'>Cancel</button>
+          <button className='btn'>Create Project</button>
         </div>
       </div>
     </>
