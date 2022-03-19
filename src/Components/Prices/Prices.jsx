@@ -15,7 +15,7 @@ const Prices = () => {
             <h1>INR 0</h1>
             <h5>per user/month</h5>
             <span>up to single user</span>
-            <button className="price__btn">Get Started</button>
+            <button className="price__btn btn">Get Started</button>
             <p>Free Forever</p>
           </div>
         </div>
@@ -27,7 +27,7 @@ const Prices = () => {
             <h1>INR 0</h1>
             <h5>per user/month</h5>
             <span>up to 5-6 user</span>
-            <button className="price__btn" >Get Started</button>
+            <button className="price__btn btn" >Get Started</button>
             <p>Free Forever</p>
           </div>
         </div>
@@ -39,7 +39,7 @@ const Prices = () => {
             <h1>INR 299</h1>
             <h5>per user/month</h5>
             <span>up to single user</span>
-            <button  className="price__btn">Get Started</button>
+            <button  className="price__btn btn">Get Started</button>
             <p>Starts at 1,499/month</p>
           </div>
         </div>

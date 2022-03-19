@@ -1,8 +1,6 @@
 import Todo from 'Components/TodoCard/Todo'
 import React from 'react'
 
-import {motion} from 'framer-motion'
-
 import './TodoList.css'
 
 const TodoList = ({data}) => {

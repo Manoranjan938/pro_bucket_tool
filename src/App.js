@@ -21,7 +21,7 @@ import Works from "Screens/ProjectWorks/Works";
 import Bugs from "Screens/BugDashboard/Bugs";
 import Todos from "Screens/Todos/Todos";
 import Notes from "Screens/Notes/Notes";
-import Noti from "Screens/Notification/Noti";
+import Notifications from "Screens/Notification/Notifications";
 
 const jwtToken = localStorage.jwtToken;
 
@@ -62,7 +62,7 @@ function App() {
                   <Route path="/bug" element={<Bugs />} />
                   <Route path="/todos" element={<Todos />} />
                   <Route path="/notes" element={<Notes />} />
-                  <Route path="/notifications" element={<Noti />} />
+                  <Route path="/notifications" element={<Notifications />} />
                 </Routes>
               </DashboardScreen>
             }
