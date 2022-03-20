@@ -6,18 +6,22 @@ import React, { useState } from "react";
 import "./NewProject.css";
 
 const NewProject = () => {
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [projectDetails, setProjectDetails] = useState({
     projectTemplate: '',
     projectType: '',
     projectName: '',
-
+    projectDescription: '',
+    projectTemplateId: 0,
+    projectTypeId: 0
   })
   const formTitles = [
     "Choose Type of Template",
     "Choose Managed By",
     "Add Project Details",
   ];
+
+  console.log(projectDetails)
 
   const pageDisplay = () => {
     if (page === 0) {
@@ -32,14 +36,26 @@ const NewProject = () => {
       );
     }
     else if(page === 1){
-      return(
-        <ChooseType />
-      )
+      return (
+        <ChooseType
+          title={formTitles[page]}
+          details={projectDetails}
+          setDetails={setProjectDetails}
+          currentPage={page}
+          setCurrentPage={setPage}
+        />
+      );
     }
     else{
-      return(
-        <ProjectDetails />
-      )
+      return (
+        <ProjectDetails
+          title={formTitles[page]}
+          details={projectDetails}
+          setDetails={setProjectDetails}
+          currentPage={page}
+          setCurrentPage={setPage}
+        />
+      );
     }
   };
 

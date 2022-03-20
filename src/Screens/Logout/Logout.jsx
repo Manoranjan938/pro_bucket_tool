@@ -9,8 +9,8 @@ import user from "Images/user.png";
 const Logout = () => {
 
     const truncate = (string, n) => {
-        return string?.length > n ? string.substr(0, n - 1) + "..." : string;
-    }
+      return string?.length > n ? string.substr(0, n - 1) + "..." : string;
+    };
 
   return (
     <div className="logout_container">
