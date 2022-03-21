@@ -6,10 +6,9 @@ import user from 'Images/user.png'
 
 import { FaSearch } from "react-icons/fa";
 import { MdSettings, MdNotifications } from "react-icons/md";
-import { IconButton, Menu, MenuItem, Tooltip } from "@material-ui/core";
-import { Avatar, ListItemIcon } from "@mui/material";
+import { Avatar, Divider, IconButton, ListItemIcon, Menu, MenuItem, Tooltip } from "@mui/material";
 import { Logout } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const DashboardHeader = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -48,8 +47,13 @@ const DashboardHeader = () => {
             <MdNotifications className="header__icon" />
           </IconButton>
         </Tooltip>
-        <Tooltip title="Account Setting">
-          <IconButton onClick={handleClick}>
+        <Tooltip title="Profile">
+          <IconButton
+            onClick={handleClick}
+            aria-controls={open ? "account-menu" : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? "true" : undefined}
+          >
             <img src={user} alt="" className="user__img" />
           </IconButton>
         </Tooltip>
@@ -58,28 +62,66 @@ const DashboardHeader = () => {
       <Menu
         id="account-menu"
         anchorEl={anchorEl}
-        keepMounted
         open={open}
         onClose={handleClose}
         onClick={handleClose}
+        PaperProps={{
+          elevation: 0,
+          sx: {
+            overflow: "visible",
+            filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+            mt: 1.5,
+            "& .MuiAvatar-root": {
+              width: 32,
+              height: 32,
+              ml: -0.5,
+              mr: 1,
+            },
+            "&:before": {
+              content: '""',
+              display: "block",
+              position: "absolute",
+              top: 0,
+              right: 14,
+              width: 10,
+              height: 10,
+              bgcolor: "background.paper",
+              transform: "translateY(-50%) rotate(45deg)",
+              zIndex: 0,
+            },
+          },
+        }}
+        transformOrigin={{ horizontal: "right", vertical: "top" }}
+        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <MenuItem onClick={handleClose}>
           <ListItemIcon>
             <Avatar />
           </ListItemIcon>
-          Profile
+          <div className="profile">
+            <h5>Manoranjan Sahoo </h5>
+            <p>manoranjan.sahoo@gmail.com</p>
+          </div>
         </MenuItem>
         <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-            <Avatar />
-          </ListItemIcon>
-          My account
+          <div className="menu__items">Switch account</div>
         </MenuItem>
+        <MenuItem onClick={handleClose}>
+          <div className="menu__items">Manage account</div>
+        </MenuItem>
+        <Divider />
+        <MenuItem onClick={handleClose}>
+          <div className="menu__items">Profile</div>
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
+          <div className="menu__items">Personal Setting</div>
+        </MenuItem>
+        <Divider />
         <MenuItem onClick={handleClose}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
-          Logout
+          <Link to="/logout">Logout</Link>
         </MenuItem>
       </Menu>
     </div>
