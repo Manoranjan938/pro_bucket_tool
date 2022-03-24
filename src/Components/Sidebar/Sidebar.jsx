@@ -4,9 +4,10 @@ import "./Sidebar.css";
 import avatar1 from "Images/avatar1.png";
 import { Link } from "react-router-dom";
 import { sidebarData } from "./Data/SidebarData";
-import {AiOutlineSetting} from 'react-icons/ai'
-import {FiHelpCircle} from 'react-icons/fi'
+import { AiOutlineSetting } from "react-icons/ai";
+import { FiHelpCircle } from "react-icons/fi";
 import { GoReport } from "react-icons/go";
+import { FaTrashAlt } from "react-icons/fa";
 
 const Sidebar = () => {
   return (
@@ -28,14 +29,19 @@ const Sidebar = () => {
                   <Link className="sidebar_link" to={item.path} key={item.id}>
                     <div className="icon">{item.icon}</div>
                     <div className="label">{item.title}</div>
-                    {item.notiCount && <div className="notification_icon">{item.notiCount}</div>}
+                    {item.notiCount && (
+                      <div className="notification_icon">{item.notiCount}</div>
+                    )}
                   </Link>
                 );
               })}
             </div>
             <div className="divider" />
             <div className="sidebar_link_container">
-              <Link className="sidebar_link" to="/project-setting">
+              <Link
+                className="sidebar_link"
+                to="/user/personal/project/netflix-clone/setting"
+              >
                 <div className="icon">
                   <AiOutlineSetting />
                 </div>
@@ -62,6 +68,15 @@ const Sidebar = () => {
                 </div>
               </Link>
             </div>
+            <div className="divider" />
+            <Link className="sidebar_link" to="/user/personal/trash">
+              <div className="icon">
+                <FaTrashAlt />
+              </div>
+              <div className="label">
+                <span>Trash</span>
+              </div>
+            </Link>
             <div className="divider" />
           </div>
         </div>

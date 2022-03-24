@@ -5,7 +5,7 @@ import image from "Images/logo.png";
 import user from 'Images/user.png'
 
 import { FaSearch } from "react-icons/fa";
-import { MdSettings, MdNotifications } from "react-icons/md";
+import { MdNotifications } from "react-icons/md";
 import { Avatar, Divider, IconButton, ListItemIcon, Menu, MenuItem, Tooltip } from "@mui/material";
 import { Logout } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
@@ -37,11 +37,11 @@ const DashboardHeader = () => {
           <FaSearch className="search" />
           <input type="text" placeholder="Search" />
         </div>
-        <Tooltip title="Setting">
+        {/* <Tooltip title="Setting">
           <IconButton>
             <MdSettings className="header__icon" />
           </IconButton>
-        </Tooltip>
+        </Tooltip> */}
         <Tooltip title="Notification">
           <IconButton onClick={handleNotification}>
             <MdNotifications className="header__icon" />
@@ -107,14 +107,20 @@ const DashboardHeader = () => {
           <div className="menu__items">Switch account</div>
         </MenuItem>
         <MenuItem onClick={handleClose}>
-          <div className="menu__items">Manage account</div>
+          <div className="menu__items">
+            <Link to="/manage-account/profile-setting">Manage account</Link>
+          </div>
         </MenuItem>
         <Divider />
         <MenuItem onClick={handleClose}>
-          <div className="menu__items">Profile</div>
+          <div className="menu__items">
+            <Link to="/people/username/random-usercode">Profile</Link>
+          </div>
         </MenuItem>
         <MenuItem onClick={handleClose}>
-          <div className="menu__items">Personal Setting</div>
+          <div className="menu__items">
+            <Link to="/account/setting">Personal Setting</Link>
+          </div>
         </MenuItem>
         <Divider />
         <MenuItem onClick={handleClose}>
