@@ -17,6 +17,10 @@
     align-items: center;
 }
 
+.mobile__icon{
+    display: none;
+}
+
 .header__logo > img{
     width: 40px;
     height: 40px;
@@ -72,4 +76,30 @@
     cursor: pointer;
     text-align: center;
     align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+
+    .header__contents{
+        display: none;
+    }
+
+    .header__btns{
+        display: none;
+    }
+
+    .mobile__icon{
+        display: block;
+        cursor: pointer;
+        position: absolute;
+        top: 0;
+        right: 0;
+        transform: translate(-100%, 90%);
+        font-size: 1.2rem;
+    }
+
+    .mobile__header{
+        width: 100%;
+    }
+
 }

@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./Screens/Home/Home";
 import Login from "Screens/Login/Login";
 import Forgot from "Screens/ForgotPassword/Forgot";
-import Signin from "Screens/Signin/Signin";
+import Signup from "Screens/Signin/Signup";
 import EmailVerify from "Screens/EmailVerify/EmailVerify";
 import Error from "Screens/Error/Error";
 import DashboardScreen from "Screens/Dashboard/DashboardScreen";
@@ -15,6 +15,16 @@ import setJWTToken from "Security/setJWTToken";
 import jwtDecode from "jwt-decode";
 import { SET_CURRENT_USER } from "Apis/Actions/types";
 import { logout } from "Apis/Actions/securityActions";
+import Projects from "Components/Projects/Projects";
+import DasboardHome from "Screens/DashboardHome/DasboardHome";
+import Works from "Screens/ProjectWorks/Works";
+import Bugs from "Screens/BugDashboard/Bugs";
+import Todos from "Screens/Todos/Todos";
+import Notes from "Screens/Notes/Notes";
+import Notifications from "Screens/Notification/Notifications";
+import ProjectSettings from "Screens/ProjectSetting/ProjectSetting";
+import Trash from "Screens/Trash/Trash";
+import UserProfile from "Screens/UserProfile/UserProfile";
 
 const jwtToken = localStorage.jwtToken;
 
@@ -42,11 +52,29 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
-          <Route path="/signin" element={<Signin />} />
+          <Route path="/signup" element={<Signup />} />
           <Route path="/verify-email" element={<EmailVerify />} />
           <Route path="/resetpassword" element={<Forgot />} />
-          <Route path="/dashboard" element={<DashboardScreen />} />
+          <Route
+            path="/user/:type/*"
+            element={
+              <DashboardScreen>
+                <Routes>
+                  <Route path="/home" element={<DasboardHome />} />
+                  <Route path="/works" element={<Works />} />
+                  <Route path="/bug" element={<Bugs />} />
+                  <Route path="/todos" element={<Todos />} />
+                  <Route path="/notes" element={<Notes />} />
+                  <Route path="/notifications" element={<Notifications />} />
+                  <Route path="/project/:projectName/setting" element={<ProjectSettings />} />
+                  <Route path="/trash" element={<Trash />} />
+                </Routes>
+              </DashboardScreen>
+            }
+          />
+          <Route path="/projects" element={<Projects />} />
           <Route path="/create-project" element={<CreateProject />} />
+          <Route path="/people/:username/:code" element={<UserProfile />} />
           <Route path="*" element={<Error />} />
         </Routes>
       </div>

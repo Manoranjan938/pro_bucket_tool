@@ -37,3 +37,18 @@
     color: #444444;
     margin-top: 15px;
 }
+
+@media (max-width: 768px){
+    .about__wrapper{
+        display: block;
+    }
+
+    .about__content{
+        margin: 0;
+    }
+
+    .about__wrapper > img{
+        height: 200px;
+    }
+
+}

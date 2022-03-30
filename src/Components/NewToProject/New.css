@@ -11,7 +11,8 @@
 
 .new__container > p{
     font-size: 20px;
-    text-align: center;
+    display: flex;
+    justify-content: center;
     font-weight: 600;
     color: #444444;
 }
@@ -44,4 +45,18 @@
 
 .new_card_content > p{
     font-size: 18px;
+}
+
+@media (max-width: 768px){
+    .new__container{
+        padding: 4rem;
+    }
+
+    .new__cards{
+        display: block;
+    }
+
+    .new__card{
+        margin: 20px 0;
+    }
 }

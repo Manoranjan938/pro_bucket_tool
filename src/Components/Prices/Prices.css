@@ -55,3 +55,15 @@
 .price__btn{
     margin: 30px auto;
 }
+
+@media (max-width: 768px){
+
+    .price__cards{
+        display: block;
+    }
+
+    .price__card{
+        margin: 20px 0;
+    }
+
+}

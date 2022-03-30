@@ -4,15 +4,26 @@ import "./Header.css";
 
 import logo from "Images/logo.png";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const Header = () => {
+
+  const [isMobile, setIsMobile] = useState(false);
+
+  const handleClick = () => {
+    setIsMobile(!isMobile);
+  }
+
   return (
     <div className="header">
       <div className="header__logo">
         <img src={logo} alt="" />
         <span>ProBucket</span>
       </div>
-      <div className="header__contents">
+      <div className="mobile__icon" onClick={handleClick}>
+        <i className="fa fa-bars"></i>
+      </div>
+      <div className={isMobile ? "mobile__header" : "header__contents" }>
         <Link to="#">
           <h5>Why ProBucket</h5>
         </Link>
