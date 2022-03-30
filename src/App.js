@@ -22,6 +22,9 @@ import Bugs from "Screens/BugDashboard/Bugs";
 import Todos from "Screens/Todos/Todos";
 import Notes from "Screens/Notes/Notes";
 import Notifications from "Screens/Notification/Notifications";
+import ProjectSettings from "Screens/ProjectSetting/ProjectSetting";
+import Trash from "Screens/Trash/Trash";
+import UserProfile from "Screens/UserProfile/UserProfile";
 
 const jwtToken = localStorage.jwtToken;
 
@@ -53,7 +56,7 @@ function App() {
           <Route path="/verify-email" element={<EmailVerify />} />
           <Route path="/resetpassword" element={<Forgot />} />
           <Route
-            path="/dashboard/*"
+            path="/user/:type/*"
             element={
               <DashboardScreen>
                 <Routes>
@@ -63,12 +66,15 @@ function App() {
                   <Route path="/todos" element={<Todos />} />
                   <Route path="/notes" element={<Notes />} />
                   <Route path="/notifications" element={<Notifications />} />
+                  <Route path="/project/:projectName/setting" element={<ProjectSettings />} />
+                  <Route path="/trash" element={<Trash />} />
                 </Routes>
               </DashboardScreen>
             }
           />
           <Route path="/projects" element={<Projects />} />
           <Route path="/create-project" element={<CreateProject />} />
+          <Route path="/people/:username/:code" element={<UserProfile />} />
           <Route path="*" element={<Error />} />
         </Routes>
       </div>

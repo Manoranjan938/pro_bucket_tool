@@ -1,19 +1,25 @@
-import React, { useEffect } from "react";
+import TodoForm from "Components/TodoForm/TodoForm";
+import React, { useEffect, useState } from "react";
 
 import "./TodoHeader.css";
 
 const TodoHeader = ({ todoData, setFilteredTodo, activeBtn, setActiveBtn }) => {
+
+  const [openForm, setOpenForm] = useState(false);
+
   useEffect(() => {
     if (activeBtn === "all") {
       setFilteredTodo(todoData);
       return;
     }
 
-    const filtered = todoData.filter((todo) =>
-      todo.status.includes(activeBtn)
-    );
+    const filtered = todoData.filter((todo) => todo.status.includes(activeBtn));
     setFilteredTodo(filtered);
   }, [activeBtn]);
+
+  const openTodoForm = () => {
+    setOpenForm(!openForm);
+  }
 
   return (
     <>
@@ -40,10 +46,11 @@ const TodoHeader = ({ todoData, setFilteredTodo, activeBtn, setActiveBtn }) => {
             </span>
           </div>
           <div className="todo_header">
-            <button className="btn">Create a Todo</button>
+            <button className="btn" onClick={openTodoForm}>Create a Todo</button>
           </div>
         </div>
       </div>
+      {openForm && <TodoForm open={openForm} setOpen={setOpenForm} />}
     </>
   );
 };
