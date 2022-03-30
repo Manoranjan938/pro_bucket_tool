@@ -2,7 +2,7 @@ import { MdDashboard } from "react-icons/md";
 import {
   IoNotifications,
 } from "react-icons/io5";
-import { GoProject } from "react-icons/go";
+import { GoProject, GoIssueClosed } from "react-icons/go";
 import { BiNotepad } from "react-icons/bi";
 import { RiTodoLine } from "react-icons/ri";
 
@@ -24,6 +24,12 @@ export const sidebarData = [
     title: "Notes",
     icon: <BiNotepad />,
     path: "/user/personal/notes"
+  },
+  {
+    id: 7,
+    title: "Issues",
+    icon: <GoIssueClosed />,
+    path: "/user/personal/issues"
   },
   {
     id: 5,

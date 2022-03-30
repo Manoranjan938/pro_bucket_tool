@@ -24,6 +24,7 @@ import Notes from "Screens/Notes/Notes";
 import Notifications from "Screens/Notification/Notifications";
 import ProjectSettings from "Screens/ProjectSetting/ProjectSetting";
 import Trash from "Screens/Trash/Trash";
+import UserProfile from "Screens/UserProfile/UserProfile";
 
 const jwtToken = localStorage.jwtToken;
 
@@ -73,6 +74,7 @@ function App() {
           />
           <Route path="/projects" element={<Projects />} />
           <Route path="/create-project" element={<CreateProject />} />
+          <Route path="/people/:username/:code" element={<UserProfile />} />
           <Route path="*" element={<Error />} />
         </Routes>
       </div>

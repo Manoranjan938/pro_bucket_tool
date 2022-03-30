@@ -7,7 +7,7 @@ const TodoList = ({data}) => {
 
   return (
     <>
-      <div layout className="todo__lists">
+      <div className="todo__lists">
         {
           data.map((item, index) => {
             return(
