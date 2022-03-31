@@ -1,8 +1,10 @@
 .sidebar__container {
   display: flex;
   height: 100vh;
-  width: 250px;
+  width: auto;
   position: fixed;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .sidebar {
@@ -104,4 +106,12 @@
   background: #827ed8;
   color: #fff;
   margin-right: 12px;
+}
+
+
+@media(max-width:1400px){
+  .sidebar__container{
+    width: auto;
+    overflow-x: none;
+  }
 }
