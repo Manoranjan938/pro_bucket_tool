@@ -14,6 +14,7 @@ import "./TaskDetails.css";
 import { Button, Menu, MenuItem } from "@mui/material";
 import SubTask from "Components/SubTask/SubTask";
 import ExtraDetails from "Components/ExtraTaskDetails/ExtraDetails";
+import TaskActivity from "Components/Activity/TaskActivity";
 
 const TaskDetails = ({ close }) => {
   const [type] = useState("task");
@@ -106,6 +107,9 @@ const TaskDetails = ({ close }) => {
             </div>
             <div className="subtasks_list">
               <SubTask />
+            </div>
+            <div className="activities">
+              <TaskActivity />
             </div>
           </div>
           <div className="task_extras">

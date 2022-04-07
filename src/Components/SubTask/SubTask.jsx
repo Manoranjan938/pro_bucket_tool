@@ -12,6 +12,9 @@ import { Link } from "react-router-dom";
 const SubTask = () => {
   const [subtaskType] = useState("subtask");
   const [anchorEl, setAnchorEl] = useState(null);
+  const [openStatusMenu, setOpenStatusMenu] = useState(false);
+  const [openAssigneeMenu, setOpenAssigneeMenu] = useState(false);
+  
   const open = Boolean(anchorEl);
   
   const handleClick = (event) => {
@@ -20,6 +23,14 @@ const SubTask = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const handleStatusMenu = () => {
+    setOpenStatusMenu(!openStatusMenu);
+  }
+
+  const handleAssigneeMenu = () => {
+    setOpenAssigneeMenu(!openAssigneeMenu);
+  }
 
   return (
     <>
@@ -69,12 +80,32 @@ const SubTask = () => {
             </div>
             <div className="subtask_extras">
               <div className="subtask_priority">
-                <span className="icon_priority_low">
+                <Tooltip title="Priority: Low">
+                  <IconButton>
+                    <span className="subtask_priority_icon">
+                      <i className="fa fa-flag" />
+                    </span>
+                  </IconButton>
+                </Tooltip>
+                {/* <span className="icon_priority_low">
                   <i className="fa fa-flag" />
-                </span>
+                </span> */}
               </div>
-              <div className="subtask_asignee"></div>
-              <div className="subtask_status"></div>
+              <div className="subtask_asignee" onClick={handleAssigneeMenu}>
+                <Tooltip title="Assignee: Manoranjan Sahoo">
+                  <IconButton>
+                    <span className="subtask_priority_icon">
+                      <i className="fa fa-user" />
+                    </span>
+                  </IconButton>
+                </Tooltip>
+              </div>
+              <div className="subtask_status" onClick={handleStatusMenu}>
+                <div className="status_name_icon">
+                  <span>InProgress</span>
+                  <RiArrowDropDownLine />
+                </div>
+              </div>
             </div>
           </div>
         </div>

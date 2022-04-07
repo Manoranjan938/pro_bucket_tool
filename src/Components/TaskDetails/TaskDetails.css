@@ -87,6 +87,10 @@
     overflow-y: auto;
 }
 
+.activities{
+    margin-top: 30px;
+}
+
 .status_btn > button{
     display: flex;
     align-items: center!important;

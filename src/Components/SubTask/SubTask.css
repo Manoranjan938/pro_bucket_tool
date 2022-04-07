@@ -50,7 +50,8 @@
     padding: 12px 10px;
     border-radius: 3px;
     box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
-    margin-bottom: 5px;
+    margin-bottom: 10px;
+    cursor: pointer;
 }
 
 .icon_subtask{
@@ -74,5 +75,30 @@
 
 .subtask_title{
     margin-left: 10px;
-    width: 70%;
+    width: 65%;
+}
+
+.subtask_extras{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.subtask_priority_icon{
+    font-size: 16px!important;
+}
+
+.status_name_icon{
+    display: flex;
+    align-items: center;
+    background: #e5e5e5;
+    padding: 2px 5px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.status_name_icon > span{
+    font-size: 13px;
 }
