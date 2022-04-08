@@ -1,9 +1,21 @@
+import { Modal } from '@mui/material';
+import TaskDetails from 'Components/TaskDetails/TaskDetails';
 import WorkTask from 'Components/WorkTask/WorkTask';
-import React from 'react'
+import React, { useState } from 'react'
 
 import './ProjectWorks.css'
 
 const ProjectWorks = () => {
+const [showTaskModal, setShowTaskModal] = useState(false);
+
+  const handleTaskModal = () => {
+    setShowTaskModal(true);
+  }
+
+  const handleClose = () => {
+    setShowTaskModal(false);
+  }
+
   return (
     <>
       <div className="project_works_container">
@@ -40,7 +52,7 @@ const ProjectWorks = () => {
         </div>
 
         <div className="project_task_body_row">
-          <div className="todo_task">
+          <div className="todo_task" onClick={handleTaskModal}>
             <WorkTask />
           </div>
           <div className="inprogress_task">
@@ -51,6 +63,14 @@ const ProjectWorks = () => {
           </div>
         </div>
       </div>
+      <Modal
+        open={showTaskModal}
+        onClose={handleClose}
+        aria-labelledby="parent-modal-title"
+        aria-describedby="parent-modal-description"
+      >
+        <TaskDetails close={handleClose} />
+      </Modal>
     </>
   );
 }

@@ -1,8 +1,8 @@
 .todo_modal_container{
-    width: 600px;
-    height: 650px;
+    width: 400px;
+    height: 370px;
     background: #fff;
-    margin: 3% auto;
+    margin: 5% auto;
     border-radius: 12px;
     padding: 14px 20px;
     outline: none;
@@ -17,7 +17,7 @@
 .modal__body{
     margin-top: 20px;
     width: auto;
-    height: 570px;
+    height: 290px;
     overflow-y: auto;
 }
 
@@ -26,20 +26,24 @@
     position: fixed;
     display: flex;
     gap: 10px;
-    left: 57%;
+    left: 51%;
+}
+
+.input_form{
+    margin-top: 10px!important;
 }
 
 @media(max-width: 1400px){
     .todo_modal_container{
-        height: 550px;
-        width: 500px;
+        height: 370px;
+        width: 350px;
     }
 
     .modal__body{
-        height: 470px;
+        height: 290px;
     }
 
     .modal__footer{
-        left: 54%;
+        left: 50%;
     }
 }

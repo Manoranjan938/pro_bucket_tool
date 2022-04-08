@@ -78,6 +78,21 @@ const TodoForm = ({ open, setOpen }) => {
                   />
                 )}
               />
+              <TextField
+                fullWidth
+                className="input_form"
+                id="outlined-basic"
+                label="Todo title"
+                variant="outlined"
+              />
+              <TextField
+                fullWidth
+                className="input_form"
+                id="outlined-multiline-static"
+                label="Description"
+                multiline
+                rows={4}
+              />
             </div>
             <div className="modal__footer">
               <Button onClick={handleClose}>Cancel</Button>
