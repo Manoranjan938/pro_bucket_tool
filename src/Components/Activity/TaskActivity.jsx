@@ -18,13 +18,13 @@ const TaskActivity = () => {
         <div className="activity_header">
           <span>Show:</span>
           <div
-            className={showTab === 1 ? "tabs active_tab" : "tabs"}
+            className={showTab === 1 ? "tabs activity_active_tab" : "tabs"}
             onClick={() => handleTab(1)}
           >
             <span>Comments</span>
           </div>
           <div
-            className={showTab === 2 ? "tabs active_tab" : "tabs"}
+            className={showTab === 2 ? "tabs activity_active_tab" : "tabs"}
             onClick={() => handleTab(2)}
           >
             <span>History</span>

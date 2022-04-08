@@ -32,6 +32,10 @@ const SubTask = () => {
     setOpenAssigneeMenu(!openAssigneeMenu);
   }
 
+  const truncate = (string, n) => {
+    return string?.length > n ? string.substr(0, n - 1) + "..." : string;
+  };
+
   return (
     <>
       <div className="subtask_container">
@@ -75,7 +79,10 @@ const SubTask = () => {
             </div>
             <div className="subtask_title">
               <p>
-                Get access token after giving correct user name and password
+                {truncate(
+                  "Get access token after giving correct user name and password and check the login status",
+                  60
+                )}
               </p>
             </div>
             <div className="subtask_extras">
