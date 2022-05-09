@@ -25,6 +25,8 @@ import Notifications from "Screens/Notification/Notifications";
 import ProjectSettings from "Screens/ProjectSetting/ProjectSetting";
 import Trash from "Screens/Trash/Trash";
 import UserProfile from "Screens/UserProfile/UserProfile";
+import TeamDashboard from "Screens/TeamDashboard/TeamDashboard";
+import TeamDashboardHome from "Screens/TeamHome/TeamDashboardHome";
 
 const jwtToken = localStorage.jwtToken;
 
@@ -55,8 +57,10 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/verify-email" element={<EmailVerify />} />
           <Route path="/resetpassword" element={<Forgot />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/create-project" element={<CreateProject />} />
           <Route
-            path="/user/:type/*"
+            path="/user/personal/*"
             element={
               <DashboardScreen>
                 <Routes>
@@ -66,14 +70,25 @@ function App() {
                   <Route path="/todos" element={<Todos />} />
                   <Route path="/notes" element={<Notes />} />
                   <Route path="/notifications" element={<Notifications />} />
-                  <Route path="/project/:projectName/setting" element={<ProjectSettings />} />
+                  <Route
+                    path="/project/:projectName/setting"
+                    element={<ProjectSettings />}
+                  />
                   <Route path="/trash" element={<Trash />} />
                 </Routes>
               </DashboardScreen>
             }
           />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/create-project" element={<CreateProject />} />
+          <Route
+            path="/user/team/*"
+            element={
+              <TeamDashboard>
+                <Routes>
+                  <Route path="/home" element={<TeamDashboardHome />} />
+                </Routes>
+              </TeamDashboard>
+            }
+          />
           <Route path="/people/:username/:code" element={<UserProfile />} />
           <Route path="*" element={<Error />} />
         </Routes>
