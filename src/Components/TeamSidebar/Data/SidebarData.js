@@ -5,6 +5,7 @@ import {
 import { GoProject, GoIssueClosed } from "react-icons/go";
 import { BiNotepad } from "react-icons/bi";
 import { RiTodoLine } from "react-icons/ri";
+import { BsBug } from "react-icons/bs";
 
 export const teamSidebarData = [
   {
@@ -18,6 +19,12 @@ export const teamSidebarData = [
     title: "Your Work",
     icon: <GoProject />,
     path: "/user/team/works"
+  },
+  {
+    id: 2,
+    title: "Bug",
+    icon: <BsBug />,
+    path: "/user/personal/bug"
   },
   {
     id: 4,
