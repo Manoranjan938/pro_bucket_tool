@@ -14,9 +14,11 @@ const Signup = () => {
 
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
   const [validError, setValidError] = useState({
     showEmail: false,
     showName: false,
+    showPassword: false,
     message: ''
   })
   const [notiBar, setNotiBar] = useState({
@@ -36,10 +38,11 @@ const Signup = () => {
 
   const handleContinue = (e) => {
     e.preventDefault();
-    if(!email && !name){
+    if(!email && !name && !password){
       setValidError({
         showEmail: true,
         showName: true,
+        showPassword: true,
         message: '**Please fillout this field'
       })
     }
@@ -47,6 +50,7 @@ const Signup = () => {
       setValidError({
         showEmail: true,
         showName: false,
+        showPassword: false,
         message: '**Please fillout this field'
       })
     }
@@ -54,6 +58,15 @@ const Signup = () => {
       setValidError({
         showEmail: false,
         showName: true,
+        showPassword: false,
+        message: '**Please fillout this field'
+      })
+    }
+    else if(!password){
+      setValidError({
+        showEmail: false,
+        showName: false,
+        showPassword: true,
         message: '**Please fillout this field'
       })
     }
@@ -108,6 +121,20 @@ const Signup = () => {
             />
 
             {validError.showName ? (
+              <div className="error_msg">
+                <span>{validError.message}</span>
+              </div>
+            ) : null}
+
+            <input
+              type="text"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="input__email"
+              placeholder="Enter password"
+            />
+
+            {validError.showPassword ? (
               <div className="error_msg">
                 <span>{validError.message}</span>
               </div>
