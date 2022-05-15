@@ -66,7 +66,6 @@ function App() {
                 <Routes>
                   <Route path="/home" element={<DasboardHome />} />
                   <Route path="/works" element={<Works />} />
-                  <Route path="/bug" element={<Bugs />} />
                   <Route path="/todos" element={<Todos />} />
                   <Route path="/notes" element={<Notes />} />
                   <Route path="/notifications" element={<Notifications />} />
@@ -85,6 +84,11 @@ function App() {
               <TeamDashboard>
                 <Routes>
                   <Route path="/home" element={<TeamDashboardHome />} />
+                  <Route path="/bug" element={<Bugs />} />
+                  <Route path="/works" element={<Works />} />
+                  <Route path="/todos" element={<Todos />} />
+                  <Route path="/notes" element={<Notes />} />
+                  <Route path="/notifications" element={<Notifications />} />
                 </Routes>
               </TeamDashboard>
             }

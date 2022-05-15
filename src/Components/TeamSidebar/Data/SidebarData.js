@@ -3,7 +3,7 @@ import {
   IoNotifications,
 } from "react-icons/io5";
 import { GoProject, GoIssueClosed } from "react-icons/go";
-import { BiNotepad } from "react-icons/bi";
+import { BiNotepad, BiUserPlus } from "react-icons/bi";
 import { RiTodoLine } from "react-icons/ri";
 import { BsBug } from "react-icons/bs";
 
@@ -24,7 +24,7 @@ export const teamSidebarData = [
     id: 2,
     title: "Bug",
     icon: <BsBug />,
-    path: "/user/personal/bug"
+    path: "/user/team/bug"
   },
   {
     id: 4,
@@ -50,5 +50,11 @@ export const teamSidebarData = [
     icon: <IoNotifications />,
     path: "/user/team/notifications",
     notiCount: 5
+  },
+  {
+    id: 7,
+    title: "Add User",
+    icon: <BiUserPlus />,
+    path: "/user/team/new-user",
   },
 ];

@@ -1,10 +1,11 @@
-import DashboardHeader from 'Components/DashboardHeader/DashboardHeader';
-import TeamSidebar from 'Components/TeamSidebar/TeamSidebar';
-import React from 'react'
+import DashboardHeader from "Components/DashboardHeader/DashboardHeader";
+import TeamSidebar from "Components/TeamSidebar/TeamSidebar";
+import React from "react";
 
-import './TeamDashboard.css'
+import "./TeamDashboard.css";
 
 const TeamDashboard = ({ children }) => {
+  localStorage.setItem("role", "team");
   return (
     <>
       <div className="team_sidebar__layout">
@@ -18,4 +19,4 @@ const TeamDashboard = ({ children }) => {
   );
 };
 
-export default TeamDashboard
+export default TeamDashboard;
