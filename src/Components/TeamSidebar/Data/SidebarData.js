@@ -52,7 +52,7 @@ export const teamSidebarData = [
     notiCount: 5
   },
   {
-    id: 7,
+    id: 8,
     title: "Add User",
     icon: <BiUserPlus />,
     path: "/user/team/new-user",
