@@ -73,71 +73,77 @@ const Login = () => {
   };
 
   return (
-    <div className="login_container">
-      <div className="login__wrapper">
-        <div className="login__header">
-          <img src={image} alt="" />
-          <span>ProBucket</span>
-        </div>
-        <div className="login__body">
-          <div className="login__body__header">
-            <span>Login to continue to:</span>
-            <h5>Probucket</h5>
+    <>
+      <div className="login_container">
+        <div className="login__wrapper">
+          <div className="login__header">
+            <img src={image} alt="" />
+            <span>ProBucket</span>
           </div>
-          <div className="login__body__content">
-            <input
-              type="text"
-              value={email}
-              className="input__email"
-              placeholder="Enter email"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            {error.showEmail && (
-              <div className="error_msg">
-                <span>{error.message}</span>
-              </div>
-            )}
-            <input
-              type="password"
-              value={password}
-              className="input__email"
-              placeholder="Enter password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            {error.showPassword && (
-              <div className="error_msg">
-                <span>{error.message}</span>
-              </div>
-            )}
+          <div className="login__body">
+            <div className="login__body__header">
+              <span>Login to continue to:</span>
+              <h5>Probucket</h5>
+            </div>
+            <div className="login__body__content">
+              <input
+                type="text"
+                value={email}
+                className="input__email"
+                placeholder="Enter email"
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              {error.showEmail && (
+                <div className="error_msg">
+                  <span>{error.message}</span>
+                </div>
+              )}
+              <input
+                type="password"
+                value={password}
+                className="input__email"
+                placeholder="Enter password"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              {error.showPassword && (
+                <div className="error_msg">
+                  <span>{error.message}</span>
+                </div>
+              )}
 
-            <button className="login__btn" onClick={handleSubmit}>
-              Continue
-            </button>
-            <span className="login_or">OR</span>
-            <a className="login__btn__google" href={GOOGLE_AUTH_URL}>
-              <img src={googleImage} alt="" />
-              <span>Continue with Google</span>
-            </a>
-            <hr />
-            <div className="links">
-              <Link to="/resetpassword">Can't login?</Link>
-              <Link to="/signup">Sign up for an account</Link>
+              <button className="login__btn" onClick={handleSubmit}>
+                Continue
+              </button>
+              <span className="login_or">OR</span>
+              <a className="login__btn__google" href={GOOGLE_AUTH_URL}>
+                <img src={googleImage} alt="" />
+                <span>Continue with Google</span>
+              </a>
+              <hr />
+              <div className="links">
+                <Link to="/resetpassword">Can't login?</Link>
+                <Link to="/signup">Sign up for an account</Link>
+              </div>
             </div>
           </div>
         </div>
+        <Snackbar
+          open={statusBar.open}
+          autoHideDuration={6000}
+          onClose={handleClose}
+          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+          key={statusBar.vertical + statusBar.horizontal}
+        >
+          <Alert
+            onClose={handleClose}
+            severity={statusBar.type}
+            sx={{ width: "100%" }}
+          >
+            {statusBar.message}
+          </Alert>
+        </Snackbar>
       </div>
-      <Snackbar
-        open={statusBar.open}
-        autoHideDuration={6000}
-        onClose={handleClose}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right'}}
-        key={statusBar.vertical + statusBar.horizontal}
-      >
-        <Alert onClose={handleClose} severity={statusBar.type} sx={{ width: "100%" }}>
-          {statusBar.message}
-        </Alert>
-      </Snackbar>
-    </div>
+    </>
   );
 };
 

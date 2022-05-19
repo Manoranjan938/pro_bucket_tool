@@ -70,7 +70,7 @@ const TeamSidebar = () => {
               </Link>
             </div>
             <div className="divider" />
-            <Link className="sidebar_link" to="/user/personal/trash">
+            <Link className="sidebar_link" to="/user/team/trash">
               <div className="icon">
                 <FaTrashAlt />
               </div>

@@ -1,15 +1,19 @@
-import TeamWorkHeader from 'Components/TeamWorkHeader/TeamWorkHeader'
-import ProjectWorks from 'Components/Works/ProjectWorks'
-import React from 'react'
+import TeamWorkHeader from "Components/TeamWorkHeader/TeamWorkHeader";
+import ProjectWorks from "Components/Works/ProjectWorks";
+import React from "react";
+import Helmet from "react-helmet";
 
-const Works = () => {
-  const role = localStorage.getItem("role")
+const Works = ({ title }) => {
+  const role = localStorage.getItem("role");
   return (
     <>
-    {role === "team" && <TeamWorkHeader />}
-    <ProjectWorks />
+      <Helmet>
+        <title>{title} | Tasks</title>
+      </Helmet>
+      {role === "team" && <TeamWorkHeader />}
+      <ProjectWorks />
     </>
-  )
-}
+  );
+};
 
-export default Works
+export default Works;

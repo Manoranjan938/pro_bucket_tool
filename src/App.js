@@ -30,19 +30,19 @@ import TeamDashboardHome from "Screens/TeamHome/TeamDashboardHome";
 
 const jwtToken = localStorage.jwtToken;
 
-if(jwtToken){
+if (jwtToken) {
   setJWTToken(jwtToken);
   const decode = jwtDecode(jwtToken);
   store.dispatch({
     type: SET_CURRENT_USER,
-    payload: decode
-  })
+    payload: decode,
+  });
 
   const currentTime = Date.now() / 1000;
 
-  if(decode.exp < currentTime){
-    store.dispatch(logout())
-    window.location.href = "/login"
+  if (decode.exp < currentTime) {
+    store.dispatch(logout());
+    window.location.href = "/login";
   }
 }
 
@@ -65,15 +65,21 @@ function App() {
               <DashboardScreen>
                 <Routes>
                   <Route path="/home" element={<DasboardHome />} />
-                  <Route path="/works" element={<Works />} />
-                  <Route path="/todos" element={<Todos />} />
+                  <Route
+                    path="/works"
+                    element={<Works title="Personal Dashboard" />}
+                  />
+                  <Route
+                    path="/todos"
+                    element={<Todos title="Personal Dashboard" />}
+                  />
                   <Route path="/notes" element={<Notes />} />
-                  <Route path="/notifications" element={<Notifications />} />
+                  <Route path="/notifications" element={<Notifications title="Personal Dashboard" />} />
                   <Route
                     path="/project/:projectName/setting"
                     element={<ProjectSettings />}
                   />
-                  <Route path="/trash" element={<Trash />} />
+                  <Route path="/trash" element={<Trash title="Personal Dashboard" />} />
                 </Routes>
               </DashboardScreen>
             }
@@ -84,16 +90,35 @@ function App() {
               <TeamDashboard>
                 <Routes>
                   <Route path="/home" element={<TeamDashboardHome />} />
-                  <Route path="/bug" element={<Bugs />} />
-                  <Route path="/works" element={<Works />} />
-                  <Route path="/todos" element={<Todos />} />
+                  <Route
+                    path="/works"
+                    element={<Works title="Team Dashboard" />}
+                  />
+                  <Route
+                    path="/todos"
+                    element={<Todos title="Team Dashboard" />}
+                  />
                   <Route path="/notes" element={<Notes />} />
-                  <Route path="/notifications" element={<Notifications />} />
+                  <Route
+                    path="/notifications"
+                    element={<Notifications title="Team Dashboard" />}
+                  />
+                  <Route path="/trash" element={<Trash title="Team Dashboard" />} />
                 </Routes>
               </TeamDashboard>
             }
           />
-          <Route path="/people/:username/:code" element={<UserProfile />} />
+          <Route
+            path="/bug/user/*"
+            element={
+              <Bugs>
+                <Routes>
+                  <Route path="/home" />
+                </Routes>
+              </Bugs>
+            }
+          />
+          <Route path="/people/sagar" element={<UserProfile />} />
           <Route path="*" element={<Error />} />
         </Routes>
       </div>
