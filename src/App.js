@@ -27,6 +27,8 @@ import Trash from "Screens/Trash/Trash";
 import UserProfile from "Screens/UserProfile/UserProfile";
 import TeamDashboard from "Screens/TeamDashboard/TeamDashboard";
 import TeamDashboardHome from "Screens/TeamHome/TeamDashboardHome";
+import TeamIssue from "Screens/Issues/TeamIssue";
+import NewTeamUser from "Screens/NewUser/NewTeamUser";
 
 const jwtToken = localStorage.jwtToken;
 
@@ -103,6 +105,8 @@ function App() {
                     path="/notifications"
                     element={<Notifications title="Team Dashboard" />}
                   />
+                  <Route path="/issues" element={<TeamIssue />} />
+                  <Route path="/new-user" element={<NewTeamUser />} />
                   <Route path="/trash" element={<Trash title="Team Dashboard" />} />
                 </Routes>
               </TeamDashboard>

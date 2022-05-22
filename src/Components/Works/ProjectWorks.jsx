@@ -1,9 +1,19 @@
+import { Button, Modal, TextField } from "@mui/material";
 import WorkTask from "Components/WorkTask/WorkTask";
-import React from "react";
+import React, { useState } from "react";
 
 import "./ProjectWorks.css";
 
 const ProjectWorks = () => {
+  const [showNewModal, setShowNewModal] = useState(false);
+
+  const handleNewModal = () => {
+    setShowNewModal(true);
+  };
+
+  const handleClose = () => {
+    setShowNewModal(false);
+  };
   return (
     <>
       <div className="project_works_container">
@@ -15,7 +25,7 @@ const ProjectWorks = () => {
             </div>
             <div className="icons">
               <i className="fa fa-ellipsis-h" />
-              <i className="fa fa-plus" />
+              <i className="fa fa-plus" onClick={handleNewModal} />
             </div>
           </div>
           <div className="project_status_card inprogress">
@@ -25,7 +35,7 @@ const ProjectWorks = () => {
             </div>
             <div className="icons">
               <i className="fa fa-ellipsis-h" />
-              <i className="fa fa-plus" />
+              <i className="fa fa-plus" onClick={handleNewModal} />
             </div>
           </div>
           <div className="project_status_card project_completed">
@@ -51,6 +61,32 @@ const ProjectWorks = () => {
           </div>
         </div>
       </div>
+
+      <Modal
+        open={showNewModal}
+        onClose={handleClose}
+        aria-labelledby="parent-modal-title"
+        aria-describedby="parent-modal-description"
+      >
+        <div className="new_task">
+          <div className="new_task_header">
+            <h3>New Task</h3>
+          </div>
+          <div className="divider" />
+          <TextField
+            fullWidth
+            className="input_form"
+            id="outlined-multiline-static"
+            label="About task..."
+            multiline
+            rows={4}
+          />
+          <div className="divider" />
+          <Button variant="contained" color="primary">
+            Add
+          </Button>
+        </div>
+      </Modal>
     </>
   );
 };

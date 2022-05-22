@@ -36,10 +36,4 @@ export const sidebarData = [
     path: "/user/personal/notifications",
     notiCount: 5,
   },
-  {
-    id: 7,
-    title: "Add User",
-    icon: <BiUserPlus />,
-    path: "/user/personal/new-user",
-  },
 ];

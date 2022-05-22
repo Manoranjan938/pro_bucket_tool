@@ -96,32 +96,32 @@ const DashboardHeader = () => {
       >
         <MenuItem onClick={handleClose}>
           <ListItemIcon>
-            <Avatar />
+            <Avatar>M</Avatar>
           </ListItemIcon>
           <div className="profile">
             <h5>Manoranjan Sahoo </h5>
             <p>manoranjan.sahoo@gmail.com</p>
           </div>
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        {/* <MenuItem onClick={handleClose}>
           <div className="menu__items">Switch account</div>
         </MenuItem>
         <MenuItem onClick={handleClose}>
           <div className="menu__items">
             <Link to="/manage-account/profile-setting">Manage account</Link>
           </div>
-        </MenuItem>
+        </MenuItem> */}
         <Divider />
         <MenuItem onClick={handleClose}>
           <div className="menu__items">
             <Link to="/people/sagar">Profile</Link>
           </div>
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        {/* <MenuItem onClick={handleClose}>
           <div className="menu__items">
             <Link to="/account/setting">Personal Setting</Link>
           </div>
-        </MenuItem>
+        </MenuItem> */}
         <Divider />
         <MenuItem onClick={handleClose}>
           <ListItemIcon>

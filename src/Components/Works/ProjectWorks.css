@@ -81,6 +81,16 @@
   width: auto;
 }
 
+.new_task{
+  width: 500px;
+  height: auto;
+  margin: 5% auto;
+  outline: none;
+  background: #fff;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
 @media (max-width: 1400px) {
   .project_status_card {
     width: auto;
