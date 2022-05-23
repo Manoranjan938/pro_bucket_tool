@@ -5,7 +5,7 @@ import { SET_CURRENT_USER } from "./types";
 
 export const login = (LoginRequest) => async (dispatch) => {
   try {
-    const res = await axios.post("/authenticate/login", LoginRequest);
+    const res = await axios.post("/auth/login", LoginRequest);
 
     const { token } = res.data;
     localStorage.setItem("jwtToken", token);

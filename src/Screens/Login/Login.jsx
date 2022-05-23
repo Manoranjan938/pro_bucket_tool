@@ -1,18 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Login.css";
 
 import image from "Images/logo.png";
 import googleImage from "Images/google-logo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { GOOGLE_AUTH_URL } from "Constant/constant";
 import MuiAlert from '@mui/material/Alert'
 import { Snackbar } from "@mui/material";
+import { login } from "Apis/Actions/securityActions";
+import { connect } from "react-redux";
+import { compose } from "redux";
 
 const Alert = React.forwardRef(function Alert(props, ref){
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
 })
 
-const Login = () => {
+const Login = ({getUsers}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState({
@@ -27,8 +30,12 @@ const Login = () => {
     type: '',
     message: ''
   });
+  const [loginRequest, setLoginRequest] = useState({
+    username: "",
+    password: "",
+  });
 
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleClose = (event, reason) => {
     if(reason === 'clickaway'){
@@ -66,11 +73,26 @@ const Login = () => {
         showPassword: false,
         message: ''
       })
+      setLoginRequest({
+        username: email,
+        password: password,
+      });
       setEmail("");
       setPassword("")
-      setStatusBar({open: true, type: 'success', message: 'You have logged in successfully'});
     }
   };
+
+  useEffect(() => {
+    if (loginRequest.username && loginRequest.password) {
+      getUsers(loginRequest);
+      setStatusBar({
+        open: true,
+        type: "success",
+        message: "You have logged in successfully",
+      });
+      navigate("/projects");
+    }
+  }, [loginRequest]);
 
   return (
     <>
@@ -147,16 +169,16 @@ const Login = () => {
   );
 };
 
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     getUsers: (data) => dispatch(login(data)),
-//   };
-// }
+function mapDispatchToProps(dispatch) {
+  return {
+    getUsers: (data) => dispatch(login(data)),
+  };
+}
 
-// const mapStateToProps = (state) => ({
-//   security: state.security,
-// });
+const mapStateToProps = (state) => ({
+  security: state.security,
+});
 
-// const withConnect = connect(mapStateToProps, mapDispatchToProps);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
-export default Login;
+export default compose(withConnect)(Login);

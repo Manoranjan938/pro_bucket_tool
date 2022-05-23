@@ -1,7 +1,7 @@
 import { MdDashboard } from "react-icons/md";
 import { IoNotifications } from "react-icons/io5";
 import { GoProject } from "react-icons/go";
-import { BiNotepad, BiUserPlus } from "react-icons/bi";
+import { BiNotepad } from "react-icons/bi";
 import { RiTodoLine } from "react-icons/ri";
 
 export const sidebarData = [
