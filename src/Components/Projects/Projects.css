@@ -19,9 +19,31 @@
     color: #827ed8;
 }
 
-.project__bottom_section{
-    margin-top: 50px;
+.extras{
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.project_btn{
+    width: auto;
+    display: flex;
+    justify-content: center;
+    border: none;
+    background: #827ED8;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 8px 20px;
+    margin: 10px 0;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.project__bottom_section{
+    margin-top: 70px;
+    display: flex;
+    margin-left: 0;
 }
 
 .project__card{
