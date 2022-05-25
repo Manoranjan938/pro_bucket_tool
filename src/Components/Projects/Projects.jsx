@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import "./Projects.css";
 
@@ -9,11 +9,22 @@ import { connect } from "react-redux";
 import { compose } from "redux";
 
 import { getAllProjects } from "Apis/Actions/projectsAction";
+import { Link } from "react-router-dom";
 
-const Projects = ({ getProjects, currentUser, myProjects }) => {
-  
+const Projects = ({
+  getProjects,
+  currentUser,
+  myProjects,
+}) => {
+  const [role, setRole] = useState("");
   useEffect(() => {
     getProjects(currentUser.id);
+    if (currentUser.rolename === "ROLE_PERSONAL") {
+      setRole("personal");
+    }
+    else if(currentUser.rolename === "ROLE_TEAM-ADMIN"){
+      setRole("team")
+    }
   }, []);
 
   return (
@@ -28,21 +39,23 @@ const Projects = ({ getProjects, currentUser, myProjects }) => {
             </div>
           </div>
           <div className="project__bottom_section">
-            {myProjects.map((item, index) => (
-              <>
-                <div className="project__card" key={index}>
-                  <div className="project__header__details">
-                    <img src={avatar} alt="" />
-                    <div className="project__texts">
-                      <h4>{item.projectName}</h4>
-                      <h5>{item.projectType}</h5>
+            {myProjects.map((item) => (
+              <div key={item.projectId}>
+                <Link to={`/project/${role}/${item.projectId}/home`}>
+                  <div className="project__card">
+                    <div className="project__header__details">
+                      <img src={avatar} alt="" />
+                      <div className="project__texts">
+                        <h4>{item.projectName}</h4>
+                        <h5>{item.projectType}</h5>
+                      </div>
                     </div>
+                    <h4>
+                      Project Lead: <span>{item.leadBy}</span>
+                    </h4>
                   </div>
-                  <h4>
-                    Project Lead: <span>{item.leadBy}</span>
-                  </h4>
-                </div>
-              </>
+                </Link>
+              </div>
             ))}
           </div>
         </div>

@@ -1,4 +1,4 @@
-import { SET_ALL_PROJECTS } from "Apis/Actions/types";
+import { SET_ALL_PROJECTS, SET_PROJECT_DETAILS } from "Apis/Actions/types";
 
 const initialState = {
   allProjects: [],
@@ -11,6 +11,12 @@ const setAllProjects = (state = initialState, action) => {
       return {
         ...state,
         allProjects: action.payload,
+      };
+
+    case SET_PROJECT_DETAILS:
+      return {
+        ...state,
+        project: action.payload,
       };
 
     default:

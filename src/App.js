@@ -63,7 +63,7 @@ function App() {
           <Route path="/projects" element={<Projects />} />
           <Route path="/create-project" element={<CreateProject />} />
           <Route
-            path="/user/personal/*"
+            path="/project/personal/:projectId/*"
             element={
               <DashboardScreen>
                 <Routes>
