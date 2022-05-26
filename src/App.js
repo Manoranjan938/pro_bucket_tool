@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./Screens/Home/Home";
 import Login from "Screens/Login/Login";
 import Forgot from "Screens/ForgotPassword/Forgot";
-import Signup from "Screens/Signin/Signup";
+import Signup from "Screens/Signup/Signup";
 import EmailVerify from "Screens/EmailVerify/EmailVerify";
 import Error from "Screens/Error/Error";
 import DashboardScreen from "Screens/Dashboard/DashboardScreen";

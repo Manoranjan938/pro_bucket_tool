@@ -25,7 +25,7 @@ export const login = (LoginRequest) => async (dispatch) => {
   }
 };
 
-export const register = async (RegisterRequest) => {
+export const register = (RegisterRequest) => async () => {
   try {
     const res = await axios.post("/auth/newUser", RegisterRequest);
     console.log(res);

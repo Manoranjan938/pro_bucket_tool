@@ -1,4 +1,4 @@
-import { MenuItem, Select, TextField } from '@mui/material';
+import { TextField } from '@mui/material';
 import React from 'react';
 
 import { data } from 'Components/TemplateProject/data';
@@ -40,17 +40,6 @@ const ProjectDetails = ({currentPage, setCurrentPage, details, setDetails}) => {
               className="input-field"
               defaultValue="Your project name"
             />
-            <Select
-              required
-              labelId="select-label"
-              id="simple-select"
-              label="Access"
-              className="input-field"
-              fullWidth
-            >
-              <MenuItem>Private</MenuItem>
-              <MenuItem>Public</MenuItem>
-            </Select>
             <TextField
               fullWidth
               required

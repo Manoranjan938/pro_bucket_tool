@@ -21,6 +21,14 @@ const NewProject = () => {
     "Add Project Details",
   ];
 
+  const [projectRequest, setProjectRequest] = useState({
+    projectName: '',
+    projectTemplate: '',
+    projectType: '',
+    accessType: '',
+    userId: ''
+  })
+
   console.log(projectDetails)
 
   const pageDisplay = () => {

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-import "../Signin/Signin.css";
+import "../Signup/Signin.css";
 import MuiAlert from '@mui/material/Alert'
 
 import image from "Images/logo.png";

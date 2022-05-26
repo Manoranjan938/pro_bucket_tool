@@ -1,17 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Signin.css";
-import MuiAlert from '@mui/material/Alert'
+import MuiAlert from "@mui/material/Alert";
 
 import image from "Images/logo.png";
 import { Snackbar } from "@mui/material";
+import { connect } from "react-redux";
+import { compose } from "redux";
+import { register } from "Apis/Actions/securityActions";
 
-const Alert = React.forwardRef(function Alert(props, ref){
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
-})
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
-const Signup = () => {
-
+const Signup = ({ addUser }) => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
@@ -19,72 +21,93 @@ const Signup = () => {
     showEmail: false,
     showName: false,
     showPassword: false,
-    message: ''
-  })
+    message: "",
+  });
   const [notiBar, setNotiBar] = useState({
     open: false,
-    vertical: 'bottom',
-    horizontal: 'right',
-    type: '',
-    message: ''
+    vertical: "bottom",
+    horizontal: "right",
+    type: "",
+    message: "",
+  });
+
+  const [registerRequest, setRegisterRequest] = useState({
+    username: "",
+    password: "",
+    name: "",
+    roleName: "",
   });
 
   const handleClose = (event, reason) => {
-    if(reason === 'clickaway'){
+    if (reason === "clickaway") {
       return;
     }
-    setNotiBar({open: false});
-  }
+    setNotiBar({ open: false });
+  };
 
   const handleContinue = (e) => {
     e.preventDefault();
-    if(!email && !name && !password){
+    if (!email && !name && !password) {
       setValidError({
         showEmail: true,
         showName: true,
         showPassword: true,
-        message: '**Please fillout this field'
-      })
-    }
-    else if(!email){
+        message: "**Please fillout this field",
+      });
+    } else if (!email) {
       setValidError({
         showEmail: true,
         showName: false,
         showPassword: false,
-        message: '**Please fillout this field'
-      })
-    }
-    else if(!name){
+        message: "**Please fillout this field",
+      });
+    } else if (!name) {
       setValidError({
         showEmail: false,
         showName: true,
         showPassword: false,
-        message: '**Please fillout this field'
-      })
-    }
-    else if(!password){
+        message: "**Please fillout this field",
+      });
+    } else if (!password) {
       setValidError({
         showEmail: false,
         showName: false,
         showPassword: true,
-        message: '**Please fillout this field'
-      })
-    }
-    else{
+        message: "**Please fillout this field",
+      });
+    } else {
       setValidError({
         showEmail: false,
         showName: false,
-        message: ''
-      })
+        message: "",
+      });
+      setRegisterRequest({
+        username: email,
+        password: password,
+        name: name,
+        roleName: "ROLE_USER",
+      });
+
+      setEmail("");
+      setName("");
+      setPassword("");
+    }
+  };
+
+  useEffect(() => {
+    if (
+      registerRequest.username &&
+      registerRequest.password &&
+      registerRequest.name
+    ) {
+      addUser(registerRequest);
       setNotiBar({
-        open: true, 
-        type: 'success', 
-        message: 'You have registered successfully'
-      })
-      setEmail('')
-      setName('')
+        open: true,
+        type: "success",
+        message: "You have registered successfully",
+      });
     }
-  }
+  }, [registerRequest]);
 
   return (
     <div className="signin_container">
@@ -127,7 +150,7 @@ const Signup = () => {
             ) : null}
 
             <input
-              type="text"
+              type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="input__email"
@@ -140,7 +163,9 @@ const Signup = () => {
               </div>
             ) : null}
 
-            <button className="signin__btn" onClick={handleContinue}>Continue</button>
+            <button className="signin__btn" onClick={handleContinue}>
+              Continue
+            </button>
             <span className="signin_or">OR</span>
             <button className="signin__btn__google">
               Continue with Google
@@ -157,10 +182,14 @@ const Signup = () => {
         open={notiBar.open}
         autoHideDuration={6000}
         onClose={handleClose}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right'}}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
         key={notiBar.vertical + notiBar.horizontal}
       >
-        <Alert onClose={handleClose} severity={notiBar.type} sx={{ width: "100%" }}>
+        <Alert
+          onClose={handleClose}
+          severity={notiBar.type}
+          sx={{ width: "100%" }}
+        >
           {notiBar.message}
         </Alert>
       </Snackbar>
@@ -168,4 +197,12 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+function mapDispatchToProps(dispatch) {
+  return {
+    addUser: (data) => dispatch(register(data)),
+  };
+}
+
+const withConnect = connect(null, mapDispatchToProps);
+
+export default compose(withConnect)(Signup);

@@ -44,7 +44,7 @@ const ChooseType = ({ title, details, setDetails, currentPage, setCurrentPage })
                 </div>
                 <div className="type__body">
                   <div className="type_image_container">
-                    <img src={image} alt="" />
+                    <img src={item.image} alt="" />
                   </div>
                   <div className="type_container">
                     <div className="type_content">

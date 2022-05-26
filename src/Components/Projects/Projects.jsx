@@ -30,7 +30,7 @@ const Projects = ({ getProjects, currentUser, myProjects }) => {
 
   return (
     <>
-      {myProjects ? (
+      {myProjects.length > 0 ? (
         <div className="projects__container">
           <div className="project__upper_section">
             <img src={image1} alt="" />
