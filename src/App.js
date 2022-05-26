@@ -63,11 +63,11 @@ function App() {
           <Route path="/projects" element={<Projects />} />
           <Route path="/create-project" element={<CreateProject />} />
           <Route
-            path="/project/personal/:projectId/*"
+            path="/project/personal/*"
             element={
               <DashboardScreen>
                 <Routes>
-                  <Route path="/home" element={<DasboardHome />} />
+                  <Route path="/home" element={<DasboardHome title="Personal Dashboard" />} />
                   <Route
                     path="/works"
                     element={<Works title="Personal Dashboard" />}

@@ -15,7 +15,7 @@ const Alert = React.forwardRef(function Alert(props, ref){
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
 })
 
-const Login = ({getUsers}) => {
+const Login = ({getUsers, security}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState({
@@ -93,6 +93,12 @@ const Login = ({getUsers}) => {
       navigate("/projects");
     }
   }, [loginRequest]);
+
+  useEffect(() => {
+    if(security.validToken){
+      navigate("/projects")
+    }
+  }, [])
 
   return (
     <>

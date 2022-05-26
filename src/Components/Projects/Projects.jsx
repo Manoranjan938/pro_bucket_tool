@@ -9,23 +9,24 @@ import { connect } from "react-redux";
 import { compose } from "redux";
 
 import { getAllProjects } from "Apis/Actions/projectsAction";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-const Projects = ({
-  getProjects,
-  currentUser,
-  myProjects,
-}) => {
+const Projects = ({ getProjects, currentUser, myProjects }) => {
   const [role, setRole] = useState("");
+  const navigate = useNavigate();
+
   useEffect(() => {
     getProjects(currentUser.id);
     if (currentUser.rolename === "ROLE_PERSONAL") {
       setRole("personal");
-    }
-    else if(currentUser.rolename === "ROLE_TEAM-ADMIN"){
-      setRole("team")
+    } else if (currentUser.rolename === "ROLE_TEAM-ADMIN") {
+      setRole("team");
     }
   }, []);
+
+  const handleNewProject = () => {
+    navigate("/create-project");
+  };
 
   return (
     <>
@@ -35,13 +36,15 @@ const Projects = ({
             <img src={image1} alt="" />
             <div className="extras">
               <h2>Please Choose Your Project</h2>
-              <button className="project_btn">Create new Project</button>
+              <button className="project_btn" onClick={handleNewProject}>
+                Create new Project
+              </button>
             </div>
           </div>
           <div className="project__bottom_section">
             {myProjects.map((item) => (
               <div key={item.projectId}>
-                <Link to={`/project/${role}/${item.projectId}/home`}>
+                <Link to={`/project/${role}/home?project=${item.projectId}`}>
                   <div className="project__card">
                     <div className="project__header__details">
                       <img src={avatar} alt="" />
