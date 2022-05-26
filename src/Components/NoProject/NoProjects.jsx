@@ -14,16 +14,18 @@ const NoProjects = () => {
   };
 
   return (
-    <div className="no__projects">
-      <div className="no__project__wrapper">
-        <img src={image} alt="" />
-        <h2>You don't have any projects</h2>
-        <p>Create a new project to plan, track and release great softwares</p>
-        <div className="btn" onClick={handleClick}>
-          <Button title="Create Project" />
+    <>
+      <div className="no__projects">
+        <div className="no__project__wrapper">
+          <img src={image} alt="" />
+          <h2>You don't have any projects</h2>
+          <p>Create a new project to plan, track and release great softwares</p>
+          <div className="new_project_btn" onClick={handleClick}>
+            <Button title="Create Project" />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

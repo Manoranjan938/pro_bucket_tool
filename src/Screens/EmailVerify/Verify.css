@@ -45,24 +45,24 @@
     width: 100%;
 }
 
-.contents{
+.verify_email_contents{
     margin-bottom: 20px;
 }
 
-.contents > img{
+.verify_email_contents > img{
     width: 200px;
     height: 200px;
     position: relative;
     left: 20%;
 }
 
-.contents > p{
+.verify_email_contents > p{
     margin: 5px 0;
     font-size: 14px;
     color: #999999;
 }
 
-.contents > span{
+.verify_email_contents > span{
     font-size: 16px;
     font-weight: 600;
     color: #111;

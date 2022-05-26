@@ -1,21 +1,19 @@
-import { Modal } from '@mui/material';
-import TaskDetails from 'Components/TaskDetails/TaskDetails';
-import WorkTask from 'Components/WorkTask/WorkTask';
-import React, { useState } from 'react'
+import { Button, Modal, TextField } from "@mui/material";
+import WorkTask from "Components/WorkTask/WorkTask";
+import React, { useState } from "react";
 
-import './ProjectWorks.css'
+import "./ProjectWorks.css";
 
 const ProjectWorks = () => {
-const [showTaskModal, setShowTaskModal] = useState(false);
+  const [showNewModal, setShowNewModal] = useState(false);
 
-  const handleTaskModal = () => {
-    setShowTaskModal(true);
-  }
+  const handleNewModal = () => {
+    setShowNewModal(true);
+  };
 
   const handleClose = () => {
-    setShowTaskModal(false);
-  }
-
+    setShowNewModal(false);
+  };
   return (
     <>
       <div className="project_works_container">
@@ -27,7 +25,7 @@ const [showTaskModal, setShowTaskModal] = useState(false);
             </div>
             <div className="icons">
               <i className="fa fa-ellipsis-h" />
-              <i className="fa fa-plus" />
+              <i className="fa fa-plus" onClick={handleNewModal} />
             </div>
           </div>
           <div className="project_status_card inprogress">
@@ -37,7 +35,7 @@ const [showTaskModal, setShowTaskModal] = useState(false);
             </div>
             <div className="icons">
               <i className="fa fa-ellipsis-h" />
-              <i className="fa fa-plus" />
+              <i className="fa fa-plus" onClick={handleNewModal} />
             </div>
           </div>
           <div className="project_status_card project_completed">
@@ -52,7 +50,7 @@ const [showTaskModal, setShowTaskModal] = useState(false);
         </div>
 
         <div className="project_task_body_row">
-          <div className="todo_task" onClick={handleTaskModal}>
+          <div className="todo_task">
             <WorkTask />
           </div>
           <div className="inprogress_task">
@@ -63,16 +61,34 @@ const [showTaskModal, setShowTaskModal] = useState(false);
           </div>
         </div>
       </div>
+
       <Modal
-        open={showTaskModal}
+        open={showNewModal}
         onClose={handleClose}
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
       >
-        <TaskDetails close={handleClose} />
+        <div className="new_task">
+          <div className="new_task_header">
+            <h3>New Task</h3>
+          </div>
+          <div className="divider" />
+          <TextField
+            fullWidth
+            className="input_form"
+            id="outlined-multiline-static"
+            label="About task..."
+            multiline
+            rows={4}
+          />
+          <div className="divider" />
+          <Button variant="contained" color="primary">
+            Add
+          </Button>
+        </div>
       </Modal>
     </>
   );
-}
+};
 
-export default ProjectWorks
+export default ProjectWorks;
