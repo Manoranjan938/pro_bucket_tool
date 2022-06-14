@@ -15,7 +15,7 @@ import { BiNotepad } from "react-icons/bi";
 import { RiTodoLine } from "react-icons/ri";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { getProjectDetails } from "Apis/Actions/projectsAction";
+import { getProjectDetails } from "apis/Actions/projectsAction";
 
 const Sidebar = ({myProject, id, getSingleProject}) => {
 

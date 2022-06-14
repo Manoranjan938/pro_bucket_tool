@@ -8,7 +8,7 @@ import NoProjects from "Components/NoProject/NoProjects";
 import { connect } from "react-redux";
 import { compose } from "redux";
 
-import { getAllProjects } from "Apis/Actions/projectsAction";
+import { getAllProjects } from "apis/Actions/projectsAction";
 import { Link, useNavigate } from "react-router-dom";
 
 const Projects = ({ getProjects, currentUser, myProjects }) => {
@@ -17,7 +17,7 @@ const Projects = ({ getProjects, currentUser, myProjects }) => {
 
   useEffect(() => {
     getProjects(currentUser.id);
-    if (currentUser.rolename === "ROLE_PERSONAL") {
+    if (currentUser.rolename === "ROLE_PERSONAL" || currentUser.rolename === "ROLE_USER") {
       setRole("personal");
     } else if (currentUser.rolename === "ROLE_TEAM-ADMIN") {
       setRole("team");

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import "./Logout.css";
 
@@ -7,15 +7,18 @@ import image from "Images/logo.png";
 import user from "Images/user.png";
 import { connect } from "react-redux";
 import { compose } from "redux";
-import { logout } from "Apis/Actions/securityActions";
+import { logout } from "apis/Actions/securityActions";
 
 const Logout = ({ logout }) => {
+  const navigate = useNavigate();
+
   const truncate = (string, n) => {
     return string?.length > n ? string.substr(0, n - 1) + "..." : string;
   };
 
   const handleClickLogout = () => {
     logout();
+    navigate("/login")
   };
 
   return (
