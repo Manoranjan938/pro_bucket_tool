@@ -1,19 +1,48 @@
 import TeamWorkHeader from "Components/TeamWorkHeader/TeamWorkHeader";
 import ProjectWorks from "Components/Works/ProjectWorks";
-import React from "react";
+import useGetTaskLists from "hooks/useGetTaskLists";
+import React, { useEffect } from "react";
 import Helmet from "react-helmet";
+import { connect } from "react-redux";
+import { compose } from "redux";
 
-const Works = ({ title }) => {
-  const role = localStorage.getItem("role");
+const Works = ({ title, currentProject }) => {
+
+  const [tasks, getTaskLists] = useGetTaskLists();
+
+  const callGetTaskLists = async () => {
+    try{
+      await getTaskLists(currentProject.projectIdentifier);
+    }catch(err){
+      console.log(err);
+    }
+  }
+
+  useEffect(() => {
+    callGetTaskLists();
+  }, []);
+
   return (
     <>
       <Helmet>
         <title>{title} | Tasks</title>
       </Helmet>
-      {role === "team" && <TeamWorkHeader />}
-      <ProjectWorks />
+      {tasks ? (
+        <>
+          <TeamWorkHeader />
+          <ProjectWorks tasks={tasks} />
+        </>
+      ) : (
+        ""
+      )}
     </>
   );
 };
 
-export default Works;
+const mapStateToProps = (state) => ({
+  currentProject: state.project.project
+})
+
+const withConnect = connect(mapStateToProps, null);
+
+export default compose(withConnect)(Works);

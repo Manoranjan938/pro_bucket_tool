@@ -1,6 +1,6 @@
 .sidebar__container {
   display: flex;
-  height: 100vh;
+  height: auto;
   width: auto;
   position: fixed;
   overflow-y: hidden;

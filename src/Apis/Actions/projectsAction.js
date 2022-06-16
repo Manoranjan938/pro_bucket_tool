@@ -30,14 +30,8 @@ export const getAllProjects = (userId) => async (dispatch) => {
   }
 };
 
-export const getProjectDetails = (projectId) => async (dispatch) => {
+export const getProjectDetails = (projectDetails) => async (dispatch) => {
   try {
-    const token = localStorage.getItem("jwtToken");
-    const res = await axios.get(`/project/getProjectDetails/${projectId}`, {
-      headers: { Authorization: token },
-    });
-    const projectDetails = res.data;
-
     dispatch({
       type: SET_PROJECT_DETAILS,
       payload: projectDetails,

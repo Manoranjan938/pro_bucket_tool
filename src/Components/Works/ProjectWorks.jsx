@@ -4,7 +4,7 @@ import React, { useState } from "react";
 
 import "./ProjectWorks.css";
 
-const ProjectWorks = () => {
+const ProjectWorks = ({ tasks }) => {
   const [showNewModal, setShowNewModal] = useState(false);
 
   const handleNewModal = () => {
@@ -14,6 +14,30 @@ const ProjectWorks = () => {
   const handleClose = () => {
     setShowNewModal(false);
   };
+
+  const proTasks = tasks.map((task, index) => (
+    <WorkTask key={index} taskDetails={task} />
+  ))
+
+  let todoItems = [];
+  let inProgressItems = [];
+  let completedItems = [];
+
+  for (let i = 0; i < proTasks.length; i++) {
+    //console.log(proTasks[i].props.taskDetails.status)
+    if (proTasks[i].props.taskDetails.status === "TODO") {
+      todoItems.push(proTasks[i]);
+    }
+
+    if (proTasks[i].props.taskDetails.status === "INPROGRESS") {
+      inProgressItems.push(proTasks[i]);
+    }
+
+    if (proTasks[i].props.taskDetails.status === "COMPLETED") {
+      completedItems.push(proTasks[i]);
+    }
+  }
+
   return (
     <>
       <div className="project_works_container">
@@ -21,7 +45,7 @@ const ProjectWorks = () => {
           <div className="project_status_card todo">
             <div className="details">
               <span>To Do</span>
-              <span className="counter">3</span>
+              <span className="counter">{todoItems.length}</span>
             </div>
             <div className="icons">
               <i className="fa fa-ellipsis-h" />
@@ -31,7 +55,7 @@ const ProjectWorks = () => {
           <div className="project_status_card inprogress">
             <div className="details">
               <span>In Progress</span>
-              <span className="counter">3</span>
+              <span className="counter">{inProgressItems.length}</span>
             </div>
             <div className="icons">
               <i className="fa fa-ellipsis-h" />
@@ -41,7 +65,7 @@ const ProjectWorks = () => {
           <div className="project_status_card project_completed">
             <div className="details">
               <span>Completed</span>
-              <span className="counter">3</span>
+              <span className="counter">{completedItems.length}</span>
             </div>
             <div className="icons">
               <i className="fa fa-ellipsis-h" />
@@ -51,13 +75,16 @@ const ProjectWorks = () => {
 
         <div className="project_task_body_row">
           <div className="todo_task">
-            <WorkTask />
+            {todoItems}
+            {/* <WorkTask /> */}
           </div>
           <div className="inprogress_task">
-            <WorkTask />
+            {inProgressItems}
+            {/* <WorkTask /> */}
           </div>
           <div className="completed_task">
-            <WorkTask />
+            {completedItems}
+            {/* <WorkTask /> */}
           </div>
         </div>
       </div>
