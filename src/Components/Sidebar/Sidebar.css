@@ -37,12 +37,14 @@
   font-weight: 500;
   color: #444444;
   margin: 0;
+  text-transform: capitalize;
 }
 
 .project_sidebar_details > span {
   font-size: 13px;
   color: #888888;
   margin: 0;
+  text-transform: capitalize;
 }
 
 .divider {
