@@ -19,15 +19,36 @@
     color: #827ed8;
 }
 
-.project__bottom_section{
-    margin-top: 50px;
+.extras{
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.project_btn{
+    width: auto;
+    display: flex;
+    justify-content: center;
+    border: none;
+    background: #827ED8;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 8px 20px;
+    margin: 10px 0;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.project__bottom_section{
+    margin-top: 75px;
+    display: flex;
+    margin-left: 0;
 }
 
 .project__card{
     width: 300px;
     height: 120px;
-    margin-left: 2rem;
     border: 1px solid #e5e5e5;
     border-radius: 12px;
     padding: 1.5rem 1rem;
@@ -68,9 +89,11 @@
     font-size: 18px;
     font-weight: 600;
     color: #888888;
+    text-transform: capitalize;
 }
 
 .project__texts > h5{
     font-size: 13px;
     color: #827ed8;
+    text-transform: capitalize;
 }

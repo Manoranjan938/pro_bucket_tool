@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-import "../Signin/Signin.css";
+import "../Signup/Signin.css";
 import MuiAlert from '@mui/material/Alert'
 
 import image from "Images/logo.png";
 import { Snackbar } from "@mui/material";
+
+import useResetPassRequest from 'hooks/useResetPassRequest';
 
 const Alert = React.forwardRef(function Alert(props, ref){
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
@@ -25,6 +27,7 @@ const Forgot = () => {
     type: '',
     message: ''
   });
+  const [resetPassword] = useResetPassRequest();
 
   const handleClose = (event, reason) => {
     if(reason === 'clickaway'){
@@ -46,10 +49,30 @@ const Forgot = () => {
         show: false,
         message: ''
       })
+      callResetPass();
       setEmail('');
-      setStatusBar({open: true, type: 'success', message: 'You have logged in successfully'});
+      
     }
   }
+
+  const callResetPass = async () => {
+    try {
+      const res = await resetPassword(email);
+      if (res.status === 200) {
+        setStatusBar({
+          open: true,
+          type: "success",
+          message: "We sended a reset password link to your email",
+        });
+      }
+    } catch (err) {
+      setStatusBar({
+        open: true,
+        type: "error",
+        message: err.response.data.username,
+      });
+    }
+  };
 
   return (
     <div className="signin_container">

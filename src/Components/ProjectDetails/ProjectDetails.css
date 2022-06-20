@@ -31,7 +31,8 @@
 }
 
 .input-field{
-    margin: 20px 0;
+    margin-top: 10px!important;
+    margin-bottom: 10px!important;
 }
 
 .project__details_choose__section{

@@ -9,6 +9,11 @@
     border-radius: 4px;
     box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
     margin-bottom: 20px;
+    cursor: move;
+}
+
+.task_card:hover{
+    background: #efefef;
 }
 
 .contents{
@@ -30,6 +35,7 @@
 }
 
 .extras{
+    margin-top: 10px;
     display: flex;
     justify-content: space-between;
 }
@@ -38,6 +44,26 @@
     display: flex;
     gap: 10px;
     align-items: center;
+}
+
+.priority_low > i{
+    color: #888888;
+}
+
+.priority_med > i{
+    color: #fbc536;
+}
+
+.priority_high > i{
+    color: #ff8367;
+}
+
+.priority_none > i{
+    color: #9999;
+}
+
+.task_id > a{
+    color: #827ED8;
 }
 
 .edit_options{

@@ -1,15 +1,10 @@
 import jwt_decode from "jwt-decode";
 import setJWTToken from "Security/setJWTToken";
-import axios from "Services/axios";
 import { SET_CURRENT_USER } from "./types";
 
-export const login = (LoginRequest) => async (dispatch) => {
+export const login = (token) => async (dispatch) => {
   try {
-    const res = await axios.post("/authenticate/login", LoginRequest);
-
-    const { token } = res.data;
-    localStorage.setItem("jwtToken", token);
-    setJWTToken(token);
+    //const token = localStorage.getItem("jwtToken")
     const decoded = jwt_decode(token);
 
     dispatch({
@@ -18,10 +13,6 @@ export const login = (LoginRequest) => async (dispatch) => {
     });
   } catch (err) {
     console.log(err);
-    /*dispatch({
-      type: SET_ERRORS,
-      payload: err.data,
-    });*/
   }
 };
 

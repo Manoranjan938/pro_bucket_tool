@@ -18,7 +18,7 @@ const EmailVerify = () => {
             <span>Check your inbox to login</span>
           </div>
           <div className="verify__body__content">
-            <div className="contents">
+            <div className="verify_email_contents">
               <img src={mail} alt="" />
               <p>
                 To complete setup and login, click the verification link in the

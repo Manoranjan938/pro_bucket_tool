@@ -55,6 +55,7 @@
 .logout__user__details{
     display: flex;
     gap: 10px;
+    align-items: center;
 }
 
 .logout__user__details > img{

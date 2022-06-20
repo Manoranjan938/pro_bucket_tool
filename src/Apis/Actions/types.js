@@ -1,3 +1,6 @@
 export const SET_ERRORS = "SET_ERRORS";
 
 export const SET_CURRENT_USER = "SET_CURRENT_USER";
+
+export const SET_ALL_PROJECTS = "SET_ALL_PROJECTS";
+export const SET_PROJECT_DETAILS = "SET_PROJECT_DETAILS";

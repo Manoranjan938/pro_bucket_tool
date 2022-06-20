@@ -1,0 +1,19 @@
+.extra_owner_details{
+    width: auto;
+    margin-top: 10px;
+    border: 1px solid #999999;
+    border-radius: 10px;
+}
+
+.owner__details__header{
+    border-bottom: 1px solid #999999;
+    padding: 1rem;
+}
+
+.owner__details__header > h5{
+    font-size: 16px;
+}
+
+.owner__details__body{
+    padding: 1rem;
+}

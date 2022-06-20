@@ -1,15 +1,34 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import "./Sidebar.css";
 import avatar1 from "Images/avatar1.png";
 import { Link } from "react-router-dom";
-import { sidebarData } from "./Data/SidebarData";
+
 import { AiOutlineSetting } from "react-icons/ai";
 import { FiHelpCircle } from "react-icons/fi";
 import { GoReport } from "react-icons/go";
 import { FaTrashAlt } from "react-icons/fa";
+import { MdDashboard } from "react-icons/md";
+import { IoNotifications } from "react-icons/io5";
+import { GoProject } from "react-icons/go";
+import { BiNotepad } from "react-icons/bi";
+import { RiTodoLine } from "react-icons/ri";
+import { compose } from "redux";
+import { connect } from "react-redux";
+import { getProjectDetails } from "apis/Actions/projectsAction";
+import useGetProjectDetails from "hooks/useGetProjectDetails";
 
-const Sidebar = () => {
+const Sidebar = ({ myProject, id, getSingleProject }) => {
+  const [project, getProjectDetails] = useGetProjectDetails();
+
+  useEffect(() => {
+    getProjectDetails(id);
+  }, []);
+
+  useEffect(() => {
+    getSingleProject(project);
+  }, [project]);
+
   return (
     <>
       <div className="sidebar__container">
@@ -18,29 +37,64 @@ const Sidebar = () => {
             <div className="sidebar__project__name">
               <img src={avatar1} alt="" />
               <div className="project_sidebar_details">
-                <h4>Netflix Clone</h4>
-                <span>Software Project</span>
+                <h4>{project.projectName}</h4>
+                <span>{project.projectType} Project</span>
               </div>
-            </div>
-            <div className="divider" />
-            <div className="sidebar_link_container">
-              {sidebarData.map((item) => {
-                return (
-                  <Link className="sidebar_link" to={item.path} key={item.id}>
-                    <div className="icon">{item.icon}</div>
-                    <div className="label">{item.title}</div>
-                    {item.notiCount && (
-                      <div className="notification_icon">{item.notiCount}</div>
-                    )}
-                  </Link>
-                );
-              })}
             </div>
             <div className="divider" />
             <div className="sidebar_link_container">
               <Link
                 className="sidebar_link"
-                to="/user/personal/project/netflix-clone/setting"
+                to={`/project/personal/home?project=${id}`}
+              >
+                <div className="icon">
+                  <MdDashboard />
+                </div>
+                <div className="label">Dashboard</div>
+              </Link>
+              <Link
+                className="sidebar_link"
+                to={`/project/personal/works?project=${id}`}
+              >
+                <div className="icon">
+                  <GoProject />
+                </div>
+                <div className="label">Your Work</div>
+              </Link>
+              <Link
+                className="sidebar_link"
+                to={`/project/personal/notes?project=${id}`}
+              >
+                <div className="icon">
+                  <BiNotepad />
+                </div>
+                <div className="label">Notes</div>
+              </Link>
+              <Link
+                className="sidebar_link"
+                to={`/project/personal/todos?project=${id}`}
+              >
+                <div className="icon">
+                  <RiTodoLine />
+                </div>
+                <div className="label">Todo</div>
+              </Link>
+              <Link
+                className="sidebar_link"
+                to={`/project/personal/notifications?project=${id}`}
+              >
+                <div className="icon">
+                  <IoNotifications />
+                </div>
+                <div className="label">Notifications</div>
+                <div className="notification_icon">5</div>
+              </Link>
+            </div>
+            <div className="divider" />
+            <div className="sidebar_link_container">
+              <Link
+                className="sidebar_link"
+                to="/project/personal/project/netflix-clone/setting"
               >
                 <div className="icon">
                   <AiOutlineSetting />
@@ -69,7 +123,7 @@ const Sidebar = () => {
               </Link>
             </div>
             <div className="divider" />
-            <Link className="sidebar_link" to="/user/personal/trash">
+            <Link className="sidebar_link" to="/project/personal/trash">
               <div className="icon">
                 <FaTrashAlt />
               </div>
@@ -85,4 +139,16 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+function mapDispatchToProps(dispatch) {
+  return {
+    getSingleProject: (data) => dispatch(getProjectDetails(data)),
+  };
+}
+
+// const mapStateToProps = (state) => ({
+//   myProject: state.project.project,
+// });
+
+const withConnect = connect(null, mapDispatchToProps);
+
+export default compose(withConnect)(Sidebar);
