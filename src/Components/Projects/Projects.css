@@ -89,9 +89,11 @@
     font-size: 18px;
     font-weight: 600;
     color: #888888;
+    text-transform: capitalize;
 }
 
 .project__texts > h5{
     font-size: 13px;
     color: #827ed8;
+    text-transform: capitalize;
 }

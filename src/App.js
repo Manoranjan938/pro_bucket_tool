@@ -13,8 +13,8 @@ import { Provider } from "react-redux";
 import store from "./store";
 import setJWTToken from "Security/setJWTToken";
 import jwtDecode from "jwt-decode";
-import { SET_CURRENT_USER } from "Apis/Actions/types";
-import { logout } from "Apis/Actions/securityActions";
+import { SET_CURRENT_USER } from "apis/Actions/types";
+import { logout } from "apis/Actions/securityActions";
 import Projects from "Components/Projects/Projects";
 import DasboardHome from "Screens/DashboardHome/DasboardHome";
 import Works from "Screens/ProjectWorks/Works";
@@ -88,7 +88,7 @@ function App() {
             }
           />
           <Route
-            path="/user/team/*"
+            path="/project/team/*"
             element={
               <TeamDashboard>
                 <Routes>

@@ -8,21 +8,38 @@ import NoProjects from "Components/NoProject/NoProjects";
 import { connect } from "react-redux";
 import { compose } from "redux";
 
-import { getAllProjects } from "Apis/Actions/projectsAction";
+import { getAllProjects } from "apis/Actions/projectsAction";
 import { Link, useNavigate } from "react-router-dom";
+import useGetAllProjects from "hooks/useGetAllProjects";
 
 const Projects = ({ getProjects, currentUser, myProjects }) => {
   const [role, setRole] = useState("");
+  const [projects, getAllProjectDetails] = useGetAllProjects();
   const navigate = useNavigate();
 
+  const callGetAllProjects = async () => {
+    try {
+      await getAllProjectDetails(currentUser.id);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
-    getProjects(currentUser.id);
-    if (currentUser.rolename === "ROLE_PERSONAL") {
+    callGetAllProjects();
+    if (
+      currentUser.rolename === "ROLE_PERSONAL" ||
+      currentUser.rolename === "ROLE_USER"
+    ) {
       setRole("personal");
     } else if (currentUser.rolename === "ROLE_TEAM-ADMIN") {
       setRole("team");
     }
   }, []);
+
+  useEffect(() => {
+    getProjects(projects)
+  }, [projects])
 
   const handleNewProject = () => {
     navigate("/create-project");
@@ -30,7 +47,7 @@ const Projects = ({ getProjects, currentUser, myProjects }) => {
 
   return (
     <>
-      {myProjects.length > 0 ? (
+      {projects.length > 0 ? (
         <div className="projects__container">
           <div className="project__upper_section">
             <img src={image1} alt="" />
@@ -42,7 +59,7 @@ const Projects = ({ getProjects, currentUser, myProjects }) => {
             </div>
           </div>
           <div className="project__bottom_section">
-            {myProjects.map((item) => (
+            {projects.map((item) => (
               <div key={item.projectId}>
                 <Link to={`/project/${role}/home?project=${item.projectId}`}>
                   <div className="project__card">

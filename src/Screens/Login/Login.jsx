@@ -7,9 +7,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { GOOGLE_AUTH_URL } from "Constant/constant";
 import MuiAlert from '@mui/material/Alert'
 import { Snackbar } from "@mui/material";
-import { login } from "Apis/Actions/securityActions";
+import { login } from "apis/Actions/securityActions";
 import { connect } from "react-redux";
 import { compose } from "redux";
+import useLoginRequest from "hooks/useLoginRequest";
 
 const Alert = React.forwardRef(function Alert(props, ref){
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
@@ -30,10 +31,11 @@ const Login = ({getUsers, security}) => {
     type: '',
     message: ''
   });
-  const [loginRequest, setLoginRequest] = useState({
+  const [loginRequests, setLoginRequest] = useState({
     username: "",
     password: "",
   });
+  const [tokens, loginRequest] = useLoginRequest();
 
   const navigate = useNavigate();
 
@@ -82,23 +84,40 @@ const Login = ({getUsers, security}) => {
     }
   };
 
-  useEffect(() => {
-    if (loginRequest.username && loginRequest.password) {
-      getUsers(loginRequest);
+  const callLoginUser = async () => {
+    try{
+      const res = await loginRequest(loginRequests);
+      if(res.status === 200){
+        navigate("/projects");
+      }
+    }catch(err){
+      //console.log(err.response.data.username);
       setStatusBar({
         open: true,
-        type: "success",
-        message: "You have logged in successfully",
+        type: "error",
+        message: err.response.data.username,
       });
-      navigate("/projects");
     }
-  }, [loginRequest]);
+  }
 
   useEffect(() => {
-    if(security.validToken){
-      navigate("/projects")
+    if (loginRequests.username && loginRequests.password) {
+      callLoginUser();
     }
-  }, [])
+  }, [loginRequests]);
+
+  useEffect(() => {
+    getUsers(tokens);
+  }, [tokens]);
+
+  useEffect(() => {
+
+    if (localStorage.getItem("jwtToken")) {
+      navigate("/projects");
+    }else{
+      navigate("/login")
+    }
+  }, []);
 
   return (
     <>

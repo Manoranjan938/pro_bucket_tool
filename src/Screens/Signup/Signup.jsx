@@ -5,9 +5,7 @@ import MuiAlert from "@mui/material/Alert";
 
 import image from "Images/logo.png";
 import { Snackbar } from "@mui/material";
-import { connect } from "react-redux";
-import { compose } from "redux";
-import { register } from "Apis/Actions/securityActions";
+import useSignUpRequest from "hooks/useSignUpRequest";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -37,6 +35,7 @@ const Signup = ({ addUser }) => {
     name: "",
     roleName: "",
   });
+  const [register] = useSignUpRequest();
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -94,18 +93,33 @@ const Signup = ({ addUser }) => {
     }
   };
 
+  const callAddUser = async () => {
+    try {
+      const res = await register(registerRequest);
+      if (res.status === 201) {
+        setNotiBar({
+          open: true,
+          type: "success",
+          message: "You have registered successfully",
+        });
+      }
+    } catch (err) {
+      //console.log(err.response);
+      setNotiBar({
+        open: true,
+        type: "error",
+        message: err.response.data.message,
+      });
+    }
+  };
+
   useEffect(() => {
     if (
       registerRequest.username &&
       registerRequest.password &&
       registerRequest.name
     ) {
-      addUser(registerRequest);
-      setNotiBar({
-        open: true,
-        type: "success",
-        message: "You have registered successfully",
-      });
+      callAddUser();
     }
   }, [registerRequest]);
 
@@ -197,12 +211,4 @@ const Signup = ({ addUser }) => {
   );
 };
 
-function mapDispatchToProps(dispatch) {
-  return {
-    addUser: (data) => dispatch(register(data)),
-  };
-}
-
-const withConnect = connect(null, mapDispatchToProps);
-
-export default compose(withConnect)(Signup);
+export default Signup;

@@ -1,0 +1,13 @@
+.new_task {
+  width: 500px;
+  height: auto;
+  margin: 5% auto;
+  outline: none;
+  background: #fff;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+.input_form {
+  margin-bottom: 20px!important;
+}

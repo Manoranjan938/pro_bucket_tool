@@ -15,13 +15,19 @@ import { BiNotepad } from "react-icons/bi";
 import { RiTodoLine } from "react-icons/ri";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { getProjectDetails } from "Apis/Actions/projectsAction";
+import { getProjectDetails } from "apis/Actions/projectsAction";
+import useGetProjectDetails from "hooks/useGetProjectDetails";
 
-const Sidebar = ({myProject, id, getSingleProject}) => {
+const Sidebar = ({ myProject, id, getSingleProject }) => {
+  const [project, getProjectDetails] = useGetProjectDetails();
 
   useEffect(() => {
-    getSingleProject(id)
-  }, [])
+    getProjectDetails(id);
+  }, []);
+
+  useEffect(() => {
+    getSingleProject(project);
+  }, [project]);
 
   return (
     <>
@@ -31,37 +37,52 @@ const Sidebar = ({myProject, id, getSingleProject}) => {
             <div className="sidebar__project__name">
               <img src={avatar1} alt="" />
               <div className="project_sidebar_details">
-                <h4>{myProject.projectName}</h4>
-                <span>{myProject.projectType} Project</span>
+                <h4>{project.projectName}</h4>
+                <span>{project.projectType} Project</span>
               </div>
             </div>
             <div className="divider" />
             <div className="sidebar_link_container">
-              <Link className="sidebar_link" to={`/project/personal/home?project=${id}`}>
+              <Link
+                className="sidebar_link"
+                to={`/project/personal/home?project=${id}`}
+              >
                 <div className="icon">
                   <MdDashboard />
                 </div>
                 <div className="label">Dashboard</div>
               </Link>
-              <Link className="sidebar_link" to={`/project/personal/works?project=${id}`}>
+              <Link
+                className="sidebar_link"
+                to={`/project/personal/works?project=${id}`}
+              >
                 <div className="icon">
                   <GoProject />
                 </div>
                 <div className="label">Your Work</div>
               </Link>
-              <Link className="sidebar_link" to={`/project/personal/notes?project=${id}`}>
+              <Link
+                className="sidebar_link"
+                to={`/project/personal/notes?project=${id}`}
+              >
                 <div className="icon">
                   <BiNotepad />
                 </div>
                 <div className="label">Notes</div>
               </Link>
-              <Link className="sidebar_link" to={`/project/personal/todos?project=${id}`}>
+              <Link
+                className="sidebar_link"
+                to={`/project/personal/todos?project=${id}`}
+              >
                 <div className="icon">
                   <RiTodoLine />
                 </div>
                 <div className="label">Todo</div>
               </Link>
-              <Link className="sidebar_link" to={`/project/personal/notifications?project=${id}`}>
+              <Link
+                className="sidebar_link"
+                to={`/project/personal/notifications?project=${id}`}
+              >
                 <div className="icon">
                   <IoNotifications />
                 </div>
@@ -124,10 +145,10 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-const mapStateToProps = (state) => ({
-  myProject: state.project.project,
-});
+// const mapStateToProps = (state) => ({
+//   myProject: state.project.project,
+// });
 
-const withConnect = connect(mapStateToProps, mapDispatchToProps);
+const withConnect = connect(null, mapDispatchToProps);
 
 export default compose(withConnect)(Sidebar);

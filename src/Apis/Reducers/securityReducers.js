@@ -1,4 +1,4 @@
-import { SET_CURRENT_USER } from "Apis/Actions/types";
+import { SET_CURRENT_USER } from "apis/Actions/types";
 
 const initialState = {
   user: {},

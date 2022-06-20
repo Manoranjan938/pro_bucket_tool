@@ -10,8 +10,8 @@ const NewProject = () => {
   const [projectDetails, setProjectDetails] = useState({
     projectTemplate: '',
     projectType: '',
-    projectName: '',
-    projectDescription: '',
+    projectName: 'Your project name',
+    projectDescription: 'Your project description',
     projectTemplateId: 0,
     projectTypeId: 0
   })
@@ -20,16 +20,6 @@ const NewProject = () => {
     "Choose Managed By",
     "Add Project Details",
   ];
-
-  const [projectRequest, setProjectRequest] = useState({
-    projectName: '',
-    projectTemplate: '',
-    projectType: '',
-    accessType: '',
-    userId: ''
-  })
-
-  console.log(projectDetails)
 
   const pageDisplay = () => {
     if (page === 0) {

@@ -1,16 +1,34 @@
-import React from 'react'
+import React, { useEffect } from "react";
 
 import "./TeamSidebar.css";
 
 import avatar1 from "Images/avatar1.png";
 import { Link } from "react-router-dom";
-import { teamSidebarData } from "./Data/SidebarData";
 import { AiOutlineSetting } from "react-icons/ai";
 import { FiHelpCircle } from "react-icons/fi";
 import { GoReport } from "react-icons/go";
 import { FaTrashAlt } from "react-icons/fa";
+import { MdDashboard } from "react-icons/md";
+import { IoNotifications } from "react-icons/io5";
+import { GoProject, GoIssueClosed } from "react-icons/go";
+import { BiNotepad, BiUserPlus } from "react-icons/bi";
+import { RiTodoLine } from "react-icons/ri";
+import useGetProjectDetails from "hooks/useGetProjectDetails";
+import { connect } from "react-redux";
+import { compose } from "redux";
+import { getProjectDetails } from "apis/Actions/projectsAction";
 
-const TeamSidebar = () => {
+const TeamSidebar = ({ id, getSingleProject }) => {
+  const [project, getProjectDetails] = useGetProjectDetails();
+
+  useEffect(() => {
+    getProjectDetails(id);
+  }, []);
+
+  useEffect(() => {
+    getSingleProject(project);
+  }, [project]);
+
   return (
     <>
       <div className="sidebar__container">
@@ -19,13 +37,13 @@ const TeamSidebar = () => {
             <div className="sidebar__project__name">
               <img src={avatar1} alt="" />
               <div className="project_sidebar_details">
-                <h4>Netflix Clone</h4>
-                <span>Software Project</span>
+                <h4>{project.projectName}</h4>
+                <span>{project.projectType} Project</span>
               </div>
             </div>
             <div className="divider" />
             <div className="sidebar_link_container">
-              {teamSidebarData.map((item) => {
+              {/* {teamSidebarData.map((item) => {
                 return (
                   <Link className="sidebar_link" to={item.path} key={item.id}>
                     <div className="icon">{item.icon}</div>
@@ -35,7 +53,76 @@ const TeamSidebar = () => {
                     )}
                   </Link>
                 );
-              })}
+              })} */}
+              <Link
+                className="sidebar_link"
+                to={`/project/team/home?project=${id}`}
+              >
+                <div className="icon">
+                  <MdDashboard />
+                </div>
+                <div className="label">Dashboard</div>
+              </Link>
+              <Link
+                className="sidebar_link"
+                to={`/project/team/works?project=${id}`}
+              >
+                <div className="icon">
+                  <GoProject />
+                </div>
+                <div className="label">Your Work</div>
+              </Link>
+              {/* <Link className="sidebar_link" to={`/project/team/bug?project=${id}`}>
+                <div className="icon"><BsBug /></div>
+                <div className="label">Bug</div>
+                <div className="notification_icon">5</div>
+              </Link> */}
+              <Link
+                className="sidebar_link"
+                to={`/project/team/notes?project=${id}`}
+              >
+                <div className="icon">
+                  <BiNotepad />
+                </div>
+                <div className="label">Notes</div>
+              </Link>
+              <Link
+                className="sidebar_link"
+                to={`/project/team/issues?project=${id}`}
+              >
+                <div className="icon">
+                  <GoIssueClosed />
+                </div>
+                <div className="label">Issues</div>
+              </Link>
+              <Link
+                className="sidebar_link"
+                to={`/project/team/todos?project=${id}`}
+              >
+                <div className="icon">
+                  <RiTodoLine />
+                </div>
+                <div className="label">Todo</div>
+              </Link>
+              <Link
+                className="sidebar_link"
+                to={`/project/team/new-user?project=${id}`}
+              >
+                <div className="icon">
+                  <BiUserPlus />
+                </div>
+                <div className="label">Add Team Member</div>
+              </Link>
+              <Link
+                className="sidebar_link"
+                to={`/project/team/notifications?project=${id}`}
+              >
+                <div className="icon">
+                  <IoNotifications />
+                </div>
+                <div className="label">Notifications</div>
+                <div className="notification_icon">5</div>
+              </Link>
             </div>
             <div className="divider" />
             <div className="sidebar_link_container">
@@ -70,7 +157,7 @@ const TeamSidebar = () => {
               </Link>
             </div>
             <div className="divider" />
-            <Link className="sidebar_link" to="/user/team/trash">
+            <Link className="sidebar_link" to="/project/team/trash">
               <div className="icon">
                 <FaTrashAlt />
               </div>
@@ -84,6 +171,14 @@ const TeamSidebar = () => {
       </div>
     </>
   );
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    getSingleProject: (data) => dispatch(getProjectDetails(data)),
+  };
 }
 
-export default TeamSidebar
+const withConnect = connect(null, mapDispatchToProps);
+
+export default compose(withConnect)(TeamSidebar);
