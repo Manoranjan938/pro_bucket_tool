@@ -1,30 +1,35 @@
 import Button from "Components/Button/Button";
 import DataNotFound from "Components/DataError/DataNotFound";
+import NewTask from "Components/NewTask/NewTask";
 import TeamWorkHeader from "Components/TeamWorkHeader/TeamWorkHeader";
 import ProjectWorks from "Components/Works/ProjectWorks";
 import useGetTaskLists from "hooks/useGetTaskLists";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Helmet from "react-helmet";
 import { connect } from "react-redux";
 import { compose } from "redux";
 
-import './works.css'
+import "./works.css";
 
 const Works = ({ title, currentProject }) => {
-
   const [tasks, getTaskLists] = useGetTaskLists();
+  const [show, setShow] = useState(false);
 
   const callGetTaskLists = async () => {
-    try{
+    try {
       await getTaskLists(currentProject.projectIdentifier);
-    }catch(err){
-      console.log(err);
+    } catch (err) {
+      //console.log(err);
     }
-  }
+  };
 
   useEffect(() => {
     callGetTaskLists();
   }, []);
+
+  const handleOpenTask = () => {
+    setShow(!show);
+  };
 
   return (
     <>
@@ -39,18 +44,20 @@ const Works = ({ title, currentProject }) => {
       ) : (
         <>
           <DataNotFound text="No Tasks are there... Click the Button below to create a task." />
-          <div className="task_create_btn">
+          <div className="task_create_btn" onClick={handleOpenTask}>
             <Button title="Create Task" />
           </div>
         </>
       )}
+
+      {show && <NewTask open={show} setOpen={setShow} />}
     </>
   );
 };
 
 const mapStateToProps = (state) => ({
-  currentProject: state.project.project
-})
+  currentProject: state.project.project,
+});
 
 const withConnect = connect(mapStateToProps, null);
 

@@ -1,4 +1,4 @@
-import { Button, Modal, TextField } from "@mui/material";
+import NewTask from "Components/NewTask/NewTask";
 import WorkTask from "Components/WorkTask/WorkTask";
 import React, { useState } from "react";
 
@@ -9,10 +9,6 @@ const ProjectWorks = ({ tasks }) => {
 
   const handleNewModal = () => {
     setShowNewModal(true);
-  };
-
-  const handleClose = () => {
-    setShowNewModal(false);
   };
 
   const proTasks = tasks.map((task, index) => (
@@ -89,31 +85,7 @@ const ProjectWorks = ({ tasks }) => {
         </div>
       </div>
 
-      <Modal
-        open={showNewModal}
-        onClose={handleClose}
-        aria-labelledby="parent-modal-title"
-        aria-describedby="parent-modal-description"
-      >
-        <div className="new_task">
-          <div className="new_task_header">
-            <h3>New Task</h3>
-          </div>
-          <div className="divider" />
-          <TextField
-            fullWidth
-            className="input_form"
-            id="outlined-multiline-static"
-            label="About task..."
-            multiline
-            rows={4}
-          />
-          <div className="divider" />
-          <Button variant="contained" color="primary">
-            Add
-          </Button>
-        </div>
-      </Modal>
+      {showNewModal && <NewTask open={showNewModal} setOpen={setShowNewModal} />}
     </>
   );
 };
