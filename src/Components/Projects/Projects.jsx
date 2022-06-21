@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 import "./Projects.css";
 
@@ -13,7 +13,6 @@ import { Link, useNavigate } from "react-router-dom";
 import useGetAllProjects from "hooks/useGetAllProjects";
 
 const Projects = ({ getProjects, currentUser, myProjects }) => {
-  const [role, setRole] = useState("");
   const [projects, getAllProjectDetails] = useGetAllProjects();
   const navigate = useNavigate();
 
@@ -27,14 +26,6 @@ const Projects = ({ getProjects, currentUser, myProjects }) => {
 
   useEffect(() => {
     callGetAllProjects();
-    if (
-      currentUser.rolename === "ROLE_PERSONAL" ||
-      currentUser.rolename === "ROLE_USER"
-    ) {
-      setRole("personal");
-    } else if (currentUser.rolename === "ROLE_TEAM-ADMIN") {
-      setRole("team");
-    }
   }, []);
 
   useEffect(() => {
@@ -44,7 +35,7 @@ const Projects = ({ getProjects, currentUser, myProjects }) => {
   const handleNewProject = () => {
     navigate("/create-project");
   };
-
+  
   return (
     <>
       {projects.length > 0 ? (
@@ -61,7 +52,7 @@ const Projects = ({ getProjects, currentUser, myProjects }) => {
           <div className="project__bottom_section">
             {projects.map((item) => (
               <div key={item.projectId}>
-                <Link to={`/project/${role}/home?project=${item.projectId}`}>
+                <Link to={`/project/${item.projectType}/home?project=${item.projectId}`}>
                   <div className="project__card">
                     <div className="project__header__details">
                       <img src={avatar} alt="" />

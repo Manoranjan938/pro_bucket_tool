@@ -38,7 +38,7 @@ const Works = ({ title, currentProject }) => {
       </Helmet>
       {tasks ? (
         <>
-          <TeamWorkHeader />
+          {currentProject.projectType === "team" && <TeamWorkHeader />}
           <ProjectWorks tasks={tasks} />
         </>
       ) : (

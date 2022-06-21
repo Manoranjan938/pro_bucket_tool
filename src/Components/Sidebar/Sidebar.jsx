@@ -5,14 +5,14 @@ import avatar1 from "Images/avatar1.png";
 import { Link } from "react-router-dom";
 
 import { AiOutlineSetting } from "react-icons/ai";
-import { FiHelpCircle } from "react-icons/fi";
-import { GoReport } from "react-icons/go";
+//import { FiHelpCircle } from "react-icons/fi";
+//import { GoReport } from "react-icons/go";
 import { FaTrashAlt } from "react-icons/fa";
 import { MdDashboard } from "react-icons/md";
 import { IoNotifications } from "react-icons/io5";
 import { GoProject } from "react-icons/go";
 import { BiNotepad } from "react-icons/bi";
-import { RiTodoLine } from "react-icons/ri";
+//import { RiTodoLine } from "react-icons/ri";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { getProjectDetails } from "apis/Actions/projectsAction";
@@ -70,7 +70,7 @@ const Sidebar = ({ myProject, id, getSingleProject }) => {
                 </div>
                 <div className="label">Notes</div>
               </Link>
-              <Link
+              {/* <Link
                 className="sidebar_link"
                 to={`/project/personal/todos?project=${id}`}
               >
@@ -78,7 +78,7 @@ const Sidebar = ({ myProject, id, getSingleProject }) => {
                   <RiTodoLine />
                 </div>
                 <div className="label">Todo</div>
-              </Link>
+              </Link> */}
               <Link
                 className="sidebar_link"
                 to={`/project/personal/notifications?project=${id}`}
@@ -104,7 +104,7 @@ const Sidebar = ({ myProject, id, getSingleProject }) => {
                 </div>
               </Link>
 
-              <Link className="sidebar_link" to="/help">
+              {/* <Link className="sidebar_link" to="/help">
                 <div className="icon">
                   <FiHelpCircle />
                 </div>
@@ -120,7 +120,7 @@ const Sidebar = ({ myProject, id, getSingleProject }) => {
                 <div className="label">
                   <span>Report / Feedback</span>
                 </div>
-              </Link>
+              </Link> */}
             </div>
             <div className="divider" />
             <Link className="sidebar_link" to="/project/personal/trash">
