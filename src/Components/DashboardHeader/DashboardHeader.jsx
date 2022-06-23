@@ -119,6 +119,11 @@ const DashboardHeader = ({currentUser}) => {
             <Link to="/people/sagar">Profile</Link>
           </div>
         </MenuItem>
+        <MenuItem onClick={handleClose}>
+          <div className="menu__items">
+            <Link to="/projects">Projects</Link>
+          </div>
+        </MenuItem>
         {/* <MenuItem onClick={handleClose}>
           <div className="menu__items">
             <Link to="/account/setting">Personal Setting</Link>

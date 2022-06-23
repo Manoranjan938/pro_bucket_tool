@@ -55,7 +55,7 @@ const ProjectWorks = ({ tasks }) => {
             </div>
             <div className="icons">
               <i className="fa fa-ellipsis-h" />
-              <i className="fa fa-plus" onClick={handleNewModal} />
+              {/* <i className="fa fa-plus" onClick={handleNewModal} /> */}
             </div>
           </div>
           <div className="project_status_card project_completed">

@@ -1,4 +1,4 @@
-import TeamHomeHeader from "Components/TeamHomeHeader/TeamHomeHeader";
+//import TeamHomeHeader from "Components/TeamHomeHeader/TeamHomeHeader";
 import TeamTaskAndBugList from "Components/TeamTaskAndBugList/TeamTaskAndBugList";
 import TeamTaskCards from "Components/TeamTaskCards/TeamTaskCards";
 import TeamMemberNotification from "Components/TeamMemberNotification/TeamMemberNotification"
@@ -11,7 +11,7 @@ const TeamDashboardHome = () => {
       <Helmet>
         <title>Team Dashboars | Home</title>
       </Helmet>
-      <TeamHomeHeader />
+      {/* <TeamHomeHeader /> */}
       <TeamTaskCards />
       <TeamMemberNotification />
       <TeamTaskAndBugList />

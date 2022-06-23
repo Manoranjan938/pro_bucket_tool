@@ -14,7 +14,6 @@ const useGetAllProjects = () => {
       setProjects(res.data);
       return res;
     } catch (err) {
-      console.log(err);
       throw err;
     }
   };

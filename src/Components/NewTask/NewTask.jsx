@@ -7,18 +7,20 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import React from "react";
-import { useState } from "react";
+import useCreateTask from "hooks/useCreateTask";
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import { compose } from "redux";
 
 import "./NewTask.css";
 
-const NewTask = ({ open, setOpen }) => {
+const NewTask = ({ open, setOpen, currentProject }) => {
   const [taskName, setTaskName] = useState("");
   const [priority, setPriority] = useState("LOW");
   const [error, setError] = useState({
     showNameError: false,
-    message: ''
-  })
+    message: "",
+  });
   const [taskRequest, setTaskRequest] = useState({
     projectIdentifier: "",
     taskName: "",
@@ -26,22 +28,52 @@ const NewTask = ({ open, setOpen }) => {
     sprintId: "",
     status: "",
   });
+  const [createProjectTask] = useCreateTask();
 
   const handleClose = () => {
     setOpen(false);
   };
 
   const handleCreateTask = () => {
-    if(!taskName){
-        setError({
-            showNameError: true,
-            message: 'Please fill out this field'
-        })
+    if (!taskName) {
+      setError({
+        showNameError: true,
+        message: "Please fill out this field",
+      });
+    } else {
+      setTaskRequest({
+        projectIdentifier: currentProject.projectIdentifier,
+        taskName: taskName,
+        priority: priority,
+        sprintId: "",
+        status: "",
+      });
+      setTaskName("");
+      setPriority("LOW");
     }
-    else {
-        console.log(taskName)
+  };
+
+  useEffect(() => {
+    if (
+      taskRequest.taskName &&
+      taskRequest.priority &&
+      taskRequest.projectIdentifier
+    ) {
+      callCreateTask();
     }
-  }
+  }, [taskRequest]);
+
+  const callCreateTask = async () => {
+    try {
+      const resp = await createProjectTask(taskRequest);
+      if (resp.status === 201) {
+        console.log("Task Created");
+        setOpen(!open)
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <>
@@ -83,7 +115,11 @@ const NewTask = ({ open, setOpen }) => {
             </Select>
           </FormControl>
           <div className="divider" />
-          <Button variant="contained" color="primary" onClick={handleCreateTask}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleCreateTask}
+          >
             Add
           </Button>
         </div>
@@ -92,4 +128,10 @@ const NewTask = ({ open, setOpen }) => {
   );
 };
 
-export default NewTask;
+const mapStateToProps = (state) => ({
+  currentProject: state.project.project,
+});
+
+const withConnect = connect(mapStateToProps, null);
+
+export default compose(withConnect)(NewTask);

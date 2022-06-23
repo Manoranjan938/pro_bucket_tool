@@ -1,4 +1,4 @@
-import DashboardGraph from "Components/DashboardGraph/DashboardGraph";
+//import DashboardGraph from "Components/DashboardGraph/DashboardGraph";
 import HomePersonalTask from "Components/PersonalTask/HomePersonalTask";
 import HomeSubTask from "Components/SubTasks/HomeSubTask";
 import React from "react";
@@ -10,7 +10,7 @@ const DasboardHome = ({ title }) => {
       <Helmet>
         <title>{title} | Home</title>
       </Helmet>
-      <DashboardGraph />
+      {/* <DashboardGraph /> */}
       <HomePersonalTask />
       <HomeSubTask />
     </>

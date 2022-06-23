@@ -5,14 +5,14 @@ import "./TeamSidebar.css";
 import avatar1 from "Images/avatar1.png";
 import { Link } from "react-router-dom";
 import { AiOutlineSetting } from "react-icons/ai";
-import { FiHelpCircle } from "react-icons/fi";
-import { GoReport } from "react-icons/go";
+//import { FiHelpCircle } from "react-icons/fi";
+//import { GoReport } from "react-icons/go";
 import { FaTrashAlt } from "react-icons/fa";
 import { MdDashboard } from "react-icons/md";
 import { IoNotifications } from "react-icons/io5";
 import { GoProject, GoIssueClosed } from "react-icons/go";
 import { BiNotepad, BiUserPlus } from "react-icons/bi";
-import { RiTodoLine } from "react-icons/ri";
+//import { RiTodoLine } from "react-icons/ri";
 import useGetProjectDetails from "hooks/useGetProjectDetails";
 import { connect } from "react-redux";
 import { compose } from "redux";
@@ -95,7 +95,7 @@ const TeamSidebar = ({ id, getSingleProject }) => {
                 </div>
                 <div className="label">Issues</div>
               </Link>
-              <Link
+              {/* <Link
                 className="sidebar_link"
                 to={`/project/team/todos?project=${id}`}
               >
@@ -103,7 +103,7 @@ const TeamSidebar = ({ id, getSingleProject }) => {
                   <RiTodoLine />
                 </div>
                 <div className="label">Todo</div>
-              </Link>
+              </Link> */}
               <Link
                 className="sidebar_link"
                 to={`/project/team/new-user?project=${id}`}
@@ -138,7 +138,7 @@ const TeamSidebar = ({ id, getSingleProject }) => {
                 </div>
               </Link>
 
-              <Link className="sidebar_link" to="/help">
+              {/* <Link className="sidebar_link" to="/help">
                 <div className="icon">
                   <FiHelpCircle />
                 </div>
@@ -154,7 +154,7 @@ const TeamSidebar = ({ id, getSingleProject }) => {
                 <div className="label">
                   <span>Report / Feedback</span>
                 </div>
-              </Link>
+              </Link> */}
             </div>
             <div className="divider" />
             <Link className="sidebar_link" to="/project/team/trash">

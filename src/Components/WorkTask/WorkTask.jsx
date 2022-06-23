@@ -1,5 +1,6 @@
 import { Modal } from "@mui/material";
 import TaskDetails from "Components/TaskDetails/TaskDetails";
+import useGetTaskDetails from "hooks/useGetTaskDetails";
 import React, { useState } from "react";
 
 import { FiUserPlus } from "react-icons/fi";
@@ -9,18 +10,29 @@ import "./WorkTask.css";
 
 const WorkTask = ({ taskDetails }) => {
   const [showTaskModal, setShowTaskModal] = useState(false);
+  const [task, getTaskDetails] = useGetTaskDetails();
 
-  const handleTaskModal = () => {
+  const handleTaskModal = (sequence) => {
     setShowTaskModal(true);
+    callGetTask(sequence)
   };
 
   const handleClose = () => {
     setShowTaskModal(false);
   };
+
+  const callGetTask = async (sequence) => {
+    try {
+      await getTaskDetails(sequence);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <>
       <div className="task_container">
-        <div className="task_card" onClick={handleTaskModal}>
+        <div className="task_card" onClick={() => handleTaskModal(taskDetails.taskSequence)}>
           <div className="task">
             <div className="contents">
               <span className="task_names">{taskDetails.taskName}</span>
@@ -70,7 +82,7 @@ const WorkTask = ({ taskDetails }) => {
           aria-labelledby="parent-modal-title"
           aria-describedby="parent-modal-description"
         >
-          <TaskDetails close={handleClose} />
+          <TaskDetails close={handleClose} task={task} />
         </Modal>
       </div>
     </>

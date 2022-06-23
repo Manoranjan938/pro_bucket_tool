@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import { AiFillEye, AiOutlineClose } from "react-icons/ai";
@@ -15,32 +15,80 @@ import { Button, Menu, MenuItem } from "@mui/material";
 import SubTask from "Components/SubTask/SubTask";
 import ExtraDetails from "Components/ExtraTaskDetails/ExtraDetails";
 import TaskActivity from "Components/Activity/TaskActivity";
+import useUpdateTask from "hooks/useUpdateTask";
 
-const TaskDetails = ({ close }) => {
+const TaskDetails = ({ close, task }) => {
   const [type] = useState("task");
   const [taskStatus, setTaskStatus] = useState({
-    title: "Todo",
+    title: "TODO",
     type: "inherit",
   });
   const [anchorEl, setAnchorEl] = useState(null);
+  const [details, setDetails] = useState({
+    description: '',
+    priority: '',
+    assignee: ''
+  })
+  const [updateRequest, setUpdateRequest] = useState({
+    taskId: task.taskSequence,
+    status: task.status,
+    assignee: task.assignee,
+    priority: task.priority,
+    description: task.taskDesc
+  })
+  const [updateTask] = useUpdateTask();
+
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
+  useEffect(() => {
+    if (task.status === "INPROGRESS") {
+      setTaskStatus({ title: task.status, type: "primary" });
+      setAnchorEl(null);
+    } else if (task.status === "COMPLETED") {
+      setTaskStatus({ title: task.status, type: "success" });
+      setAnchorEl(null);
+    } else if (task.status === "TODO") {
+      setTaskStatus({ title: task.status, type: "inherit" });
+      setAnchorEl(null);
+    }
+  }, []);
+
+  useEffect(() => {
+    callUpdateTask()
+  }, [updateRequest])
+
   const changeStatus = (status) => {
     const st = status;
-    if (st === "InProgress") {
+    if (st === "INPROGRESS") {
       setTaskStatus({ title: st, type: "primary" });
+      setUpdateRequest({ ...updateRequest, status: st });
       setAnchorEl(null);
-    } else if (st === "Completed") {
+    } else if (st === "COMPLETED") {
       setTaskStatus({ title: st, type: "success" });
+      setUpdateRequest({ ...updateRequest, status: st });
       setAnchorEl(null);
-    } else {
+    } else if (st === "TODO") {
       setTaskStatus({ title: st, type: "inherit" });
+      setUpdateRequest({ ...updateRequest, status: st });
       setAnchorEl(null);
     }
   };
+
+  const callUpdateTask = async () => {
+    try{
+      const resp = await updateTask(updateRequest)
+
+      if(resp.status === 200){
+        console.log("Updated successfully")
+      }
+    }
+    catch(err){
+      console.log(err)
+    }
+  }
 
   return (
     <>
@@ -65,7 +113,7 @@ const TaskDetails = ({ close }) => {
               )}
             </div>
             <Link to="#" className="unique_ids">
-              MCB-19
+              {task.taskSequence}
             </Link>
           </div>
           <div className="extra_icons">
@@ -78,7 +126,7 @@ const TaskDetails = ({ close }) => {
         <div className="task_details_body">
           <div className="task_operatives">
             <div className="task_title">
-              <h1>Need to check youtube</h1>
+              <h1>{task.taskName}</h1>
             </div>
             <div className="tasks_links">
               <Button variant="contained" color="inherit">
@@ -96,6 +144,7 @@ const TaskDetails = ({ close }) => {
                   name=""
                   id=""
                   placeholder="Add a description"
+                  onChange={(e) => setDetails({...details, description: e.target.value})}
                 />
               </div>
               <div className="desc_btns">
@@ -133,15 +182,16 @@ const TaskDetails = ({ close }) => {
         id="basic-menu"
         anchorEl={anchorEl}
         open={open}
+        onClose={() => setAnchorEl(null)}
         MenuListProps={{
           "aria-labelledby": "basic-button",
         }}
       >
-        <MenuItem onClick={() => changeStatus("Todo")}>ToDo</MenuItem>
-        <MenuItem onClick={() => changeStatus("InProgress")}>
+        <MenuItem onClick={() => changeStatus("TODO")}>ToDo</MenuItem>
+        <MenuItem onClick={() => changeStatus("INPROGRESS")}>
           InProgress
         </MenuItem>
-        <MenuItem onClick={() => changeStatus("Completed")}>Completed</MenuItem>
+        <MenuItem onClick={() => changeStatus("COMPLETED")}>Completed</MenuItem>
       </Menu>
     </>
   );
