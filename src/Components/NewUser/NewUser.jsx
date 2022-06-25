@@ -1,11 +1,26 @@
 import { Avatar } from "@mui/material";
 import { deepOrange } from "@mui/material/colors";
 import CreateUser from "Components/CreateUser/CreateUser";
-import React from "react";
+import useGetTeamMembersList from "hooks/useGetTeamMembersList";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { compose } from "redux";
 
 import "./NewUser.css";
 
-const NewUser = () => {
+const NewUser = ({ currentProject }) => {
+  const [teamList, getTeamLists] = useGetTeamMembersList();
+
+  useEffect(() => {
+    callGetTeamMembersList();
+  }, []);
+
+  const callGetTeamMembersList = async () => {
+    await getTeamLists(currentProject.projectId);
+  };
+
+  console.log(teamList);
+
   return (
     <>
       <div className="new_user_container">
@@ -19,27 +34,31 @@ const NewUser = () => {
             <span className="action">Action</span>
           </div>
           <div className="new_user__body">
-            <div className="new_user_row">
-              <div className="user user_names">
-                <Avatar sx={{ bgcolor: deepOrange[500] }}>S</Avatar>
-                <div className="user_details">
-                  <span className="user_name">Sagar Sahoo</span>
-                  <p className="user_email">sagarsahoo552@gmail.com</p>
+            {teamList.map((item, index) => (
+              <div className="new_user_row" key={index}>
+                <div className="user user_names">
+                  <Avatar sx={{ bgcolor: deepOrange[500] }}>
+                    {item.name.substr(0, 1)}
+                  </Avatar>
+                  <div className="user_details">
+                    <span className="user_name">{item.name}</span>
+                    <p className="user_email">{item.email}</p>
+                  </div>
+                </div>
+                <div className="last_active">
+                  <span>21-05-2022</span>
+                </div>
+                <div className="status">
+                  <span className="status_text">Active</span>
+                </div>
+                <div className="role">
+                  <span>Not Added</span>
+                </div>
+                <div className="action">
+                  <span>Show Details</span>
                 </div>
               </div>
-              <div className="last_active">
-                <span>21-05-2022</span>
-              </div>
-              <div className="status">
-                <span className="status_text">Active</span>
-              </div>
-              <div className="role">
-                <span>Not Added</span>
-              </div>
-              <div className="action">
-                <span>Show Details</span>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
@@ -47,4 +66,10 @@ const NewUser = () => {
   );
 };
 
-export default NewUser;
+const mapStateToProps = (state) => ({
+  currentProject: state.project.project,
+});
+
+const withConnect = connect(mapStateToProps, null);
+
+export default compose(withConnect)(NewUser);

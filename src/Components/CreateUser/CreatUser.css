@@ -19,3 +19,21 @@
 .new_team_btn{
     margin-top: 10px!important;
 }
+
+.temp_pass{
+    width: 300px;
+    margin: 5% auto;
+    background-color: #efefef;
+    border-radius: 10px;
+    padding: 1rem;
+    outline: none;
+}
+
+.temp_pass > p{
+    font-size: 18px;
+}
+
+.temp_pass > span{
+    font-size: 15px;
+    font-weight: 600;
+}
