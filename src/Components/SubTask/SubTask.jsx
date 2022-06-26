@@ -9,14 +9,14 @@ import { GoPrimitiveDot, GoCheck } from "react-icons/go";
 import { BiCopyAlt } from "react-icons/bi";
 import { Link } from "react-router-dom";
 
-const SubTask = () => {
+const SubTask = ({ subtask }) => {
   const [subtaskType] = useState("subtask");
   const [anchorEl, setAnchorEl] = useState(null);
   const [openStatusMenu, setOpenStatusMenu] = useState(false);
   const [openAssigneeMenu, setOpenAssigneeMenu] = useState(false);
-  
+
   const open = Boolean(anchorEl);
-  
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -26,11 +26,11 @@ const SubTask = () => {
 
   const handleStatusMenu = () => {
     setOpenStatusMenu(!openStatusMenu);
-  }
+  };
 
   const handleAssigneeMenu = () => {
     setOpenAssigneeMenu(!openAssigneeMenu);
-  }
+  };
 
   const truncate = (string, n) => {
     return string?.length > n ? string.substr(0, n - 1) + "..." : string;

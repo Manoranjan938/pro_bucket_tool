@@ -16,6 +16,7 @@ import SubTask from "Components/SubTask/SubTask";
 import ExtraDetails from "Components/ExtraTaskDetails/ExtraDetails";
 import TaskActivity from "Components/Activity/TaskActivity";
 import useUpdateTask from "hooks/useUpdateTask";
+import useGetSubTasks from "hooks/useGetSubTasks";
 
 const TaskDetails = ({ close, task }) => {
   const [type] = useState("task");
@@ -30,13 +31,14 @@ const TaskDetails = ({ close, task }) => {
     assignee: ''
   })
   const [updateRequest, setUpdateRequest] = useState({
-    taskId: task.taskSequence,
-    status: task.status,
-    assignee: task.assignee,
-    priority: task.priority,
-    description: task.taskDesc
+    taskId: '',
+    status: '',
+    assignee: '',
+    priority: '',
+    description: ''
   })
   const [updateTask] = useUpdateTask();
+  const [subtasks, getSubtaskList] = useGetSubTasks();
 
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -54,6 +56,7 @@ const TaskDetails = ({ close, task }) => {
       setTaskStatus({ title: task.status, type: "inherit" });
       setAnchorEl(null);
     }
+    callGetSubtaskLists();
   }, []);
 
   useEffect(() => {
@@ -64,31 +67,56 @@ const TaskDetails = ({ close, task }) => {
     const st = status;
     if (st === "INPROGRESS") {
       setTaskStatus({ title: st, type: "primary" });
-      setUpdateRequest({ ...updateRequest, status: st });
+      setUpdateRequest({
+        taskId: task.taskSequence,
+        status: st,
+        assignee: task.assignee,
+        priority: task.priority,
+        description: task.taskDesc,
+      });
       setAnchorEl(null);
     } else if (st === "COMPLETED") {
       setTaskStatus({ title: st, type: "success" });
-      setUpdateRequest({ ...updateRequest, status: st });
+      setUpdateRequest({
+        taskId: task.taskSequence,
+        status: st,
+        assignee: task.assignee,
+        priority: task.priority,
+        description: task.taskDesc,
+      });
       setAnchorEl(null);
     } else if (st === "TODO") {
       setTaskStatus({ title: st, type: "inherit" });
-      setUpdateRequest({ ...updateRequest, status: st });
+      setUpdateRequest({
+        taskId: task.taskSequence,
+        status: st,
+        assignee: task.assignee,
+        priority: task.priority,
+        description: task.taskDesc,
+      });
       setAnchorEl(null);
     }
   };
 
   const callUpdateTask = async () => {
-    try{
-      const resp = await updateTask(updateRequest)
+    try {
+      const resp = await updateTask(updateRequest);
 
-      if(resp.status === 200){
-        console.log("Updated successfully")
+      if (resp.status === 200) {
+        console.log("Updated successfully");
       }
+    } catch (err) {
+      console.log(err);
     }
-    catch(err){
-      console.log(err)
+  };
+
+  const callGetSubtaskLists = async () => {
+    try {
+      await getSubtaskList(task.taskSequence);
+    } catch (err) {
+      console.log(err);
     }
-  }
+  };
 
   return (
     <>
@@ -144,7 +172,9 @@ const TaskDetails = ({ close, task }) => {
                   name=""
                   id=""
                   placeholder="Add a description"
-                  onChange={(e) => setDetails({...details, description: e.target.value})}
+                  onChange={(e) =>
+                    setDetails({ ...details, description: e.target.value })
+                  }
                 />
               </div>
               <div className="desc_btns">
@@ -155,7 +185,8 @@ const TaskDetails = ({ close, task }) => {
               </div>
             </div>
             <div className="subtasks_list">
-              <SubTask />
+              {subtasks.length > 0 &&
+                subtasks.map((item, index) => <SubTask key={index} subtask={item} />)}
             </div>
             <div className="activities">
               <TaskActivity />

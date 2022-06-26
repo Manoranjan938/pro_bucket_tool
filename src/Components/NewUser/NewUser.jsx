@@ -1,5 +1,6 @@
 import { Avatar } from "@mui/material";
 import { deepOrange } from "@mui/material/colors";
+import { getAllTeamMembers } from "apis/Actions/teamActions";
 import CreateUser from "Components/CreateUser/CreateUser";
 import useGetTeamMembersList from "hooks/useGetTeamMembersList";
 import React, { useEffect } from "react";
@@ -8,7 +9,7 @@ import { compose } from "redux";
 
 import "./NewUser.css";
 
-const NewUser = ({ currentProject }) => {
+const NewUser = ({ currentProject, getTeamList }) => {
   const [teamList, getTeamLists] = useGetTeamMembersList();
 
   useEffect(() => {
@@ -18,6 +19,10 @@ const NewUser = ({ currentProject }) => {
   const callGetTeamMembersList = async () => {
     await getTeamLists(currentProject.projectId);
   };
+
+  useEffect(() => {
+    getTeamList(teamList);
+  }, [teamList]);
 
   console.log(teamList);
 
@@ -66,10 +71,16 @@ const NewUser = ({ currentProject }) => {
   );
 };
 
+function mapDispatchToProps(dispatch) {
+  return {
+    getTeamList: (data) => dispatch(getAllTeamMembers(data)),
+  };
+}
+
 const mapStateToProps = (state) => ({
   currentProject: state.project.project,
 });
 
-const withConnect = connect(mapStateToProps, null);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 export default compose(withConnect)(NewUser);

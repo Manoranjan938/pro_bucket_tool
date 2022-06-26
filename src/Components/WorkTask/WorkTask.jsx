@@ -1,20 +1,24 @@
 import { Modal } from "@mui/material";
+import { getSingleTask } from "apis/Actions/taskAction";
 import TaskDetails from "Components/TaskDetails/TaskDetails";
 import useGetTaskDetails from "hooks/useGetTaskDetails";
 import React, { useState } from "react";
+import { useEffect } from "react";
 
 import { FiUserPlus } from "react-icons/fi";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { compose } from "redux";
 
 import "./WorkTask.css";
 
-const WorkTask = ({ taskDetails }) => {
+const WorkTask = ({ taskDetails, setTask }) => {
   const [showTaskModal, setShowTaskModal] = useState(false);
   const [task, getTaskDetails] = useGetTaskDetails();
 
   const handleTaskModal = (sequence) => {
     setShowTaskModal(true);
-    callGetTask(sequence)
+    callGetTask(sequence);
   };
 
   const handleClose = () => {
@@ -29,10 +33,17 @@ const WorkTask = ({ taskDetails }) => {
     }
   };
 
+  useEffect(() => {
+    setTask(task);
+  }, [task]);
+
   return (
     <>
       <div className="task_container">
-        <div className="task_card" onClick={() => handleTaskModal(taskDetails.taskSequence)}>
+        <div
+          className="task_card"
+          onClick={() => handleTaskModal(taskDetails.taskSequence)}
+        >
           <div className="task">
             <div className="contents">
               <span className="task_names">{taskDetails.taskName}</span>
@@ -89,4 +100,12 @@ const WorkTask = ({ taskDetails }) => {
   );
 };
 
-export default WorkTask;
+function mapDispatchToProps(dispatch) {
+  return {
+    setTask: (data) => dispatch(getSingleTask(data)),
+  };
+}
+
+const withConnect = connect(null, mapDispatchToProps);
+
+export default compose(withConnect)(WorkTask);
