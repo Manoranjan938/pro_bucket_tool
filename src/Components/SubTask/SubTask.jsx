@@ -54,67 +54,66 @@ const SubTask = ({ subtask }) => {
           </div>
         </div>
         <div className="subtask_body">
-          <div className="subtask_card">
-            <div className="subtask_type_icon">
-              {subtaskType === "bug" && (
-                <span className="icon_bug">
-                  <GoPrimitiveDot />
-                </span>
-              )}
-              {subtaskType === "task" && (
-                <span className="icon_task">
-                  <GoCheck />
-                </span>
-              )}
-              {subtaskType === "subtask" && (
-                <span className="icon_subtask">
-                  <BiCopyAlt />
-                </span>
-              )}
-            </div>
-            <div className="subtask_unique_id">
-              <Link to="#">
-                <span>MCB-21</span>
-              </Link>
-            </div>
-            <div className="subtask_title">
-              <p>
-                {truncate(
-                  "Get access token after giving correct user name and password and check the login status",
-                  60
-                )}
-              </p>
-            </div>
-            <div className="subtask_extras">
-              <div className="subtask_priority">
-                <Tooltip title="Priority: Low">
-                  <IconButton>
-                    <span className="subtask_priority_icon">
-                      <i className="fa fa-flag" />
+          {subtask.map((item, index) => (
+            <div className="subtask_card" key={index}>
+              <div className="details">
+                <div className="subtask_type_icon">
+                  {subtaskType === "bug" && (
+                    <span className="icon_bug">
+                      <GoPrimitiveDot />
                     </span>
-                  </IconButton>
-                </Tooltip>
-                {/* <span className="icon_priority_low">
+                  )}
+                  {subtaskType === "task" && (
+                    <span className="icon_task">
+                      <GoCheck />
+                    </span>
+                  )}
+                  {subtaskType === "subtask" && (
+                    <span className="icon_subtask">
+                      <BiCopyAlt />
+                    </span>
+                  )}
+                </div>
+                <div className="subtask_unique_id">
+                  <Link to="#">
+                    <span>{item.taskSequence}</span>
+                  </Link>
+                </div>
+                <div className="subtask_title">
+                  <p>{truncate(item.taskName, 55)}</p>
+                </div>
+              </div>
+              <div className="subtask_extras">
+                <div className="subtask_priority">
+                  <Tooltip title="Priority: Low">
+                    <IconButton>
+                      <span className="subtask_priority_icon">
+                        <i className="fa fa-flag" />
+                      </span>
+                    </IconButton>
+                  </Tooltip>
+                  {/* <span className="icon_priority_low">
                   <i className="fa fa-flag" />
                 </span> */}
-              </div>
-              <div className="subtask_asignee" onClick={handleAssigneeMenu}>
-                <Tooltip title="Assignee: Manoranjan Sahoo">
-                  <IconButton>
-                    <span className="subtask_priority_icon">
-                      <i className="fa fa-user" />
-                    </span>
-                  </IconButton>
-                </Tooltip>
-              </div>
-              <div className="subtask_status" onClick={handleStatusMenu}>
-                <div className="status_name_icon">
-                  <span>InProgress</span>
-                  <RiArrowDropDownLine />
+                </div>
+                <div className="subtask_asignee" onClick={handleAssigneeMenu}>
+                  <Tooltip title="Assignee: Manoranjan Sahoo">
+                    <IconButton>
+                      <span className="subtask_priority_icon">
+                        <i className="fa fa-user" />
+                      </span>
+                    </IconButton>
+                  </Tooltip>
+                </div>
+                <div className="subtask_status" onClick={handleStatusMenu}>
+                  <div className="status_name_icon">
+                    <span>{item.status}</span>
+                    <RiArrowDropDownLine />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          ))}
         </div>
       </div>
       <Menu

@@ -17,8 +17,11 @@ import ExtraDetails from "Components/ExtraTaskDetails/ExtraDetails";
 import TaskActivity from "Components/Activity/TaskActivity";
 import useUpdateTask from "hooks/useUpdateTask";
 import useGetSubTasks from "hooks/useGetSubTasks";
+import { connect } from "react-redux";
+import { compose } from "redux";
+import { setSubtaskList } from "apis/Actions/taskAction";
 
-const TaskDetails = ({ close, task }) => {
+const TaskDetails = ({ close, task, setSubtasks }) => {
   const [type] = useState("task");
   const [taskStatus, setTaskStatus] = useState({
     title: "TODO",
@@ -48,20 +51,24 @@ const TaskDetails = ({ close, task }) => {
   useEffect(() => {
     if (task.status === "INPROGRESS") {
       setTaskStatus({ title: task.status, type: "primary" });
-      setAnchorEl(null);
     } else if (task.status === "COMPLETED") {
       setTaskStatus({ title: task.status, type: "success" });
-      setAnchorEl(null);
     } else if (task.status === "TODO") {
       setTaskStatus({ title: task.status, type: "inherit" });
-      setAnchorEl(null);
     }
+  }, []);
+
+  useEffect(() => {
     callGetSubtaskLists();
   }, []);
 
   useEffect(() => {
-    callUpdateTask()
-  }, [updateRequest])
+    setSubtasks(subtasks);
+  }, [subtasks]);
+
+  useEffect(() => {
+    callUpdateTask();
+  }, [updateRequest]);
 
   const changeStatus = (status) => {
     const st = status;
@@ -186,7 +193,7 @@ const TaskDetails = ({ close, task }) => {
             </div>
             <div className="subtasks_list">
               {subtasks.length > 0 &&
-                subtasks.map((item, index) => <SubTask key={index} subtask={item} />)}
+                <SubTask subtask={subtasks} />}
             </div>
             <div className="activities">
               <TaskActivity />
@@ -228,4 +235,16 @@ const TaskDetails = ({ close, task }) => {
   );
 };
 
-export default TaskDetails;
+function mapDispatchToProps(dispatch) {
+  return {
+    setSubtasks: (data) => dispatch(setSubtaskList(data)),
+  };
+}
+
+const mapStateToProps = (state) => ({
+  task: state.tasks.selectedTask,
+});
+
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
+
+export default compose(withConnect)(TaskDetails);

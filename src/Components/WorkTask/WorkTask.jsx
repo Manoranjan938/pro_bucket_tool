@@ -93,7 +93,7 @@ const WorkTask = ({ taskDetails, setTask }) => {
           aria-labelledby="parent-modal-title"
           aria-describedby="parent-modal-description"
         >
-          <TaskDetails close={handleClose} task={task} />
+          <TaskDetails close={handleClose} />
         </Modal>
       </div>
     </>
