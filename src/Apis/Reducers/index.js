@@ -4,6 +4,7 @@ import securityReducers from "./securityReducers";
 import projectReducers from "./projectReducers";
 import taskReducers from "./taskReducers";
 import teamMembers from "./teamReducers";
+import commentReducer from "./commentReducers";
 
 export default combineReducers({
   error: errorReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
   project: projectReducers,
   tasks: taskReducers,
   teams: teamMembers,
+  comment: commentReducer,
 });

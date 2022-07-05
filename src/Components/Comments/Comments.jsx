@@ -1,19 +1,21 @@
-import { Button, Snackbar } from "@mui/material";
+import { Avatar, Button, Snackbar } from "@mui/material";
 import React, { useState, useEffect } from "react";
 
 import "./Comments.css";
 
-import image from "Images/avatar3.png";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import useAddComment from "hooks/useAddComment";
-import MuiAlert from '@mui/material/Alert'
+import MuiAlert from "@mui/material/Alert";
+import CommentList from "Components/CommentList/CommentList";
+import useGetComments from "hooks/useGetComments";
+import { setAllComments } from "apis/Actions/commentAction";
 
-const Alert = React.forwardRef(function Alert(props, ref){
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
-})
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
-const Comments = ({ currentTask, currentUser }) => {
+const Comments = ({ currentTask, currentUser, setComments }) => {
   const [comment, setComment] = useState("");
   const [commentRequest, setCommentRequest] = useState({
     taskId: "",
@@ -23,11 +25,12 @@ const Comments = ({ currentTask, currentUser }) => {
   const [addNewComment] = useAddComment();
   const [statusBar, setStatusBar] = useState({
     open: false,
-    vertical: 'bottom',
-    horizontal: 'right',
-    type: '',
-    message: ''
+    vertical: "bottom",
+    horizontal: "right",
+    type: "",
+    message: "",
   });
+  const [comments, getComments] = useGetComments();
 
   const handleComment = (e) => {
     e.preventDefault();
@@ -44,11 +47,11 @@ const Comments = ({ currentTask, currentUser }) => {
   };
 
   const handleClose = (event, reason) => {
-    if(reason === 'clickaway'){
+    if (reason === "clickaway") {
       return;
     }
-    setStatusBar({open: false});
-  }
+    setStatusBar({ open: false });
+  };
 
   useEffect(() => {
     if (
@@ -69,6 +72,7 @@ const Comments = ({ currentTask, currentUser }) => {
           type: "success",
           message: resp.data,
         });
+        getComments(currentTask.taskSequence);
       }
     } catch (err) {
       setStatusBar({
@@ -79,11 +83,48 @@ const Comments = ({ currentTask, currentUser }) => {
     }
   };
 
+  useEffect(() => {
+    getComments(currentTask.taskSequence);
+  }, []);
+
+  useEffect(() => {
+    setComments(comments);
+  }, [comments]);
+
+  function stringToColor(string) {
+    let hash = 0;
+    let i;
+
+    /* eslint-disable no-bitwise */
+    for (i = 0; i < string.length; i += 1) {
+      hash = string.charCodeAt(i) + ((hash << 5) - hash);
+    }
+
+    let color = "#";
+
+    for (i = 0; i < 3; i += 1) {
+      const value = (hash >> (i * 8)) & 0xff;
+      color += `00${value.toString(16)}`.slice(-2);
+    }
+    /* eslint-enable no-bitwise */
+
+    return color;
+  }
+
+  function stringAvatar(name) {
+    return {
+      sx: {
+        bgcolor: stringToColor(name),
+      },
+      children: `${name.split(" ")[0][0]}`,
+    };
+  }
+
   return (
     <>
       <div className="comments_container">
         <div className="user_avatar">
-          <img src={image} alt="" />
+          <Avatar {...stringAvatar(currentUser.fullName)} />
         </div>
         <div className="comments">
           <div className="comment-text-field">
@@ -121,15 +162,22 @@ const Comments = ({ currentTask, currentUser }) => {
           </Alert>
         </Snackbar>
       </div>
+      <CommentList />
     </>
   );
 };
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setComments: (data) => dispatch(setAllComments(data)),
+  };
+}
 
 const mapStateToProps = (state) => ({
   currentTask: state.tasks.selectedTask,
   currentUser: state.security.user,
 });
 
-const withConnect = connect(mapStateToProps, null);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 export default compose(withConnect)(Comments);
