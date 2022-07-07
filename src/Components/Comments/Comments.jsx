@@ -54,6 +54,10 @@ const Comments = ({ currentTask, currentUser, setComments }) => {
   };
 
   useEffect(() => {
+    setComments([]);
+  }, []);
+
+  useEffect(() => {
     if (
       commentRequest.taskId &&
       commentRequest.userId &&
@@ -85,7 +89,7 @@ const Comments = ({ currentTask, currentUser, setComments }) => {
 
   useEffect(() => {
     getComments(currentTask.taskSequence);
-  }, []);
+  }, [currentTask.taskSequence]);
 
   useEffect(() => {
     setComments(comments);

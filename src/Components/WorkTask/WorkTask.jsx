@@ -1,5 +1,5 @@
 import { Modal } from "@mui/material";
-import { getSingleTask } from "apis/Actions/taskAction";
+import { getSingleTask, removeSelectedTask } from "apis/Actions/taskAction";
 import TaskDetails from "Components/TaskDetails/TaskDetails";
 import useGetTaskDetails from "hooks/useGetTaskDetails";
 import React, { useState } from "react";
@@ -12,7 +12,7 @@ import { compose } from "redux";
 
 import "./WorkTask.css";
 
-const WorkTask = ({ taskDetails, setTask }) => {
+const WorkTask = ({ taskDetails, setTask, removeTask }) => {
   const [showTaskModal, setShowTaskModal] = useState(false);
   const [task, getTaskDetails] = useGetTaskDetails();
 
@@ -23,6 +23,7 @@ const WorkTask = ({ taskDetails, setTask }) => {
 
   const handleClose = () => {
     setShowTaskModal(false);
+    removeTask();
   };
 
   const callGetTask = async (sequence) => {
@@ -103,6 +104,7 @@ const WorkTask = ({ taskDetails, setTask }) => {
 function mapDispatchToProps(dispatch) {
   return {
     setTask: (data) => dispatch(getSingleTask(data)),
+    removeTask: dispatch(removeSelectedTask),
   };
 }
 

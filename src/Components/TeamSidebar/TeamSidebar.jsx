@@ -18,7 +18,7 @@ import { connect } from "react-redux";
 import { compose } from "redux";
 import { getProjectDetails } from "apis/Actions/projectsAction";
 
-const TeamSidebar = ({ id, getSingleProject }) => {
+const TeamSidebar = ({ id, getSingleProject, name }) => {
   const [project, getProjectDetails] = useGetProjectDetails();
 
   useEffect(() => {
@@ -56,7 +56,7 @@ const TeamSidebar = ({ id, getSingleProject }) => {
               })} */}
               <Link
                 className="sidebar_link"
-                to={`/project/team/home?project=${id}`}
+                to={`/project/team/home?project=${id}&name=${name}`}
               >
                 <div className="icon">
                   <MdDashboard />
@@ -65,7 +65,7 @@ const TeamSidebar = ({ id, getSingleProject }) => {
               </Link>
               <Link
                 className="sidebar_link"
-                to={`/project/team/works?project=${id}`}
+                to={`/project/team/works?project=${id}&name=${name}`}
               >
                 <div className="icon">
                   <GoProject />
@@ -79,7 +79,7 @@ const TeamSidebar = ({ id, getSingleProject }) => {
               </Link> */}
               <Link
                 className="sidebar_link"
-                to={`/project/team/notes?project=${id}`}
+                to={`/project/team/notes?project=${id}&name=${name}`}
               >
                 <div className="icon">
                   <BiNotepad />
@@ -88,7 +88,7 @@ const TeamSidebar = ({ id, getSingleProject }) => {
               </Link>
               <Link
                 className="sidebar_link"
-                to={`/project/team/issues?project=${id}`}
+                to={`/project/team/issues?project=${id}&name=${name}`}
               >
                 <div className="icon">
                   <GoIssueClosed />
@@ -106,7 +106,7 @@ const TeamSidebar = ({ id, getSingleProject }) => {
               </Link> */}
               <Link
                 className="sidebar_link"
-                to={`/project/team/new-user?project=${id}`}
+                to={`/project/team/new-user?project=${id}&name=${name}`}
               >
                 <div className="icon">
                   <BiUserPlus />
@@ -115,7 +115,7 @@ const TeamSidebar = ({ id, getSingleProject }) => {
               </Link>
               <Link
                 className="sidebar_link"
-                to={`/project/team/notifications?project=${id}`}
+                to={`/project/team/notifications?project=${id}&name=${name}`}
               >
                 <div className="icon">
                   <IoNotifications />

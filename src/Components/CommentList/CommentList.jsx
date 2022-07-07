@@ -37,7 +37,7 @@ const CommentList = ({ comments }) => {
 
   return (
     <>
-      {comments.map((item) => (
+      {comments.length > 0 && comments.map((item) => (
         <div className="comment_list_container">
           <div className="user_avatar">
             <Avatar {...stringAvatar(item.name)} />

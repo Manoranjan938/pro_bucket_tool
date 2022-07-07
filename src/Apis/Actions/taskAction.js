@@ -1,4 +1,5 @@
 import {
+  REMOVE_TASK_DETAILS,
   SET_SELECTED_SUBTASK,
   SET_SINGLE_TASK,
   SET_SUBTASK_LIST,
@@ -18,6 +19,13 @@ export const getSingleTask = (task) => (dispatch) => {
     payload: task,
   });
 };
+
+export const removeSelectedTask = () => (dispatch) => {
+  dispatch({
+    type: REMOVE_TASK_DETAILS,
+    payload: {}
+  })
+}
 
 export const setSubtaskList = (subtaskList) => (dispatch) => {
   dispatch({

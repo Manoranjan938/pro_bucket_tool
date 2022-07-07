@@ -52,7 +52,7 @@ const Projects = ({ getProjects, currentUser, myProjects }) => {
           <div className="project__bottom_section">
             {projects.map((item) => (
               <div key={item.projectId}>
-                <Link to={`/project/${item.projectType}/home?project=${item.projectId}`}>
+                <Link to={`/project/${item.projectType}/home?project=${item.projectId}&name=${item.projectIdentifier}`}>
                   <div className="project__card">
                     <div className="project__header__details">
                       <img src={avatar} alt="" />

@@ -56,11 +56,11 @@ const TaskDetails = ({ close, task, setSubtasks }) => {
     } else if (task.status === "TODO") {
       setTaskStatus({ title: task.status, type: "inherit" });
     }
-  }, []);
+  }, [task.status]);
 
   useEffect(() => {
     callGetSubtaskLists();
-  }, []);
+  }, [task.taskSequence]);
 
   useEffect(() => {
     setSubtasks(subtasks);

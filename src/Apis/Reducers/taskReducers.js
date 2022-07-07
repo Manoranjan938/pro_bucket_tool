@@ -3,6 +3,7 @@ import {
   SET_SINGLE_TASK,
   SET_SUBTASK_LIST,
   SET_SELECTED_SUBTASK,
+  REMOVE_TASK_DETAILS,
 } from "apis/Actions/types";
 
 const initialState = {
@@ -36,6 +37,12 @@ const setAllTasks = (state = initialState, action) => {
       return {
         ...state,
         selectedSubtask: action.payload,
+      };
+
+    case REMOVE_TASK_DETAILS:
+      return {
+        ...state,
+        selectedTask: action.payload,
       };
 
     default:
