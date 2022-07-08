@@ -24,8 +24,6 @@ const NewUser = ({ currentProject, getTeamList }) => {
     getTeamList(teamList);
   }, [teamList]);
 
-  console.log(teamList);
-
   return (
     <>
       <div className="new_user_container">
