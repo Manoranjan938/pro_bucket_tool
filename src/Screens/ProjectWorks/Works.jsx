@@ -8,6 +8,7 @@ import useGetTaskLists from "hooks/useGetTaskLists";
 import React, { useEffect, useState } from "react";
 import Helmet from "react-helmet";
 import { connect } from "react-redux";
+import { useLocation } from "react-router-dom";
 import { compose } from "redux";
 
 import "./works.css";
@@ -16,9 +17,14 @@ const Works = ({ title, currentProject, getTaskList, myTasks }) => {
   const [tasks, getTaskLists] = useGetTaskLists();
   const [show, setShow] = useState(false);
 
+  let { search } = useLocation();
+
+  const query = new URLSearchParams(search);
+  const name = query.get("name");
+
   const callGetTaskLists = async () => {
     try {
-      await getTaskLists(currentProject.projectIdentifier);
+      await getTaskLists(name);
     } catch (err) {
       //console.log(err);
     }

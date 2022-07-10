@@ -1,10 +1,44 @@
-import { Avatar } from "@mui/material";
+import {
+  Autocomplete,
+  Avatar,
+  Box,
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Modal,
+  Select,
+  TextField,
+} from "@mui/material";
 import TaskStatusCompletion from "Components/TaskCompletionStatus/TaskStatusCompletion";
-import React from "react";
+import useUpdateTask from "hooks/useUpdateTask";
+import React, { useState } from "react";
+import { useEffect } from "react";
+import { connect } from "react-redux";
+import { compose } from "redux";
 
 import "./ExtraDetails.css";
 
-const ExtraDetails = () => {
+const ExtraDetails = ({ currentuser, myTeams, currentTask }) => {
+  const [showTaskModal, setShowTaskModal] = useState(false);
+  const [assignee, setAssignee] = useState("");
+  const [updateRequest, setUpdateRequest] = useState({
+    taskId: "",
+    status: "",
+    assignee: "",
+    priority: "",
+    description: "",
+  });
+  const [updateTask] = useUpdateTask();
+
+  const handleTaskModal = () => {
+    setShowTaskModal(true);
+  };
+
+  const handleClose = () => {
+    setShowTaskModal(false);
+  };
+
   function stringToColor(string) {
     let hash = 0;
     let i;
@@ -26,6 +60,7 @@ const ExtraDetails = () => {
   }
 
   function stringAvatar(name) {
+    console.log(name)
     return {
       sx: {
         bgcolor: stringToColor(name),
@@ -33,6 +68,40 @@ const ExtraDetails = () => {
       children: `${name.split(" ")[0][0]}`,
     };
   }
+
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    setUpdateRequest({
+      taskId: currentTask.taskSequence,
+      status: currentTask.status,
+      assignee: assignee.email,
+      priority: currentTask.priority,
+      description: currentTask.taskDesc,
+    });
+  }
+
+  const callUpdateTask = async () => {
+    try {
+      const resp = await updateTask(updateRequest);
+
+      if (resp.status === 200) {
+        console.log("Updated successfully");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    if (
+      updateRequest.taskId &&
+      updateRequest.assignee &&
+      updateRequest.priority &&
+      updateRequest.status
+    ) {
+      callUpdateTask();
+    }
+  },[updateRequest])
 
   return (
     <>
@@ -48,29 +117,108 @@ const ExtraDetails = () => {
             <div className="labels">
               <div className="label">Assignee</div>
               <div className="choose_one">
-                <span className="unassign">Un-assigned</span>
-                <span className="change">Change</span>
+                <span className="unassign">
+                  <div className="choose_one">
+                    {currentTask != null && (
+                      <>
+                        {/* <Avatar {...stringAvatar(currentTask.assignee)} /> */}
+                        <span className="name">{currentTask.assignee === "NA" ? "Un-Assigned" : currentTask.assignee}</span>
+                      </>
+                    )}
+                  </div>
+                </span>
+                <span className="change" onClick={handleTaskModal}>
+                  Change
+                </span>
               </div>
             </div>
             <div className="labels">
               <div className="label">Reporter</div>
               <div className="choose_one">
-                <Avatar {...stringAvatar("Manua")} />
-                <span className="name">Manua</span>
+                <Avatar {...stringAvatar(currentuser.fullName)} />
+                <span className="name">{currentuser.fullName}</span>
               </div>
             </div>
             <div className="labels">
               <div className="label">Priority</div>
               <div className="choose_one">
-                <span className="unassign">Low</span>
-                <span className="change">Change</span>
+                <span className="unassign">{currentTask.priority}</span>
+                {/* <span className="change" onClick={handleTaskModal}>
+                  Change
+                </span> */}
               </div>
             </div>
           </div>
         </div>
       </div>
+      <Modal
+        open={showTaskModal}
+        onClose={handleClose}
+        aria-labelledby="parent-modal-title"
+        aria-describedby="parent-modal-description"
+      >
+        <div className="task_status_container">
+          <div className="task_status_header">
+            <h4>Update Assignee and Priority</h4>
+            <i className="fa fa-times-circle-o" onClick={handleClose} />
+          </div>
+          <div className="divider" />
+          <div className="task_status_body">
+            <Autocomplete
+              id="country-select-demo"
+              className="fields"
+              fullWidth
+              value={assignee}
+              onChange={(event, value) => {
+                setAssignee(value);
+              }}
+              options={myTeams}
+              autoHighlight
+              getOptionLabel={(option) => option.name}
+              renderOption={(props, option) => (
+                <Box component="li" {...props}>
+                  {option.name}
+                </Box>
+              )}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Choose assignee"
+                  inputProps={{
+                    ...params.inputProps,
+                    autoComplete: "new-password", // disable autocomplete and autofill
+                  }}
+                />
+              )}
+            />
+            {/* <FormControl fullWidth className="fields">
+              <InputLabel id="demo-simple-select-label">Priority</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                label="Priority"
+              >
+                <MenuItem value="LOW">LOW</MenuItem>
+                <MenuItem value="MEDIUM">MEDIUM</MenuItem>
+                <MenuItem value="HIGH">HIGH</MenuItem>
+              </Select>
+            </FormControl> */}
+            <Button variant="contained" color="primary" onClick={handleUpdate}>
+              Update
+            </Button>
+          </div>
+        </div>
+      </Modal>
     </>
   );
 };
 
-export default ExtraDetails;
+const mapStateToProps = (state) => ({
+  currentuser: state.security.user,
+  myTeams: state.teams.allTeamMember,
+  currentTask: state.tasks.selectedTask,
+});
+
+const withConnect = connect(mapStateToProps, null);
+
+export default compose(withConnect)(ExtraDetails);

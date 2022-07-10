@@ -36,3 +36,27 @@
     font-weight: 600;
     font-size: 14px;
 }
+
+.task_status_container{
+    width: 350px;
+    margin: 5% auto;
+    border-radius: 10px;
+    background: #fff;
+    padding: 1rem;
+    outline: none;
+}
+
+.task_status_header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task_status_header > h4{
+    margin: 0;
+}
+
+.task_status_header > i {
+    font-size: 20px;
+    cursor: pointer;
+}

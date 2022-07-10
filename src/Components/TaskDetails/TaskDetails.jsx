@@ -29,17 +29,17 @@ const TaskDetails = ({ close, task, setSubtasks }) => {
   });
   const [anchorEl, setAnchorEl] = useState(null);
   const [details, setDetails] = useState({
-    description: '',
-    priority: '',
-    assignee: ''
-  })
+    description: "",
+    priority: "",
+    assignee: "",
+  });
   const [updateRequest, setUpdateRequest] = useState({
-    taskId: '',
-    status: '',
-    assignee: '',
-    priority: '',
-    description: ''
-  })
+    taskId: "",
+    status: "",
+    assignee: "",
+    priority: "",
+    description: "",
+  });
   const [updateTask] = useUpdateTask();
   const [subtasks, getSubtaskList] = useGetSubTasks();
 

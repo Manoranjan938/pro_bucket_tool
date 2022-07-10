@@ -1,13 +1,7 @@
-import { Avatar, AvatarGroup, IconButton, Tooltip } from "@mui/material";
+import { Avatar, AvatarGroup, Tooltip } from "@mui/material";
 import React, { useEffect } from "react";
 
 import { FaSearch } from "react-icons/fa";
-
-import image1 from "Images/avatar1.png";
-import image2 from "Images/avatar2.png";
-import image3 from "Images/avatar3.png";
-import image4 from "Images/avatar4.png";
-import image5 from "Images/avatar5.png";
 
 import "./TeamWorkHeader.css";
 import useGetTeamMembersList from "hooks/useGetTeamMembersList";

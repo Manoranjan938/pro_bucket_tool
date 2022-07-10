@@ -55,6 +55,11 @@
     width: 110px;
 }
 
+.actn_btn{
+    cursor: pointer;
+    color: #2ea5fbdd;
+}
+
 .new_user_row{
     display: flex;
     align-items: center;
