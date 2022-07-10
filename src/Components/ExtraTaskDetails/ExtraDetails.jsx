@@ -3,11 +3,7 @@ import {
   Avatar,
   Box,
   Button,
-  FormControl,
-  InputLabel,
-  MenuItem,
   Modal,
-  Select,
   TextField,
 } from "@mui/material";
 import TaskStatusCompletion from "Components/TaskCompletionStatus/TaskStatusCompletion";
@@ -60,7 +56,6 @@ const ExtraDetails = ({ currentuser, myTeams, currentTask }) => {
   }
 
   function stringAvatar(name) {
-    console.log(name)
     return {
       sx: {
         bgcolor: stringToColor(name),
@@ -107,7 +102,7 @@ const ExtraDetails = ({ currentuser, myTeams, currentTask }) => {
     <>
       <div className="extra_details_container">
         <div className="task_completion_progress_bars">
-          <TaskStatusCompletion />
+          <TaskStatusCompletion task={currentTask} />
         </div>
         <div className="extra_owner_details">
           <div className="owner__details__header">

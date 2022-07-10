@@ -10,13 +10,14 @@ const DashboardScreen = ({ children }) => {
 
   const query = new URLSearchParams(search);
   const param = query.get("project");
+  const name = query.get("name");
 
   return (
     <>
       <div className="sidebar__layout">
         <div className="const">
           <DashboardHeader />
-          <Sidebar id={param} />
+          <Sidebar id={param} name={name} />
         </div>
         <div className="sidebar__main">{children}</div>
       </div>

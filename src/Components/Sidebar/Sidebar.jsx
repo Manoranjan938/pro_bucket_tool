@@ -18,7 +18,7 @@ import { connect } from "react-redux";
 import { getProjectDetails } from "apis/Actions/projectsAction";
 import useGetProjectDetails from "hooks/useGetProjectDetails";
 
-const Sidebar = ({ myProject, id, getSingleProject }) => {
+const Sidebar = ({ myProject, id, getSingleProject, name }) => {
   const [project, getProjectDetails] = useGetProjectDetails();
 
   useEffect(() => {
@@ -45,7 +45,7 @@ const Sidebar = ({ myProject, id, getSingleProject }) => {
             <div className="sidebar_link_container">
               <Link
                 className="sidebar_link"
-                to={`/project/personal/home?project=${id}`}
+                to={`/project/personal/home?project=${id}&name=${name}`}
               >
                 <div className="icon">
                   <MdDashboard />
@@ -54,7 +54,7 @@ const Sidebar = ({ myProject, id, getSingleProject }) => {
               </Link>
               <Link
                 className="sidebar_link"
-                to={`/project/personal/works?project=${id}`}
+                to={`/project/personal/works?project=${id}&name=${name}`}
               >
                 <div className="icon">
                   <GoProject />
@@ -63,7 +63,7 @@ const Sidebar = ({ myProject, id, getSingleProject }) => {
               </Link>
               <Link
                 className="sidebar_link"
-                to={`/project/personal/notes?project=${id}`}
+                to={`/project/personal/notes?project=${id}&name=${name}`}
               >
                 <div className="icon">
                   <BiNotepad />
@@ -81,7 +81,7 @@ const Sidebar = ({ myProject, id, getSingleProject }) => {
               </Link> */}
               <Link
                 className="sidebar_link"
-                to={`/project/personal/notifications?project=${id}`}
+                to={`/project/personal/notifications?project=${id}&name=${name}`}
               >
                 <div className="icon">
                   <IoNotifications />
