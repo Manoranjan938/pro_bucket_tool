@@ -86,7 +86,7 @@ const TeamSidebar = ({ id, getSingleProject, name }) => {
                 </div>
                 <div className="label">Notes</div>
               </Link>
-              <Link
+              {/* <Link
                 className="sidebar_link"
                 to={`/project/team/issues?project=${id}&name=${name}`}
               >
@@ -94,7 +94,7 @@ const TeamSidebar = ({ id, getSingleProject, name }) => {
                   <GoIssueClosed />
                 </div>
                 <div className="label">Issues</div>
-              </Link>
+              </Link> */}
               {/* <Link
                 className="sidebar_link"
                 to={`/project/team/todos?project=${id}`}

@@ -23,12 +23,12 @@ const TaskActivity = () => {
           >
             <span>Comments</span>
           </div>
-          <div
+          {/* <div
             className={showTab === 2 ? "tabs activity_active_tab" : "tabs"}
             onClick={() => handleTab(2)}
           >
             <span>History</span>
-          </div>
+          </div> */}
         </div>
         <div className="activity_body">
           {showTab === 1 && <Comments />}
