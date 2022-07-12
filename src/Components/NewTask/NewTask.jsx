@@ -86,6 +86,7 @@ const NewTask = ({ open, setOpen, currentProject }) => {
         <div className="new_task">
           <div className="new_task_header">
             <h3>New Task</h3>
+            <i className="fa fa-times-circle-o" onClick={handleClose} />
           </div>
           <div className="divider" />
           <TextField

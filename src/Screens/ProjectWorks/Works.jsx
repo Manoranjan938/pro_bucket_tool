@@ -50,7 +50,7 @@ const Works = ({ title, currentProject, getTaskList, myTasks }) => {
       {myTasks ? (
         <>
           {currentProject.projectType === "team" && <TeamWorkHeader />}
-          <ProjectWorks tasks={myTasks} />
+          <ProjectWorks />
         </>
       ) : (
         <>

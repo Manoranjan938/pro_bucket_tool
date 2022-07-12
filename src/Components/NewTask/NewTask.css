@@ -8,6 +8,12 @@
   border-radius: 10px;
 }
 
+.new_task_header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .input_form {
   margin-bottom: 20px!important;
 }

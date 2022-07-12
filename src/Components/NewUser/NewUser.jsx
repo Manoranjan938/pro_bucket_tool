@@ -1,4 +1,4 @@
-import { Avatar, Button, FormControl, InputLabel, MenuItem, Modal, Select, TextField } from "@mui/material";
+import { Avatar, Button, FormControl, InputLabel, MenuItem, Modal, Select, Snackbar, TextField } from "@mui/material";
 import { getAllTeamMembers } from "apis/Actions/teamActions";
 import CreateUser from "Components/CreateUser/CreateUser";
 import useGetTeamMembersList from "hooks/useGetTeamMembersList";
@@ -72,7 +72,7 @@ const NewUser = ({ getTeamList }) => {
   }
 
   useEffect(() => {
-    if(updateRequest.userid && updateRequest.role && updateRequest.status){
+    if(updateRequest.userid && updateRequest.role){
       callUpdateTeam();
     }
   }, [updateRequest])
@@ -92,7 +92,7 @@ const NewUser = ({ getTeamList }) => {
       setStatusBar({
         open: true,
         type: "error",
-        message: err.response.data.username,
+        message: err.response.data,
       });
     }
   }
@@ -168,12 +168,21 @@ const NewUser = ({ getTeamList }) => {
                   <span>21-05-2022</span>
                 </div>
                 <div className="status">
-                  <span className="status_text">{item.status === 0 ? "Active" : "In-Active"}</span>
+                  <span className="status_text">
+                    {item.status === 0 ? "Active" : "In-Active"}
+                  </span>
                 </div>
                 <div className="role">
-                  <span>{item.role === null || item.role === "null" ? "Not Added" : item.role}</span>
+                  <span>
+                    {item.role === null || item.role === "null"
+                      ? "Not Added"
+                      : item.role}
+                  </span>
                 </div>
-                <div className="action actn_btn" onClick={() => handleTaskModal(item)}>
+                <div
+                  className="action actn_btn"
+                  onClick={() => handleTaskModal(item)}
+                >
                   <span>Edit Details</span>
                 </div>
               </div>
@@ -200,7 +209,9 @@ const NewUser = ({ getTeamList }) => {
               label="Member Role"
               variant="outlined"
               value={updateTeam.role}
-              onChange={(e) => setUpdateTeam({...updateTeam, role: e.target.value})}
+              onChange={(e) =>
+                setUpdateTeam({ ...updateTeam, role: e.target.value })
+              }
             />
             <FormControl fullWidth className="fields">
               <InputLabel id="demo-simple-select-label">Status</InputLabel>
@@ -209,18 +220,39 @@ const NewUser = ({ getTeamList }) => {
                 id="demo-simple-select"
                 label="Priority"
                 value={updateTeam.status}
-                onChange={(e) => setUpdateTeam({...updateTeam, status: e.target.value})}
+                onChange={(e) =>
+                  setUpdateTeam({ ...updateTeam, status: e.target.value })
+                }
               >
                 <MenuItem value={0}>Active</MenuItem>
                 <MenuItem value={1}>In-Active</MenuItem>
               </Select>
             </FormControl>
-            <Button variant="contained" color="primary" onClick={handleUpdateTeam}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleUpdateTeam}
+            >
               Update
             </Button>
           </div>
         </div>
       </Modal>
+      <Snackbar
+        open={statusBar.open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+        key={statusBar.vertical + statusBar.horizontal}
+      >
+        <Alert
+          onClose={handleClose}
+          severity={statusBar.type}
+          sx={{ width: "100%" }}
+        >
+          {statusBar.message}
+        </Alert>
+      </Snackbar>
     </>
   );
 };

@@ -20,8 +20,9 @@ import useGetSubTasks from "hooks/useGetSubTasks";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { setSubtaskList } from "apis/Actions/taskAction";
+import NewSubTask from "Components/NewSubTask/NewSubTask";
 
-const TaskDetails = ({ close, task, setSubtasks }) => {
+const TaskDetails = ({ close, task, setSubtasks, allSubtask }) => {
   const [type] = useState("task");
   const [taskStatus, setTaskStatus] = useState({
     title: "TODO",
@@ -42,11 +43,16 @@ const TaskDetails = ({ close, task, setSubtasks }) => {
   });
   const [updateTask] = useUpdateTask();
   const [subtasks, getSubtaskList] = useGetSubTasks();
+  const [openSubtask, setOpenSubtask] = useState(false);
 
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
+  const handleOpenSubtask = () => {
+    setOpenSubtask(!openSubtask);
+  }
 
   useEffect(() => {
     if (task.status === "INPROGRESS") {
@@ -167,7 +173,11 @@ const TaskDetails = ({ close, task, setSubtasks }) => {
               <Button variant="contained" color="inherit">
                 <GrAttachment /> &nbsp; Attach
               </Button>
-              <Button variant="contained" color="inherit">
+              <Button
+                variant="contained"
+                color="inherit"
+                onClick={handleOpenSubtask}
+              >
                 <VscTypeHierarchySub /> &nbsp; Create Subtask
               </Button>
             </div>
@@ -192,8 +202,7 @@ const TaskDetails = ({ close, task, setSubtasks }) => {
               </div>
             </div>
             <div className="subtasks_list">
-              {subtasks.length > 0 &&
-                <SubTask subtask={subtasks} />}
+              {allSubtask.length > 0 && <SubTask subtask={allSubtask} />}
             </div>
             <div className="activities">
               <TaskActivity />
@@ -231,6 +240,9 @@ const TaskDetails = ({ close, task, setSubtasks }) => {
         </MenuItem>
         <MenuItem onClick={() => changeStatus("COMPLETED")}>Completed</MenuItem>
       </Menu>
+      {openSubtask && (
+        <NewSubTask open={openSubtask} setOpen={setOpenSubtask} />
+      )}
     </>
   );
 };
@@ -243,6 +255,7 @@ function mapDispatchToProps(dispatch) {
 
 const mapStateToProps = (state) => ({
   task: state.tasks.selectedTask,
+  allSubtask: state.tasks.allSubtasks
 });
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);

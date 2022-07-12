@@ -1,19 +1,21 @@
 import NewTask from "Components/NewTask/NewTask";
 import WorkTask from "Components/WorkTask/WorkTask";
 import React, { useState } from "react";
+import { connect } from "react-redux";
+import { compose } from "redux";
 
 import "./ProjectWorks.css";
 
-const ProjectWorks = ({ tasks }) => {
+const ProjectWorks = ({ myTasks }) => {
   const [showNewModal, setShowNewModal] = useState(false);
 
   const handleNewModal = () => {
     setShowNewModal(true);
   };
 
-  const proTasks = tasks.map((task, index) => (
+  const proTasks = myTasks.map((task, index) => (
     <WorkTask key={index} taskDetails={task} />
-  ))
+  ));
 
   let todoItems = [];
   let inProgressItems = [];
@@ -85,9 +87,17 @@ const ProjectWorks = ({ tasks }) => {
         </div>
       </div>
 
-      {showNewModal && <NewTask open={showNewModal} setOpen={setShowNewModal} />}
+      {showNewModal && (
+        <NewTask open={showNewModal} setOpen={setShowNewModal} />
+      )}
     </>
   );
 };
 
-export default ProjectWorks;
+const mapStateToProps = (state) => ({
+  myTasks: state.tasks.allTask,
+});
+
+const withConnect = connect(mapStateToProps, null);
+
+export default compose(withConnect)(ProjectWorks);
