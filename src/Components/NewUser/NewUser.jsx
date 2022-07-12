@@ -1,29 +1,103 @@
 import { Avatar, Button, FormControl, InputLabel, MenuItem, Modal, Select, TextField } from "@mui/material";
-import { deepOrange } from "@mui/material/colors";
 import { getAllTeamMembers } from "apis/Actions/teamActions";
 import CreateUser from "Components/CreateUser/CreateUser";
 import useGetTeamMembersList from "hooks/useGetTeamMembersList";
+import useUpdateTeamMember from "hooks/useUpdateTeamMember";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { compose } from "redux";
+import MuiAlert from '@mui/material/Alert'
 
 import "./NewUser.css";
+
+const Alert = React.forwardRef(function Alert(props, ref){
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
+})
 
 const NewUser = ({ getTeamList }) => {
   const [teamList, getTeamLists] = useGetTeamMembersList();
   const [showTaskModal, setShowTaskModal] = useState(false);
+  const [updateTeam, setUpdateTeam] = useState({
+    id: 0,
+    role: '',
+    status: ''
+  })
+  const [updateRequest, setUpdateRequest] = useState({
+    userid: 0,
+    role: '',
+    status: ''
+  })
+  const [statusBar, setStatusBar] = useState({
+    open: false,
+    vertical: 'bottom',
+    horizontal: 'right',
+    type: '',
+    message: ''
+  });
+  const [updateTeamMember] = useUpdateTeamMember();
 
   let { search } = useLocation();
 
   const query = new URLSearchParams(search);
   const name = query.get("project");
 
-  const handleTaskModal = () => {
+  const handleTaskModal = (item) => {
     setShowTaskModal(true);
+    setUpdateTeam({
+      ...updateTeam,
+      id: item.userid,
+      status: item.status
+    })
   };
 
-  const handleClose = () => {
+  const handleUpdateTeam = (e) => {
+    e.preventDefault();
+    setUpdateRequest({
+      userid: updateTeam.id,
+      role: updateTeam.role,
+      status: updateTeam.status
+    })
+    setUpdateTeam({
+      ...updateTeam,
+      role: ""
+    });
+  }
+
+  const handleClose = (event, reason) => {
+    if(reason === 'clickaway'){
+      return;
+    }
+    setStatusBar({open: false});
+  }
+
+  useEffect(() => {
+    if(updateRequest.userid && updateRequest.role && updateRequest.status){
+      callUpdateTeam();
+    }
+  }, [updateRequest])
+
+  const callUpdateTeam = async() => {
+    try{
+      const resp = await updateTeamMember(updateRequest)
+
+      if(resp.status === 200){
+        setStatusBar({
+          open: true,
+          type: "success",
+          message: resp.data,
+        });
+      }
+    }catch(err){
+      setStatusBar({
+        open: true,
+        type: "error",
+        message: err.response.data.username,
+      });
+    }
+  }
+
+  const handleTaskClose = () => {
     setShowTaskModal(false);
   };
 
@@ -94,12 +168,12 @@ const NewUser = ({ getTeamList }) => {
                   <span>21-05-2022</span>
                 </div>
                 <div className="status">
-                  <span className="status_text">Active</span>
+                  <span className="status_text">{item.status === 0 ? "Active" : "In-Active"}</span>
                 </div>
                 <div className="role">
-                  <span>Not Added</span>
+                  <span>{item.role === null || item.role === "null" ? "Not Added" : item.role}</span>
                 </div>
-                <div className="action actn_btn" onClick={handleTaskModal}>
+                <div className="action actn_btn" onClick={() => handleTaskModal(item)}>
                   <span>Edit Details</span>
                 </div>
               </div>
@@ -109,14 +183,14 @@ const NewUser = ({ getTeamList }) => {
       </div>
       <Modal
         open={showTaskModal}
-        onClose={handleClose}
+        onClose={handleTaskClose}
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
       >
         <div className="task_status_container">
           <div className="task_status_header">
             <h4>Update Assignee and Priority</h4>
-            <i className="fa fa-times-circle-o" onClick={handleClose} />
+            <i className="fa fa-times-circle-o" onClick={handleTaskClose} />
           </div>
           <div className="divider" />
           <div className="task_status_body">
@@ -125,6 +199,8 @@ const NewUser = ({ getTeamList }) => {
               id="outlined-basic"
               label="Member Role"
               variant="outlined"
+              value={updateTeam.role}
+              onChange={(e) => setUpdateTeam({...updateTeam, role: e.target.value})}
             />
             <FormControl fullWidth className="fields">
               <InputLabel id="demo-simple-select-label">Status</InputLabel>
@@ -132,12 +208,14 @@ const NewUser = ({ getTeamList }) => {
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 label="Priority"
+                value={updateTeam.status}
+                onChange={(e) => setUpdateTeam({...updateTeam, status: e.target.value})}
               >
-                <MenuItem value="Active">Active</MenuItem>
-                <MenuItem value="In-Active">In-Active</MenuItem>
+                <MenuItem value={0}>Active</MenuItem>
+                <MenuItem value={1}>In-Active</MenuItem>
               </Select>
             </FormControl>
-            <Button variant="contained" color="primary">
+            <Button variant="contained" color="primary" onClick={handleUpdateTeam}>
               Update
             </Button>
           </div>

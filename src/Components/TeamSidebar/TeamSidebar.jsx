@@ -18,7 +18,7 @@ import { connect } from "react-redux";
 import { compose } from "redux";
 import { getProjectDetails } from "apis/Actions/projectsAction";
 
-const TeamSidebar = ({ id, getSingleProject, name }) => {
+const TeamSidebar = ({ id, getSingleProject, name, currentUser }) => {
   const [project, getProjectDetails] = useGetProjectDetails();
 
   useEffect(() => {
@@ -104,15 +104,18 @@ const TeamSidebar = ({ id, getSingleProject, name }) => {
                 </div>
                 <div className="label">Todo</div>
               </Link> */}
-              <Link
-                className="sidebar_link"
-                to={`/project/team/new-user?project=${id}&name=${name}`}
-              >
-                <div className="icon">
-                  <BiUserPlus />
-                </div>
-                <div className="label">Add Team Member</div>
-              </Link>
+              {currentUser.rolename === "ROLE_TEAM-USER" ? null : (
+                <Link
+                  className="sidebar_link"
+                  to={`/project/team/new-user?project=${id}&name=${name}`}
+                >
+                  <div className="icon">
+                    <BiUserPlus />
+                  </div>
+                  <div className="label">Add Team Member</div>
+                </Link>
+              )}
+
               <Link
                 className="sidebar_link"
                 to={`/project/team/notifications?project=${id}&name=${name}`}
@@ -179,6 +182,10 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-const withConnect = connect(null, mapDispatchToProps);
+const mapStateToProps = (state) => ({
+  currentUser: state.security.user,
+});
+
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 export default compose(withConnect)(TeamSidebar);
