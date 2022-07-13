@@ -90,7 +90,6 @@ const NewSubTask = ({ open, setOpen, currentProject, currentTask, setSubtasks })
     try {
       const resp = await createNewSubtask(taskRequest);
       if (resp.status === 201) {
-        setOpen(!open);
         callGetSubtaskLists();
         setStatusBar({
           open: true,
@@ -102,6 +101,10 @@ const NewSubTask = ({ open, setOpen, currentProject, currentTask, setSubtasks })
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    callGetSubtaskLists();
+  }, []);
 
   useEffect(() => {
     setSubtasks(subtasks);

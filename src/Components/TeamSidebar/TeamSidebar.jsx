@@ -124,14 +124,14 @@ const TeamSidebar = ({ id, getSingleProject, name, currentUser }) => {
                   <IoNotifications />
                 </div>
                 <div className="label">Notifications</div>
-                <div className="notification_icon">5</div>
+                <div className="notification_icon">1</div>
               </Link>
             </div>
             <div className="divider" />
             <div className="sidebar_link_container">
               <Link
                 className="sidebar_link"
-                to="/user/personal/project/netflix-clone/setting"
+                to={`/project/team/setting?project=${id}&name=${name}`}
               >
                 <div className="icon">
                   <AiOutlineSetting />
@@ -160,7 +160,7 @@ const TeamSidebar = ({ id, getSingleProject, name, currentUser }) => {
               </Link> */}
             </div>
             <div className="divider" />
-            <Link className="sidebar_link" to="/project/team/trash">
+            <Link className="sidebar_link" to={`/project/team/trash?project=${id}&name=${name}`}>
               <div className="icon">
                 <FaTrashAlt />
               </div>

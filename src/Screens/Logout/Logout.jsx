@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 import { compose } from "redux";
 import { logout } from "apis/Actions/securityActions";
 
-const Logout = ({ logout }) => {
+const Logout = ({ logout, currentUser }) => {
   const navigate = useNavigate();
 
   const truncate = (string, n) => {
@@ -18,7 +18,7 @@ const Logout = ({ logout }) => {
 
   const handleClickLogout = () => {
     logout();
-    navigate("/login")
+    navigate("/login");
   };
 
   return (
@@ -37,8 +37,8 @@ const Logout = ({ logout }) => {
             <div className="logout__user__details">
               <img src={user} alt="" />
               <div className="logout__user">
-                <h4>Manoranjan Sahoo</h4>
-                <p>{truncate("sahoomanoranjan626@gmail.com", 27)}</p>
+                <h4>{currentUser.fullName}</h4>
+                <p>{truncate(currentUser.username, 27)}</p>
               </div>
             </div>
             <button className="logout__btn" onClick={handleClickLogout}>
@@ -61,6 +61,10 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-const withConnect = connect(null, mapDispatchToProps);
+const mapStateToProps = (state) => ({
+  currentUser: state.security.user,
+});
+
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 export default compose(withConnect)(Logout);

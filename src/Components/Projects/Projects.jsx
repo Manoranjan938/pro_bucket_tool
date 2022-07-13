@@ -35,7 +35,11 @@ const Projects = ({ getProjects, currentUser, myProjects }) => {
   }
 
   useEffect(() => {
-    if (currentUser.rolename === "ROLE_PERSONAL" || currentUser.rolename === "ROLE_TEAM-ADMIN") {
+    if (
+      currentUser.rolename === "ROLE_PERSONAL" ||
+      currentUser.rolename === "ROLE_TEAM-ADMIN" ||
+      currentUser.rolename === "ROLE_USER"
+    ) {
       callGetAllProjects();
     } else if (currentUser.rolename === "ROLE_TEAM-USER") {
       callGetProjectByTeamMembers();

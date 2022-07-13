@@ -31,7 +31,7 @@ const TeamDashboardHome = () => {
       {/* <TeamHomeHeader /> */}
       <TeamTaskCards />
       {teamList.length === 0 && <TeamMemberNotification />}
-      <TeamTaskAndBugList />
+      {/* <TeamTaskAndBugList /> */}
     </>
   );
 };

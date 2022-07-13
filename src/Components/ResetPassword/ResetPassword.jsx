@@ -1,17 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import image from "Images/logo.png";
 import MuiAlert from "@mui/material/Alert";
 import { Snackbar } from "@mui/material";
-import { connect } from "react-redux";
-import { compose } from "redux";
-import { useEffect } from "react";
-import useUpdatePassword from "hooks/useUpdatePassword";
+import { Link, useLocation } from "react-router-dom";
+import useResetPassword from "hooks/useResetPassword";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
-
-const Profile = ({ user }) => {
+const ResetPassword = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState({
     showPassword: false,
@@ -24,11 +21,11 @@ const Profile = ({ user }) => {
     type: "",
     message: "",
   });
-  const [passUpdate, setPassUpdate] = useState({
-    userId: "",
-    password: "",
-  });
-  const [updatePassword] = useUpdatePassword();
+  const [resetMyPassword] = useResetPassword();
+
+  let { search } = useLocation();
+  const query = new URLSearchParams(search);
+  const param = query.get("token");
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -45,27 +42,18 @@ const Profile = ({ user }) => {
         message: "**Please fill out this field",
       });
     } else {
+      callResetPassword();
       setError({
         showPassword: false,
         message: "",
-      });
-      setPassUpdate({
-        userId: user.id,
-        password: password,
       });
       setPassword("");
     }
   };
 
-  useEffect(() => {
-    if (passUpdate.password && passUpdate.userId) {
-      callUpdatePassword();
-    }
-  }, [passUpdate]);
-
-  const callUpdatePassword = async () => {
+  const callResetPassword = async () => {
     try {
-      const resp = await updatePassword(passUpdate);
+      const resp = await resetMyPassword(param, password);
 
       if (resp.status === 200) {
         setStatusBar({
@@ -111,9 +99,13 @@ const Profile = ({ user }) => {
                 </div>
               )}
 
-              <button className="login__btn" onClick={handleSubmit}>
+              <button className="signin__btn" onClick={handleSubmit}>
                 Continue
               </button>
+              <hr />
+              <div className="signin_links">
+                <Link to="/login">Return to login</Link>
+              </div>
             </div>
           </div>
         </div>
@@ -137,10 +129,4 @@ const Profile = ({ user }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  user: state.security.user,
-});
-
-const withConnect = connect(mapStateToProps, null);
-
-export default compose(withConnect)(Profile);
+export default ResetPassword;

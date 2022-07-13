@@ -1,6 +1,5 @@
 //import DashboardGraph from "Components/DashboardGraph/DashboardGraph";
-import HomePersonalTask from "Components/PersonalTask/HomePersonalTask";
-import HomeSubTask from "Components/SubTasks/HomeSubTask";
+import TeamTaskCards from "Components/TeamTaskCards/TeamTaskCards";
 import React from "react";
 import Helmet from "react-helmet";
 
@@ -11,8 +10,9 @@ const DasboardHome = ({ title }) => {
         <title>{title} | Home</title>
       </Helmet>
       {/* <DashboardGraph /> */}
-      <HomePersonalTask />
-      <HomeSubTask />
+      {/* <HomePersonalTask />
+      <HomeSubTask /> */}
+      <TeamTaskCards />
     </>
   );
 };
