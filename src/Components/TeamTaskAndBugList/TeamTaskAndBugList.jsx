@@ -9,9 +9,9 @@ const TeamTaskAndBugList = () => {
         <div className="task_list">
             <h1>Task List</h1>
         </div>
-        <div className="bug_list">
+        {/* <div className="bug_list">
             <h1>Bug List</h1>
-        </div>
+        </div> */}
       </div>
     </>
   );

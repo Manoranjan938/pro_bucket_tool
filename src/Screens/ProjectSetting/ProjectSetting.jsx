@@ -4,13 +4,14 @@ import image from 'Images/avatar1.png'
 import { Button, TextField } from "@mui/material";
 
 import './ProjectSetting.css';
+import { compose } from "redux";
+import { connect } from "react-redux";
 
-const ProjectSettings = () => {
-
+const ProjectSettings = ({ currentProject }) => {
   const [project, setProject] = useState({
-    name: '',
-    projectLead: '',
-    defaultAssign: ''
+    name: currentProject.projectName,
+    projectLead: currentProject.leadBy,
+    defaultAssign: currentProject.leadBy,
   });
 
   return (
@@ -35,18 +36,18 @@ const ProjectSettings = () => {
               label="Project Lead"
               fullWidth
               value={project.projectLead}
-              onChange={(e) => setProject({ ...project, projectLead: e.target.value })}
               className="text-field"
+              disabled
             />
             <TextField
               id="outlined-multiline-flexible"
               label="Default Assignee"
               fullWidth
               value={project.defaultAssign}
-              onChange={(e) => setProject({ ...project, defaultAssign: e.target.value })}
               className="text-field"
+              disabled
             />
-          <Button variant="contained">Save</Button>
+            <Button variant="contained">Save</Button>
           </div>
         </div>
       </div>
@@ -54,4 +55,10 @@ const ProjectSettings = () => {
   );
 };
 
-export default ProjectSettings;
+const mapStateToProps = (state) => ({
+  currentProject: state.project.project,
+});
+
+const withConnect = connect(mapStateToProps, null);
+
+export default compose(withConnect)(ProjectSettings);

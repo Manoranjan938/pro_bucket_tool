@@ -11,6 +11,7 @@ import { connect } from "react-redux";
 import { compose } from "redux";
 import { useEffect } from "react";
 import useCreateNewProject from "hooks/useCreateNewProject";
+import { useNavigate } from "react-router-dom";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -44,6 +45,8 @@ const ProjectDetails = ({
     message: "",
   });
 
+  const navigate = useNavigate();
+
   const template = data.find(
     (item) => item.templateId === details?.projectTemplateId
   );
@@ -54,6 +57,10 @@ const ProjectDetails = ({
   const handleProjectDetails = () => {
     setCurrentPage(currentPage - 1);
   };
+
+  const handleGoProjects = () => {
+    navigate("/projects")
+  }
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -191,7 +198,7 @@ const ProjectDetails = ({
           </div>
         </div>
         <div className="project__details__footer">
-          <button className="cancel_btn btn">Cancel</button>
+          <button className="cancel_btn btn" onClick={handleGoProjects}>Go to Projects</button>
           <button className="btn" onClick={handleCreateProject}>
             Create Project
           </button>

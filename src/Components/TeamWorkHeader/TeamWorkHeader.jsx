@@ -1,17 +1,62 @@
-import { Avatar, AvatarGroup, IconButton, Tooltip } from "@mui/material";
-import React from "react";
+import { Avatar, AvatarGroup, Tooltip } from "@mui/material";
+import React, { useEffect } from "react";
 
 import { FaSearch } from "react-icons/fa";
 
-import image1 from "Images/avatar1.png";
-import image2 from "Images/avatar2.png";
-import image3 from "Images/avatar3.png";
-import image4 from "Images/avatar4.png";
-import image5 from "Images/avatar5.png";
-
 import "./TeamWorkHeader.css";
+import useGetTeamMembersList from "hooks/useGetTeamMembersList";
+import { connect } from "react-redux";
+import { compose } from "redux";
+import { getAllTeamMembers } from "apis/Actions/teamActions";
 
-const TeamWorkHeader = () => {
+const TeamWorkHeader = ({ currentProject, getTeamList }) => {
+  const [teamList, getTeamLists] = useGetTeamMembersList();
+
+  useEffect(() => {
+    callGetTeamMembersList();
+  }, []);
+
+  const callGetTeamMembersList = async () => {
+    await getTeamLists(currentProject.projectId);
+  };
+
+  useEffect(() => {
+    getTeamList(teamList);
+  }, [teamList]);
+
+  function stringToColor(string) {
+    let hash = 0;
+    let i;
+
+    /* eslint-disable no-bitwise */
+    for (i = 0; i < string.length; i += 1) {
+      hash = string.charCodeAt(i) + ((hash << 5) - hash);
+    }
+
+    let color = "#";
+
+    for (i = 0; i < 3; i += 1) {
+      const value = (hash >> (i * 8)) & 0xff;
+      color += `00${value.toString(16)}`.slice(-2);
+    }
+    /* eslint-enable no-bitwise */
+
+    return color;
+  }
+
+  function stringAvatar(name) {
+    return {
+      sx: {
+        bgcolor: stringToColor(name),
+      },
+      children: `${name.split(" ")[0][0]}`,
+    };
+  }
+
+  const handleClick = (name) => {
+    console.log(name);
+  }
+
   return (
     <>
       <div className="team_work_header_container">
@@ -24,31 +69,12 @@ const TeamWorkHeader = () => {
         <div className="filter_task">
           <div className="filter_by_asignee">
             <AvatarGroup max={6}>
-              <Tooltip title="Remy Sharp">
-                <IconButton size="small">
-                  <Avatar alt="Remy Sharp" src={image1} />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="Travis Howard">
-                <IconButton size="small">
-                  <Avatar alt="Travis Howard" src={image2} />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="Cindy Baker">
-                <IconButton size="small">
-                  <Avatar alt="Cindy Baker" src={image3} />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="Agnes Walker">
-                <IconButton size="small">
-                  <Avatar alt="Agnes Walker" src={image4} />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="Trevor Henderson">
-                <IconButton size="small">
-                  <Avatar alt="Trevor Henderson" src={image5} />
-                </IconButton>
-              </Tooltip>
+              {teamList != null &&
+                teamList.map((item) => (
+                  <Tooltip title={item.name} key={item.userid} onClick={() => handleClick(item.name)}>
+                    <Avatar {...stringAvatar(item.name)} />
+                  </Tooltip>
+                ))}
             </AvatarGroup>
           </div>
         </div>
@@ -57,4 +83,16 @@ const TeamWorkHeader = () => {
   );
 };
 
-export default TeamWorkHeader;
+function mapDispatchToProps(dispatch) {
+  return {
+    getTeamList: (data) => dispatch(getAllTeamMembers(data)),
+  };
+}
+
+const mapStateToProps = (state) => ({
+  currentProject: state.project.project,
+});
+
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
+
+export default compose(withConnect)(TeamWorkHeader);

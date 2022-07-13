@@ -1,3 +1,4 @@
+import { getAllTask } from "apis/Actions/taskAction";
 import Button from "Components/Button/Button";
 import DataNotFound from "Components/DataError/DataNotFound";
 import NewTask from "Components/NewTask/NewTask";
@@ -7,17 +8,23 @@ import useGetTaskLists from "hooks/useGetTaskLists";
 import React, { useEffect, useState } from "react";
 import Helmet from "react-helmet";
 import { connect } from "react-redux";
+import { useLocation } from "react-router-dom";
 import { compose } from "redux";
 
 import "./works.css";
 
-const Works = ({ title, currentProject }) => {
+const Works = ({ title, currentProject, getTaskList, myTasks }) => {
   const [tasks, getTaskLists] = useGetTaskLists();
   const [show, setShow] = useState(false);
 
+  let { search } = useLocation();
+
+  const query = new URLSearchParams(search);
+  const name = query.get("name");
+
   const callGetTaskLists = async () => {
     try {
-      await getTaskLists(currentProject.projectIdentifier);
+      await getTaskLists(name);
     } catch (err) {
       //console.log(err);
     }
@@ -31,15 +38,19 @@ const Works = ({ title, currentProject }) => {
     setShow(!show);
   };
 
+  useEffect(() => {
+    getTaskList(tasks);
+  }, [tasks]);
+
   return (
     <>
       <Helmet>
         <title>{title} | Tasks</title>
       </Helmet>
-      {tasks ? (
+      {myTasks ? (
         <>
           {currentProject.projectType === "team" && <TeamWorkHeader />}
-          <ProjectWorks tasks={tasks} />
+          <ProjectWorks />
         </>
       ) : (
         <>
@@ -55,10 +66,17 @@ const Works = ({ title, currentProject }) => {
   );
 };
 
+function mapDispatchToProps(dispatch) {
+  return {
+    getTaskList: (data) => dispatch(getAllTask(data)),
+  };
+}
+
 const mapStateToProps = (state) => ({
   currentProject: state.project.project,
+  myTasks: state.tasks.allTask
 });
 
-const withConnect = connect(mapStateToProps, null);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 export default compose(withConnect)(Works);

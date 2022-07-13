@@ -46,12 +46,19 @@
     width: auto;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     border: 1px solid #e5e5e5;
     padding: 12px 10px;
     border-radius: 3px;
     box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
     margin-bottom: 10px;
     cursor: pointer;
+}
+
+.details{
+    display: flex;
+    align-items: center;
+    width: 100%;
 }
 
 .icon_subtask{
@@ -75,7 +82,7 @@
 
 .subtask_title{
     margin-left: 10px;
-    width: 63%;
+    width: 70%;
 }
 
 .subtask_extras{

@@ -11,13 +11,14 @@ const TeamDashboard = ({ children }) => {
 
   const query = new URLSearchParams(search);
   const param = query.get("project");
+  const name = query.get("name");
 
   return (
     <>
       <div className="team_sidebar__layout">
         <div className="const">
           <DashboardHeader />
-          <TeamSidebar id={param} />
+          <TeamSidebar id={param} name={name} />
         </div>
         <div className="team_sidebar__main">{children}</div>
       </div>

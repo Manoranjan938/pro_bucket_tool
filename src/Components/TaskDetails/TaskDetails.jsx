@@ -16,8 +16,13 @@ import SubTask from "Components/SubTask/SubTask";
 import ExtraDetails from "Components/ExtraTaskDetails/ExtraDetails";
 import TaskActivity from "Components/Activity/TaskActivity";
 import useUpdateTask from "hooks/useUpdateTask";
+import useGetSubTasks from "hooks/useGetSubTasks";
+import { connect } from "react-redux";
+import { compose } from "redux";
+import { setSubtaskList } from "apis/Actions/taskAction";
+import NewSubTask from "Components/NewSubTask/NewSubTask";
 
-const TaskDetails = ({ close, task }) => {
+const TaskDetails = ({ close, task, setSubtasks, allSubtask }) => {
   const [type] = useState("task");
   const [taskStatus, setTaskStatus] = useState({
     title: "TODO",
@@ -25,70 +30,106 @@ const TaskDetails = ({ close, task }) => {
   });
   const [anchorEl, setAnchorEl] = useState(null);
   const [details, setDetails] = useState({
-    description: '',
-    priority: '',
-    assignee: ''
-  })
+    description: "",
+    priority: "",
+    assignee: "",
+  });
   const [updateRequest, setUpdateRequest] = useState({
-    taskId: task.taskSequence,
-    status: task.status,
-    assignee: task.assignee,
-    priority: task.priority,
-    description: task.taskDesc
-  })
+    taskId: "",
+    status: "",
+    assignee: "",
+    priority: "",
+    description: "",
+  });
   const [updateTask] = useUpdateTask();
+  const [subtasks, getSubtaskList] = useGetSubTasks();
+  const [openSubtask, setOpenSubtask] = useState(false);
 
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
+  const handleOpenSubtask = () => {
+    setOpenSubtask(!openSubtask);
+  }
+
   useEffect(() => {
     if (task.status === "INPROGRESS") {
       setTaskStatus({ title: task.status, type: "primary" });
-      setAnchorEl(null);
     } else if (task.status === "COMPLETED") {
       setTaskStatus({ title: task.status, type: "success" });
-      setAnchorEl(null);
     } else if (task.status === "TODO") {
       setTaskStatus({ title: task.status, type: "inherit" });
-      setAnchorEl(null);
     }
-  }, []);
+  }, [task.status]);
 
   useEffect(() => {
-    callUpdateTask()
-  }, [updateRequest])
+    callGetSubtaskLists();
+  }, [task.taskSequence]);
+
+  useEffect(() => {
+    setSubtasks(subtasks);
+  }, [subtasks]);
+
+  useEffect(() => {
+    callUpdateTask();
+  }, [updateRequest]);
 
   const changeStatus = (status) => {
     const st = status;
     if (st === "INPROGRESS") {
       setTaskStatus({ title: st, type: "primary" });
-      setUpdateRequest({ ...updateRequest, status: st });
+      setUpdateRequest({
+        taskId: task.taskSequence,
+        status: st,
+        assignee: task.assignee,
+        priority: task.priority,
+        description: task.taskDesc,
+      });
       setAnchorEl(null);
     } else if (st === "COMPLETED") {
       setTaskStatus({ title: st, type: "success" });
-      setUpdateRequest({ ...updateRequest, status: st });
+      setUpdateRequest({
+        taskId: task.taskSequence,
+        status: st,
+        assignee: task.assignee,
+        priority: task.priority,
+        description: task.taskDesc,
+      });
       setAnchorEl(null);
     } else if (st === "TODO") {
       setTaskStatus({ title: st, type: "inherit" });
-      setUpdateRequest({ ...updateRequest, status: st });
+      setUpdateRequest({
+        taskId: task.taskSequence,
+        status: st,
+        assignee: task.assignee,
+        priority: task.priority,
+        description: task.taskDesc,
+      });
       setAnchorEl(null);
     }
   };
 
   const callUpdateTask = async () => {
-    try{
-      const resp = await updateTask(updateRequest)
+    try {
+      const resp = await updateTask(updateRequest);
 
-      if(resp.status === 200){
-        console.log("Updated successfully")
+      if (resp.status === 200) {
+        console.log("Updated successfully");
       }
+    } catch (err) {
+      console.log(err);
     }
-    catch(err){
-      console.log(err)
+  };
+
+  const callGetSubtaskLists = async () => {
+    try {
+      await getSubtaskList(task.taskSequence);
+    } catch (err) {
+      console.log(err);
     }
-  }
+  };
 
   return (
     <>
@@ -132,7 +173,11 @@ const TaskDetails = ({ close, task }) => {
               <Button variant="contained" color="inherit">
                 <GrAttachment /> &nbsp; Attach
               </Button>
-              <Button variant="contained" color="inherit">
+              <Button
+                variant="contained"
+                color="inherit"
+                onClick={handleOpenSubtask}
+              >
                 <VscTypeHierarchySub /> &nbsp; Create Subtask
               </Button>
             </div>
@@ -144,7 +189,9 @@ const TaskDetails = ({ close, task }) => {
                   name=""
                   id=""
                   placeholder="Add a description"
-                  onChange={(e) => setDetails({...details, description: e.target.value})}
+                  onChange={(e) =>
+                    setDetails({ ...details, description: e.target.value })
+                  }
                 />
               </div>
               <div className="desc_btns">
@@ -155,7 +202,7 @@ const TaskDetails = ({ close, task }) => {
               </div>
             </div>
             <div className="subtasks_list">
-              <SubTask />
+              {allSubtask.length > 0 && <SubTask subtask={allSubtask} />}
             </div>
             <div className="activities">
               <TaskActivity />
@@ -193,8 +240,24 @@ const TaskDetails = ({ close, task }) => {
         </MenuItem>
         <MenuItem onClick={() => changeStatus("COMPLETED")}>Completed</MenuItem>
       </Menu>
+      {openSubtask && (
+        <NewSubTask open={openSubtask} setOpen={setOpenSubtask} />
+      )}
     </>
   );
 };
 
-export default TaskDetails;
+function mapDispatchToProps(dispatch) {
+  return {
+    setSubtasks: (data) => dispatch(setSubtaskList(data)),
+  };
+}
+
+const mapStateToProps = (state) => ({
+  task: state.tasks.selectedTask,
+  allSubtask: state.tasks.allSubtasks
+});
+
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
+
+export default compose(withConnect)(TaskDetails);

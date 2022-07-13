@@ -1,9 +1,17 @@
-import { Box, CircularProgress, Typography } from '@mui/material';
-import React from 'react'
+import { Box, CircularProgress, Typography } from "@mui/material";
+import useGetTaskStatistics from "hooks/useGetTaskStatistics";
+import React from "react";
+import { useEffect } from "react";
 
-import './TaskStatus.css'
+import "./TaskStatus.css";
 
-const TaskStatusCompletion = () => {
+const TaskStatusCompletion = ({ task }) => {
+  const [stats, getTaskStats] = useGetTaskStatistics();
+
+  useEffect(() => {
+    getTaskStats(task.taskSequence);
+  }, [task.taskSequence]);
+
   return (
     <>
       <div className="task__status__container">
@@ -13,7 +21,10 @@ const TaskStatusCompletion = () => {
         <div className="task__status__body">
           <div className="status__in__progress">
             <Box sx={{ position: "relative", display: "inline-flex" }}>
-              <CircularProgress variant="determinate" value={60} />
+              <CircularProgress
+                variant="determinate"
+                value={stats.inprogress}
+              />
               <Box
                 sx={{
                   top: 0,
@@ -31,7 +42,7 @@ const TaskStatusCompletion = () => {
                   component="div"
                   color="text.secondary"
                 >
-                  {`${Math.round(60)}%`}
+                  {`${Math.round(stats.inprogress)}%`}
                 </Typography>
               </Box>
             </Box>
@@ -44,7 +55,7 @@ const TaskStatusCompletion = () => {
               <CircularProgress
                 variant="determinate"
                 color="success"
-                value={40}
+                value={stats.completed}
               />
               <Box
                 sx={{
@@ -63,7 +74,7 @@ const TaskStatusCompletion = () => {
                   component="div"
                   color="text.secondary"
                 >
-                  {`${Math.round(40)}%`}
+                  {`${Math.round(stats.completed)}%`}
                 </Typography>
               </Box>
             </Box>
@@ -76,7 +87,7 @@ const TaskStatusCompletion = () => {
               <CircularProgress
                 variant="determinate"
                 color="secondary"
-                value={40}
+                value={stats.pending}
               />
               <Box
                 sx={{
@@ -95,7 +106,7 @@ const TaskStatusCompletion = () => {
                   component="div"
                   color="text.secondary"
                 >
-                  {`${Math.round(40)}%`}
+                  {`${Math.round(stats.pending)}%`}
                 </Typography>
               </Box>
             </Box>
@@ -107,6 +118,6 @@ const TaskStatusCompletion = () => {
       </div>
     </>
   );
-}
+};
 
-export default TaskStatusCompletion
+export default TaskStatusCompletion;

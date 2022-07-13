@@ -9,12 +9,15 @@ import { compose } from "redux";
 import { useEffect } from "react";
 import useAddTeamMember from "hooks/useAddTeamMember";
 import MuiAlert from "@mui/material/Alert";
+import useGetTeamMembersList from "hooks/useGetTeamMembersList";
+import { getAllTeamMembers } from "apis/Actions/teamActions";
+import { useLocation } from "react-router-dom";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-const CreateUser = ({ currentProject }) => {
+const CreateUser = ({ currentProject, getTeamList }) => {
   const [userData, setUserData] = useState({
     email: "",
     name: "",
@@ -41,6 +44,12 @@ const CreateUser = ({ currentProject }) => {
     tempPass: false,
     message: "",
   });
+  const [teamList, getTeamLists] = useGetTeamMembersList();
+  
+  let { search } = useLocation();
+
+  const query = new URLSearchParams(search);
+  const name = query.get("project");
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -104,10 +113,12 @@ const CreateUser = ({ currentProject }) => {
       const resp = await addTeamMember(teamRequest);
 
       if (resp.status === 201) {
+        callGetTeamMembersList();
         setPopUp({
           tempPass: true,
           message: resp.data,
         });
+        
       }
     } catch (err) {
       setStatusBar({
@@ -117,6 +128,14 @@ const CreateUser = ({ currentProject }) => {
       });
     }
   };
+
+  const callGetTeamMembersList = async () => {
+    await getTeamLists(name);
+  };
+
+  useEffect(() => {
+    getTeamList(teamList);
+  }, [teamList]);
 
   return (
     <>
@@ -194,10 +213,16 @@ const CreateUser = ({ currentProject }) => {
   );
 };
 
+function mapDispatchToProps(dispatch) {
+  return {
+    getTeamList: (data) => dispatch(getAllTeamMembers(data)),
+  };
+}
+
 const mapStateToProps = (state) => ({
   currentProject: state.project.project,
 });
 
-const withConnect = connect(mapStateToProps, null);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 export default compose(withConnect)(CreateUser);

@@ -116,7 +116,7 @@ const DashboardHeader = ({currentUser}) => {
         <Divider />
         <MenuItem onClick={handleClose}>
           <div className="menu__items">
-            <Link to="/people/sagar">Profile</Link>
+            <Link to="/people">Profile</Link>
           </div>
         </MenuItem>
         <MenuItem onClick={handleClose}>

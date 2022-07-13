@@ -29,6 +29,7 @@ import TeamDashboard from "Screens/TeamDashboard/TeamDashboard";
 import TeamDashboardHome from "Screens/TeamHome/TeamDashboardHome";
 import TeamIssue from "Screens/Issues/TeamIssue";
 import NewTeamUser from "Screens/NewUser/NewTeamUser";
+import ResetPassword from "Components/ResetPassword/ResetPassword";
 
 const jwtToken = localStorage.jwtToken;
 
@@ -60,6 +61,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/verify-email" element={<EmailVerify />} />
           <Route path="/resetpassword" element={<Forgot />} />
+          <Route path="/reset-passwords" element={<ResetPassword />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/create-project" element={<CreateProject />} />
           <Route
@@ -67,7 +69,10 @@ function App() {
             element={
               <DashboardScreen>
                 <Routes>
-                  <Route path="/home" element={<DasboardHome title="Personal Dashboard" />} />
+                  <Route
+                    path="/home"
+                    element={<DasboardHome title="Personal Dashboard" />}
+                  />
                   <Route
                     path="/works"
                     element={<Works title="Personal Dashboard" />}
@@ -77,12 +82,15 @@ function App() {
                     element={<Todos title="Personal Dashboard" />}
                   />
                   <Route path="/notes" element={<Notes />} />
-                  <Route path="/notifications" element={<Notifications title="Personal Dashboard" />} />
                   <Route
-                    path="/project/:projectName/setting"
-                    element={<ProjectSettings />}
+                    path="/notifications"
+                    element={<Notifications title="Personal Dashboard" />}
                   />
-                  <Route path="/trash" element={<Trash title="Personal Dashboard" />} />
+                  <Route path="/setting" element={<ProjectSettings />} />
+                  <Route
+                    path="/trash"
+                    element={<Trash title="Personal Dashboard" />}
+                  />
                 </Routes>
               </DashboardScreen>
             }
@@ -108,7 +116,11 @@ function App() {
                   />
                   <Route path="/issues" element={<TeamIssue />} />
                   <Route path="/new-user" element={<NewTeamUser />} />
-                  <Route path="/trash" element={<Trash title="Team Dashboard" />} />
+                  <Route path="/setting" element={<ProjectSettings />} />
+                  <Route
+                    path="/trash"
+                    element={<Trash title="Team Dashboard" />}
+                  />
                 </Routes>
               </TeamDashboard>
             }
@@ -123,7 +135,7 @@ function App() {
               </Bugs>
             }
           />
-          <Route path="/people/sagar" element={<UserProfile />} />
+          <Route path="/people" element={<UserProfile />} />
           <Route path="*" element={<Error />} />
         </Routes>
       </div>
